@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>TrustAge Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column (~760px) for text; diagrams and tools break out to a wider band (~1200px); sticky chapter bar on top. */
+:root{
+  --bg:#EDF0F5; --surface:#FFFFFF; --surface-2:#F5F7FA; --ink:#14203A; --muted:#566079;
+  --line:#D5DBE5; --line-strong:#9AA5B8; --edge:#8E99AD;
+  --accent:#C76A0E; --accent-soft:#FCEBD7; --btn-bg:#A85509; --btn-fg:#FFFFFF;
+  --blue:#2B5DA8; --blue-soft:#E3ECF8; --bankzone:#F2F6FC; --zone:#F7F8FA;
+  --good:#2E7D4F; --good-soft:#E2F2E8; --warn:#8A5D00; --warn-soft:#FBF0D2;
+  --hold:#B54A12; --hold-soft:#FBE3D5; --bad:#B42318; --bad-soft:#FBE1DE;
+  --font-d:'Sora','Segoe UI',Arial,sans-serif; --font-b:'Source Sans 3','Segoe UI',Arial,sans-serif; --font-m:'IBM Plex Mono',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0B111D; --surface:#141C2E; --surface-2:#1A2439; --ink:#E7ECF5; --muted:#A4AEC4;
+  --line:#2B3754; --line-strong:#56637F; --edge:#6C7893;
+  --accent:#F2A14A; --accent-soft:#3A2A16; --btn-bg:#F2A14A; --btn-fg:#1A1206;
+  --blue:#86AAEA; --blue-soft:#1C2A47; --bankzone:#121D33; --zone:#10182A;
+  --good:#62C48F; --good-soft:#163323; --warn:#E5B94E; --warn-soft:#352B12;
+  --hold:#F08A4E; --hold-soft:#3A2217; --bad:#F2766B; --bad-soft:#3B1A1A; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0B111D; --surface:#141C2E; --surface-2:#1A2439; --ink:#E7ECF5; --muted:#A4AEC4;
+  --line:#2B3754; --line-strong:#56637F; --edge:#6C7893;
+  --accent:#F2A14A; --accent-soft:#3A2A16; --btn-bg:#F2A14A; --btn-fg:#1A1206;
+  --blue:#86AAEA; --blue-soft:#1C2A47; --bankzone:#121D33; --zone:#10182A;
+  --good:#62C48F; --good-soft:#163323; --warn:#E5B94E; --warn-soft:#352B12;
+  --hold:#F08A4E; --hold-soft:#3A2217; --bad:#F2766B; --bad-soft:#3B1A1A; color-scheme:dark }
+
+body{ background:var(--bg); color:var(--ink); font:17px/1.6 var(--font-b); }
+.page{ padding-inline:16px; padding-block:0 64px; }
+.col{ max-width:760px; margin-inline:auto; }
+.wide{ max-width:1200px; margin-inline:auto; }
+h1,h2,h3{ font-family:var(--font-d); text-wrap:balance; margin:0; }
+h1{ font-size:clamp(34px, 6vw, 56px); line-height:1.05; letter-spacing:-.02em; }
+h2{ font-size:clamp(24px, 3.4vw, 32px); line-height:1.15; }
+h3{ font-size:19px; line-height:1.3; }
+p{ margin:0; }
+b, strong{ font-weight:700; }
+a{ color:var(--blue); }
+.kicker{ font:600 13px/1.2 var(--font-m); letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+.muted{ color:var(--muted); }
+.stack{ display:flex; flex-direction:column; gap:14px; }
+.stack-lg{ display:flex; flex-direction:column; gap:22px; }
+
+/* chapter bar */
+.bar{ position:sticky; top:env(safe-area-inset-top, 0px); z-index:5; background:var(--bg); border-bottom:1px solid var(--line); margin-inline:-16px; padding:10px 16px; }
+.bar nav{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:thin; max-width:1200px; margin-inline:auto; }
+.bar a{ flex:none; font:600 14px/1 var(--font-b); padding:8px 12px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); text-decoration:none; }
+.bar a:hover{ border-color:var(--accent); }
+.bar a:focus-visible, .btn:focus-visible, .tab:focus-visible, .opt:focus-visible, summary:focus-visible, .calc label:focus-within{ outline:3px solid var(--blue); outline-offset:2px; }
+
+/* hero */
+.hero{ padding-block:44px 12px; display:flex; flex-direction:column; gap:16px; }
+.tag{ font-family:var(--font-d); font-size:clamp(20px, 2.8vw, 27px); font-weight:600; line-height:1.25; color:var(--accent); }
+.howto{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ font-size:14px; padding:6px 12px; border-radius:999px; background:var(--surface); border:1px solid var(--line); }
+
+section.part{ padding-block:48px 8px; display:flex; flex-direction:column; gap:20px; scroll-margin-top:64px; }
+.box{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px 22px; }
+.callout{ background:var(--blue-soft); border-radius:12px; padding:16px 20px; }
+.callout.warm{ background:var(--accent-soft); }
+.grid3{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; }
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; }
+.card{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; display:flex; flex-direction:column; gap:8px; min-width:0; }
+.card .src{ font:600 12.5px/1.2 var(--font-m); color:var(--blue); }
+.card .why{ color:var(--accent); font-weight:700; }
+.num{ font:600 13px/1 var(--font-m); color:var(--accent); }
+ul.plain{ margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:8px; }
+
+/* buttons */
+.btn{ font:600 15px/1 var(--font-b); padding:10px 15px; border-radius:8px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); cursor:pointer; white-space:nowrap; }
+.btn:hover{ border-color:var(--accent); }
+.btn.primary{ background:var(--btn-bg); color:var(--btn-fg); border-color:var(--btn-bg); min-width:6.5em; }
+.controls{ display:flex; flex-wrap:wrap; gap:8px; }
+.tabs{ display:flex; flex-wrap:wrap; gap:8px; }
+.tab{ font:600 15px/1 var(--font-b); padding:10px 15px; border-radius:999px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); cursor:pointer; }
+.tab[aria-pressed="true"]{ background:var(--ink); color:var(--surface); border-color:var(--ink); }
+
+/* path to the money */
+.path{ display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:10px; align-items:stretch; }
+.stop{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px; display:flex; flex-direction:column; gap:8px; position:relative; min-width:0; }
+.stop .sl{ font-weight:700; }
+.stop .sv{ font-size:15px; color:var(--muted); line-height:1.4; }
+.stop.money{ background:var(--surface-2); }
+.badge{ font-size:13.5px; font-weight:700; padding:3px 9px; border-radius:6px; align-self:flex-start; }
+.badge.fresh{ background:var(--bad-soft); color:var(--bad); }
+.badge.trusted{ background:var(--good-soft); color:var(--good); }
+.verdict{ font-weight:700; }
+.verdict.good{ color:var(--good); } .verdict.bad{ color:var(--bad); } .verdict.mid{ color:var(--accent); }
+
+/* animated diagrams */
+.split{ display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:16px; align-items:start; }
+.figwrap{ min-width:0; overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:10px; }
+.dg{ display:block; width:100%; height:auto; color:var(--ink); }
+.panel{ display:flex; flex-direction:column; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px; position:sticky; top:70px; }
+.cap-num{ font:600 13px/1.2 var(--font-m); color:var(--accent); text-transform:uppercase; letter-spacing:.06em; }
+.cap-text{ font-size:17.5px; line-height:1.45; min-height:8.7em; }
+.legend{ display:flex; flex-direction:column; gap:5px; font-size:13.5px; color:var(--muted); }
+.legend span{ display:flex; align-items:center; gap:.6em; }
+.sw{ width:1.6em; height:.35em; border-radius:2px; display:inline-block; }
+.sw.now{ background:var(--accent); } .sw.done{ background:var(--blue); } .sw.idle{ background:var(--edge); opacity:.6; }
+.chips{ display:flex; flex-wrap:wrap; gap:6px; }
+.chip{ font-size:13.5px; padding:4px 10px; border-radius:999px; background:var(--surface-2); border:1px solid var(--line); }
+
+.dg text{ fill:var(--ink); font-family:var(--font-b); }
+.dg .nt{ font-size:15px; font-weight:700; }
+.dg .ns{ font-size:12.5px; fill:var(--muted); }
+.dg .zl{ font-size:12.5px; font-weight:700; letter-spacing:.08em; fill:var(--muted); }
+.dg .zl.bank{ fill:var(--blue); font-size:14px; letter-spacing:.02em; }
+.dg .el{ font-size:12px; fill:var(--muted); font-style:italic; }
+.dg .zone{ fill:var(--zone); stroke:var(--line); stroke-width:1.2; }
+.dg .bankzone{ fill:var(--bankzone); stroke:var(--blue); stroke-width:1.6; }
+.dg .fdzone{ fill:none; stroke:var(--accent); stroke-width:1.6; stroke-dasharray:7 5; }
+.dg .lane{ fill:var(--zone); } .dg .lane.alt{ fill:var(--surface); }
+.dg .lanerule{ stroke:var(--line); stroke-width:1; }
+.dg .node rect, .dg .node circle, .dg .node .body{ fill:var(--surface); stroke:var(--line-strong); stroke-width:1.5; transition:fill .3s, stroke .3s; }
+.dg .node.key rect{ stroke:var(--accent); }
+.dg .node.done rect, .dg .node.done circle, .dg .node.done .body{ stroke:var(--blue); fill:var(--blue-soft); }
+.dg .node.on rect, .dg .node.on circle, .dg .node.on .body{ stroke:var(--accent); stroke-width:3; fill:var(--accent-soft); }
+.dg .edge{ fill:none; stroke:var(--edge); stroke-width:1.6; opacity:.6; transition:stroke .3s, opacity .3s; }
+.dg .edge.dash{ stroke-dasharray:6 5; }
+.dg .edge.done{ stroke:var(--blue); opacity:.95; }
+.dg .edge.on{ stroke:var(--accent); stroke-width:3; opacity:1; }
+.dg .dot{ fill:var(--accent); stroke:var(--surface); stroke-width:2.5; opacity:0; }
+.dg [data-s]{ opacity:0; transition:opacity .35s; }
+.dg [data-s].show{ opacity:1; }
+.dg .pill-bad{ fill:var(--bad-soft); stroke:var(--bad); stroke-width:1.5; }
+.dg .pill-good{ fill:var(--good-soft); stroke:var(--good); stroke-width:1.5; }
+.dg .txt-bad{ fill:var(--bad); font-weight:700; font-size:14px; }
+.dg .txt-good{ fill:var(--good); font-weight:700; font-size:14px; }
+.dg .strike{ stroke:var(--bad); stroke-width:3; }
+.dg .wchip{ fill:var(--surface); stroke:var(--accent); stroke-width:1.5; }
+
+/* rules */
+details.rule{ background:var(--surface); border:1px solid var(--line); border-radius:12px; }
+details.rule summary{ cursor:pointer; list-style:none; padding:14px 18px; display:grid; grid-template-columns:3.2em minmax(0,1fr) auto; gap:12px; align-items:baseline; }
+details.rule summary::-webkit-details-marker{ display:none; }
+details.rule summary .id{ font:600 15px/1 var(--font-m); color:var(--accent); }
+details.rule summary .nm{ font-weight:700; }
+details.rule summary .pt{ font:600 14px/1 var(--font-m); color:var(--muted); white-space:nowrap; }
+details.rule[open] summary{ border-bottom:1px solid var(--line); }
+details.rule .body{ padding:14px 18px 16px; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; }
+details.rule .body p{ font-size:15.5px; line-height:1.5; }
+details.rule .lbl{ display:block; font:600 12px/1.3 var(--font-m); text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:2px; }
+.ladder-static{ display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:8px; }
+.rungbox{ border-radius:10px; padding:12px; display:flex; flex-direction:column; gap:4px; min-width:0; }
+.rungbox b{ font-family:var(--font-m); font-weight:600; }
+.rungbox span{ font-size:15px; line-height:1.35; }
+.r0{ background:var(--good-soft); } .r1{ background:var(--warn-soft); } .r2{ background:var(--accent-soft); } .r3{ background:var(--hold-soft); } .r4{ background:var(--bad-soft); }
+
+/* detection walkthrough (same engine as the deck) */
+.dettop{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; }
+.det{ display:grid; grid-template-columns:minmax(0,21fr) auto minmax(0,30fr) auto minmax(0,16fr) auto minmax(0,21fr); gap:10px; align-items:stretch; }
+.arrow{ align-self:center; color:var(--edge); font-size:24px; line-height:1; }
+.dcol{ display:flex; flex-direction:column; gap:8px; min-width:0; }
+.coltitle{ font:600 12px/1.2 var(--font-m); text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+.paycard{ border:1px solid var(--line); border-radius:10px; padding:12px; background:var(--surface-2); transition:opacity .3s; }
+.paycard .amt{ font:700 26px/1.1 var(--font-d); }
+.paycard p{ font-size:14.5px; line-height:1.35; color:var(--muted); }
+.links{ display:flex; flex-direction:column; gap:6px; }
+.link{ display:flex; flex-direction:column; gap:3px; border:1px solid var(--line); border-radius:8px; padding:7px 10px; background:var(--surface); transition:opacity .3s; }
+.link .ln{ font-size:13px; color:var(--muted); font-weight:600; }
+.rgrid{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.rchip, .mchip{ border:1px solid var(--line); border-radius:8px; padding:7px 9px; display:flex; flex-direction:column; gap:2px; background:var(--surface); transition:background .3s, border-color .3s; min-width:0; }
+.rchip .rc, .mchip .rc{ font:600 12.5px/1.1 var(--font-m); color:var(--muted); display:flex; justify-content:space-between; gap:.4em; }
+.rchip .rn, .mchip .rn{ font-size:13.5px; line-height:1.25; font-weight:600; }
+.rchip.fire{ background:var(--bad-soft); border-color:var(--bad); } .rchip.fire .rc{ color:var(--bad); }
+.mchip.fire{ background:var(--good-soft); border-color:var(--good); } .mchip.fire .rc{ color:var(--good); }
+.pts{ font-variant-numeric:tabular-nums; }
+.dim{ opacity:.35; }
+.scorebox{ border:1px solid var(--line); border-radius:10px; padding:12px; background:var(--surface-2); display:flex; flex-direction:column; gap:10px; }
+.score{ font:700 40px/1 var(--font-d); font-variant-numeric:tabular-nums; }
+.score small{ font:600 13px var(--font-b); color:var(--muted); margin-left:.4em; }
+.meter{ position:relative; height:12px; border-radius:6px; display:flex; }
+.meter i{ display:block; height:100%; }
+.meter i:nth-child(1){ width:30%; background:var(--good); border-radius:6px 0 0 6px; }
+.meter i:nth-child(2){ width:20%; background:var(--warn); }
+.meter i:nth-child(3){ width:20%; background:var(--accent); }
+.meter i:nth-child(4){ width:20%; background:var(--hold); }
+.meter i:nth-child(5){ width:10%; background:var(--bad); border-radius:0 6px 6px 0; }
+.needle{ position:absolute; top:-6px; width:4px; height:24px; background:var(--ink); border-radius:2px; transform:translateX(-50%); transition:left .5s ease; }
+.ladder{ display:flex; flex-direction:column; gap:4px; }
+.rung{ display:flex; gap:.6em; align-items:baseline; font-size:13.5px; padding:4px 7px; border-radius:6px; border:1px solid transparent; color:var(--muted); }
+.rung b{ font-family:var(--font-m); font-weight:600; min-width:4.4em; font-variant-numeric:tabular-nums; }
+.rung.on{ color:var(--ink); border-color:var(--ink); background:var(--surface); font-weight:700; }
+.detcap{ display:flex; gap:12px; align-items:flex-start; }
+.detcap .cap-text{ min-height:3em; flex:1; font-size:16.5px; }
+
+/* calculator */
+.calc{ display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:16px; align-items:start; }
+.calc fieldset{ border:1px solid var(--line); border-radius:12px; padding:12px 16px 14px; margin:0; background:var(--surface); display:flex; flex-direction:column; gap:6px; min-width:0; }
+.calc legend{ font:600 12.5px/1 var(--font-m); text-transform:uppercase; letter-spacing:.06em; color:var(--muted); padding:0 6px; }
+.calc label{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:start; font-size:15.5px; line-height:1.4; padding:6px 4px; border-radius:6px; cursor:pointer; }
+.calc label:hover{ background:var(--surface-2); }
+.calc label .p{ font:600 14px/1.4 var(--font-m); white-space:nowrap; }
+.calc label .p.plus{ color:var(--bad); } .calc label .p.minus{ color:var(--good); }
+.calc label.off{ opacity:.45; cursor:not-allowed; }
+.calc input{ width:18px; height:18px; margin-top:2px; accent-color:var(--btn-bg); }
+.result{ position:sticky; top:70px; display:flex; flex-direction:column; gap:12px; }
+.result .score{ font-size:54px; }
+.actionbox{ border-radius:12px; padding:14px 16px; font-weight:700; font-size:18px; line-height:1.35; }
+.why-list{ margin:0; padding-left:1.1em; font-size:15px; display:flex; flex-direction:column; gap:4px; }
+
+/* quiz */
+.q{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; display:flex; flex-direction:column; gap:10px; }
+.q h3{ font-size:17.5px; }
+.opts{ display:flex; flex-direction:column; gap:6px; }
+.opt{ text-align:left; font:16px/1.4 var(--font-b); padding:10px 12px; border-radius:8px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); cursor:pointer; }
+.opt:hover{ border-color:var(--accent); }
+.opt.right{ background:var(--good-soft); border-color:var(--good); color:var(--ink); font-weight:600; }
+.opt.wrong{ background:var(--bad-soft); border-color:var(--bad); }
+.fb{ font-size:15.5px; line-height:1.45; padding:10px 12px; border-radius:8px; background:var(--surface-2); }
+.scoreline{ font:600 16px/1.3 var(--font-m); }
+
+/* glossary */
+dl.gloss{ margin:0; display:grid; grid-template-columns:minmax(120px, 190px) minmax(0,1fr); gap:10px 18px; }
+dl.gloss dt{ font-weight:700; }
+dl.gloss dd{ margin:0; color:var(--ink); }
+
+table.simple{ width:100%; border-collapse:collapse; font-size:15.5px; }
+table.simple th{ text-align:left; font:600 12.5px/1.2 var(--font-m); text-transform:uppercase; letter-spacing:.06em; color:var(--muted); padding:8px 10px; border-bottom:2px solid var(--line-strong); }
+table.simple td{ padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+.tablewrap{ overflow-x:auto; }
+.footer{ padding-block:40px 0; color:var(--muted); font-size:14px; }
+
+@media (max-width:980px){
+  .split{ grid-template-columns:1fr; } .panel{ position:static; } .cap-text{ min-height:0; }
+  .dg{ min-width:820px; }
+  .det{ grid-template-columns:1fr 1fr; } .arrow{ display:none; }
+  .calc{ grid-template-columns:1fr; } .result{ position:static; }
+  .path{ grid-template-columns:1fr 1fr; }
+  .ladder-static{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:560px){
+  .det{ grid-template-columns:1fr; } .path{ grid-template-columns:1fr; } .ladder-static{ grid-template-columns:1fr; }
+  dl.gloss{ grid-template-columns:1fr; gap:2px 0; } dl.gloss dd{ margin-bottom:10px; }
+  details.rule summary{ grid-template-columns:2.6em minmax(0,1fr); } details.rule summary .pt{ grid-column:2; }
+}
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; } html{ scroll-behavior:auto; } }
+html{ scroll-behavior:smooth; }
+</style>
+
+</head>
+<body>
+<div class="page">
+  <div class="bar"><nav aria-label="Chapters">
+    <a href="#problem">1 Problem</a><a href="#idea">2 Big idea</a><a href="#where">3 Where it sits</a><a href="#who">4 Who does what</a>
+    <a href="#data">5 Data</a><a href="#rules">6 Rules</a><a href="#score">7 Score → action</a><a href="#watch">8 Watch it work</a>
+    <a href="#try">9 Try it</a><a href="#time">10 Buying time</a><a href="#limits">11 Limits</a><a href="#law">12 Laws</a>
+    <a href="#money">13 Money</a><a href="#quiz">14 Quiz</a><a href="#words">15 Words</a>
+  </nav></div>
+
+  <header class="hero col">
+    <p class="kicker">Study guide · Luxembourg Digital Bank fraud detector</p>
+    <h1>TrustAge</h1>
+    <p class="tag">Fraudsters can steal a password, but not time.</p>
+    <p>This page explains our fraud detector in plain words. Read it from top to bottom (about 20 minutes). Press the buttons: the diagrams move step by step. At the end there is a quiz to test yourself before the presentation.</p>
+    <div class="howto"><span class="pill">20 min read</span><span class="pill">4 animated diagrams</span><span class="pill">1 score calculator</span><span class="pill">10-question quiz</span></div>
+  </header>
+
+  <!-- 1 -->
+  <section class="part col" id="problem">
+    <p class="kicker">Part 1</p>
+    <h2>The problem: account takeover</h2>
+    <p><b>Account takeover (ATO)</b> means a criminal gets into a customer's online bank account, or tricks the customer, and sends the money away. The money usually goes to a <b>mule account</b>: an account that receives stolen money and passes it on quickly.</p>
+    <div class="grid2">
+      <div class="card"><h3>Fake website</h3><p>The customer finds a copy of the bank's site through a search ad and types in their LuxTrust details. The criminal uses them at once on the real site. This happened with a fake BILnet site in 2025.</p></div>
+      <div class="card"><h3>SIM swap</h3><p>The criminal moves the customer's phone number to their own SIM card, resets the password and sets up LuxTrust on a new phone.</p></div>
+      <div class="card"><h3>Fake caller</h3><p>Someone pretending to be the bank, LuxTrust or the police says the account is in danger and tells the customer to move money to a "safe account". The customer does it on their own laptop.</p></div>
+      <div class="card"><h3>Stolen session</h3><p>Malware on the computer steals the open online-banking session. The criminal does not even need to log in.</p></div>
+    </div>
+    <p class="callout">In Europe, transfer fraud reached €2.2 billion in 2024, and more than half of it came from customers being tricked into paying (EBA and ECB report, December 2025). A good detector must handle the tricked customer too, not only the stolen password.</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="part" id="idea">
+    <div class="col stack">
+      <p class="kicker">Part 2</p>
+      <h2>The big idea: look for what is new</h2>
+      <p>Think of every payment as a <b>path to the money</b>: the device used, the phone and LuxTrust that confirm it, the payee, and how other customers know that payee. An honest customer mostly uses things they have had for months. A criminal always needs <b>something new</b> on that path. They can fake many things, but they cannot make a new thing old. That is why we called it <b>TrustAge</b>.</p>
+    </div>
+    <div class="wide stack">
+      <div class="tabs" role="group" aria-label="Choose a story" id="path-tabs">
+        <button class="tab" data-p="honest" aria-pressed="true">Honest customer</button>
+        <button class="tab" data-p="sim" aria-pressed="false">Criminal (SIM swap)</button>
+        <button class="tab" data-p="coach" aria-pressed="false">Tricked customer</button>
+      </div>
+      <div class="path" id="path"></div>
+      <p class="verdict" id="path-verdict"></p>
+    </div>
+    <div class="col stack">
+      <h3>Three steps, always in this order</h3>
+      <div class="grid3">
+        <div class="card"><span class="num">Step 1</span><h3>Measure time</h3><p>Check how old each link is. New things add points.</p></div>
+        <div class="card"><span class="num">Step 2</span><h3>Buy time</h3><p>Not sure? Do not decide in a split second. Hold the payment for 1 hour; the customer can cancel it.</p></div>
+        <div class="card"><span class="num">Step 3</span><h3>Use time</h3><p>During that hour, other customers' payments, the real owner and an analyst can expose the fraud.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="part" id="where">
+    <div class="col stack">
+      <p class="kicker">Part 3</p>
+      <h2>Where the detector sits</h2>
+      <p>The detector lives <b>inside the bank</b>, between online banking and the payment hub (the part that actually sends money). It answers in under 0.3 seconds, before any money leaves. The brief asks for three parts: the <b>Transaction loader</b> (collects data), the <b>Fraud engine</b> (scores) and the <b>Report engine</b> (shows results to people). Press Play and follow the orange dot.</p>
+    </div>
+    <div class="wide">
+      <div class="split flow" id="flow-arch" data-intro="Customer on the left, the bank in the middle, other banks on the right. Press Play to follow one payment from start to finish.">
+        <div class="figwrap"><svg class="dg" data-m="arch" viewBox="0 0 1200 620" role="img" aria-label="Architecture: the customer and LuxTrust sit outside the bank; inside LDB, online banking and the payment hub call the Fraud Detector (Transaction loader, Attribute builder, Fraud engine, Results store) before sending money; the Report engine feeds bank staff; the receiving bank and the CSSF sit outside.">
+        <defs>
+          <marker id="arch-off" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--edge)"/></marker>
+          <marker id="arch-done" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--blue)"/></marker>
+          <marker id="arch-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--accent)"/></marker>
+        </defs>
+        <!-- zones -->
+        <rect class="zone" x="8" y="40" width="200" height="552" rx="14"/>
+        <text class="zl" x="108" y="584" text-anchor="middle">OUTSIDE THE BANK</text>
+        <rect class="bankzone" x="220" y="40" width="762" height="552" rx="14"/>
+        <text class="zl bank" x="966" y="66" text-anchor="end">LUXEMBOURG DIGITAL BANK (LDB)</text>
+        <rect class="zone" x="994" y="40" width="198" height="552" rx="14"/>
+        <text class="zl" x="1093" y="584" text-anchor="middle">OUTSIDE THE BANK</text>
+        <rect class="fdzone" x="240" y="172" width="722" height="178" rx="12"/>
+        <text class="zl" x="254" y="194" style="fill:var(--accent)">FRAUD DETECTOR · TRUSTAGE</text>
+        <text class="zl" x="240" y="482">BANK STAFF</text>
+
+        <!-- edges (drawn under nodes) -->
+        <path class="edge" data-e="s1" d="M192 128 H214 V115 H240"/>
+        <path class="edge" data-e="s2" d="M240 138 H212 V335 H192"/>
+        <path class="edge dash" data-e="s3" d="M400 80 V22 H1050 V80"/>
+        <text class="el" x="700" y="16" text-anchor="middle">name check (VoP)</text>
+        <path class="edge" data-e="s4" d="M420 115 H780"/>
+        <path class="edge" data-e="s5" d="M840 150 V160 H337 V210"/>
+        <path class="edge" data-e="s6" d="M337 385 V280"/>
+        <path class="edge" data-e="s7" d="M420 245 H445"/>
+        <path class="edge" data-e="s7b" d="M527 295 V280"/>
+        <path class="edge" data-e="s8" d="M610 245 H635"/>
+        <path class="edge" data-e="s9" d="M717 210 V168 H910 V150"/>
+        <path class="edge" data-e="s10" d="M960 115 H1010"/>
+        <path class="edge" data-e="s11" d="M800 245 H825"/>
+        <path class="edge" data-e="s12" d="M887 280 V385"/>
+        <path class="edge" data-e="s13" d="M880 445 V488"/>
+        <path class="edge dash" data-e="s14" d="M880 578 V606 H18 V140 H25"/>
+        <text class="el" x="450" y="600" text-anchor="middle">phone call to a safe number</text>
+        <path class="edge" data-e="s15" d="M780 425 H720 V488"/>
+        <path class="edge" data-e="s16" d="M700 524 H600"/>
+        <path class="edge" data-e="s17" d="M580 488 V462 H700 V280"/>
+        <text class="el" x="640" y="455" text-anchor="middle">new rule version</text>
+        <path class="edge dash" data-e="s19" d="M430 488 V352"/>
+        <text class="el" x="438" y="374">if down: fallback</text>
+        <path class="edge dash" data-e="s18" d="M960 415 H985 V515 H1010"/>
+        <text class="el" x="1093" y="470" text-anchor="middle">fraud figures</text>
+
+        <!-- outside left -->
+        <g class="node" data-n="customer"><rect x="25" y="100" width="167" height="80" rx="10"/><text class="nt" x="108" y="136" text-anchor="middle">Customer</text><text class="ns" x="108" y="155" text-anchor="middle">at home, on a laptop</text></g>
+        <g class="node" data-n="luxtrust"><rect x="25" y="300" width="167" height="70" rx="10"/><text class="nt" x="108" y="331" text-anchor="middle">LuxTrust</text><text class="ns" x="108" y="350" text-anchor="middle">login and approval app</text></g>
+        <!-- bank -->
+        <g class="node" data-n="web"><rect x="240" y="80" width="180" height="70" rx="10"/><text class="nt" x="330" y="111" text-anchor="middle">Online banking</text><text class="ns" x="330" y="130" text-anchor="middle">web app</text></g>
+        <g class="node" data-n="hub"><rect x="780" y="80" width="180" height="70" rx="10"/><text class="nt" x="870" y="111" text-anchor="middle">Payment hub</text><text class="ns" x="870" y="130" text-anchor="middle">sends the money</text></g>
+        <g class="node" data-n="loader"><rect x="255" y="210" width="165" height="70" rx="10"/><text class="nt" x="337" y="241" text-anchor="middle">Transaction loader</text><text class="ns" x="337" y="260" text-anchor="middle">part 1 · collects data</text></g>
+        <g class="node" data-n="builder"><rect x="445" y="210" width="165" height="70" rx="10"/><text class="nt" x="527" y="241" text-anchor="middle">Attribute builder</text><text class="ns" x="527" y="260" text-anchor="middle">how old is each link?</text></g>
+        <g class="node key" data-n="engine"><rect x="635" y="210" width="165" height="70" rx="10"/><text class="nt" x="717" y="241" text-anchor="middle">Fraud engine</text><text class="ns" x="717" y="260" text-anchor="middle">part 2 · points → action</text></g>
+        <g class="node" data-n="results"><rect x="825" y="210" width="125" height="70" rx="10"/><text class="nt" x="887" y="241" text-anchor="middle">Results store</text><text class="ns" x="887" y="260" text-anchor="middle">every decision</text></g>
+        <g class="node" data-n="stores"><rect x="445" y="295" width="165" height="45" rx="10"/><text class="ns" x="527" y="322" text-anchor="middle" style="fill:var(--ink);font-weight:600">Lookup stores</text></g>
+        <g class="node" data-n="records"><rect x="240" y="385" width="180" height="60" rx="10"/><text class="nt" x="330" y="411" text-anchor="middle">Bank records</text><text class="ns" x="330" y="430" text-anchor="middle">accounts, logins, changes</text></g>
+        <g class="node" data-n="report"><rect x="780" y="385" width="180" height="60" rx="10"/><text class="nt" x="870" y="411" text-anchor="middle">Report engine</text><text class="ns" x="870" y="430" text-anchor="middle">part 3 · alerts, reports</text></g>
+        <!-- people -->
+        <g class="node" data-n="it"><circle cx="430" cy="500" r="11"/><path class="body" d="M412 536 Q412 515 430 515 Q448 515 448 536 Z"/><text class="nt" x="430" y="556" text-anchor="middle" style="font-size:14px">IT on-call</text><text class="ns" x="430" y="573" text-anchor="middle">keeps it running</text></g>
+        <g class="node" data-n="risk"><circle cx="580" cy="500" r="11"/><path class="body" d="M562 536 Q562 515 580 515 Q598 515 598 536 Z"/><text class="nt" x="580" y="556" text-anchor="middle" style="font-size:14px">Risk &amp; compliance</text><text class="ns" x="580" y="573" text-anchor="middle">second approver</text></g>
+        <g class="node" data-n="lead"><circle cx="720" cy="500" r="11"/><path class="body" d="M702 536 Q702 515 720 515 Q738 515 738 536 Z"/><text class="nt" x="720" y="556" text-anchor="middle" style="font-size:14px">Fraud lead</text><text class="ns" x="720" y="573" text-anchor="middle">owns the rules</text></g>
+        <g class="node" data-n="analyst"><circle cx="880" cy="500" r="11"/><path class="body" d="M862 536 Q862 515 880 515 Q898 515 898 536 Z"/><text class="nt" x="880" y="556" text-anchor="middle" style="font-size:14px">Fraud analyst</text><text class="ns" x="880" y="573" text-anchor="middle">reviews alerts</text></g>
+        <!-- outside right -->
+        <g class="node" data-n="recv"><rect x="1010" y="80" width="167" height="80" rx="10"/><text class="nt" x="1093" y="116" text-anchor="middle">Receiving bank</text><text class="ns" x="1093" y="135" text-anchor="middle">the payee's account</text></g>
+        <g class="node" data-n="cssf"><rect x="1010" y="480" width="167" height="70" rx="10"/><text class="nt" x="1093" y="511" text-anchor="middle">CSSF</text><text class="ns" x="1093" y="530" text-anchor="middle">bank supervisor</text></g>
+        <circle class="dot" r="8" cx="0" cy="0"/>
+      </svg></div>
+        <div class="panel">
+          <p class="cap-num">Ready</p><p class="cap-text"></p>
+          <div class="controls"><button class="btn primary" data-act="play" aria-pressed="false">Play</button><button class="btn" data-act="prev">Back</button><button class="btn" data-act="next">Next step</button><button class="btn" data-act="reset">Reset</button></div>
+          <div class="legend"><span><i class="sw now"></i>Happening now</span><span><i class="sw done"></i>Already done</span><span><i class="sw idle"></i>Not yet</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <p class="callout"><b>Remember:</b> the customer and LuxTrust are <b>outside</b> the bank. The receiving bank and the CSSF (the supervisor) are outside too. Everything else, including the four staff roles, is inside LDB.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="part" id="who">
+    <div class="col stack">
+      <p class="kicker">Part 4</p>
+      <h2>Who does what (the operating model)</h2>
+      <p>This is the <b>TOM</b> (target operating model): how people work with the detector. The risk officer never writes code. The detector handles easy cases alone. People handle the hard ones. Every decision teaches the system, because it is saved as a label.</p>
+    </div>
+    <div class="wide">
+      <div class="split flow" id="flow-tom" data-intro="Four lanes, one per role. Press Play to see a payment, an alert and a rule change go round the loop.">
+        <div class="figwrap"><svg class="dg" data-m="tom" viewBox="0 0 1200 500" role="img" aria-label="Operating model in four lanes: customer, fraud detector, fraud analyst, fraud lead and approver. Low scores go back to the customer; high scores go to the analyst, who calls the customer; decisions feed a monthly rule review.">
+        <defs>
+          <marker id="tom-off" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--edge)"/></marker>
+          <marker id="tom-done" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--blue)"/></marker>
+          <marker id="tom-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--accent)"/></marker>
+        </defs>
+        <rect class="lane" x="0" y="0" width="1200" height="125"/>
+        <rect class="lane alt" x="0" y="125" width="1200" height="125"/>
+        <rect class="lane" x="0" y="250" width="1200" height="125"/>
+        <rect class="lane alt" x="0" y="375" width="1200" height="125"/>
+        <line class="lanerule" x1="0" y1="125" x2="1200" y2="125"/><line class="lanerule" x1="0" y1="250" x2="1200" y2="250"/><line class="lanerule" x1="0" y1="375" x2="1200" y2="375"/>
+        <text class="nt" x="16" y="67">Customer</text>
+        <text class="nt" x="16" y="192">Fraud Detector</text>
+        <text class="nt" x="16" y="317">Fraud analyst</text>
+        <text class="nt" x="16" y="432">Fraud lead</text><text class="nt" x="16" y="452">+ approver</text>
+
+        <path class="edge" data-e="t1" d="M295 100 V149"/>
+        <path class="edge" data-e="t2" d="M405 187 H440"/>
+        <path class="edge" data-e="t3" d="M550 149 V100"/>
+        <path class="edge" data-e="t4" d="M660 187 H695"/>
+        <path class="edge" data-e="t5" d="M805 225 V274"/>
+        <path class="edge" data-e="t6" d="M915 312 H950"/>
+        <path class="edge" data-e="t7" data-both="1" d="M1060 274 V100"/>
+        <path class="edge" data-e="t8" d="M1060 350 V399"/>
+        <path class="edge" data-e="t9" d="M950 437 H915"/>
+        <path class="edge" data-e="t10" d="M695 437 H660"/>
+        <path class="edge" data-e="t11" d="M440 437 H405"/>
+        <path class="edge" data-e="t12" d="M295 399 V225"/>
+
+        <g class="node" data-n="c1"><rect x="185" y="24" width="220" height="76" rx="10"/><text class="nt" x="295" y="57" text-anchor="middle">Sends a transfer</text><text class="ns" x="295" y="78" text-anchor="middle">confirms with LuxTrust</text></g>
+        <g class="node" data-n="c2"><rect x="440" y="24" width="220" height="76" rx="10"/><text class="nt" x="550" y="57" text-anchor="middle">Score under 70</text><text class="ns" x="550" y="78" text-anchor="middle">warning, check or 1-hour wait</text></g>
+        <g class="node" data-n="c4"><rect x="950" y="24" width="220" height="76" rx="10"/><text class="nt" x="1060" y="57" text-anchor="middle">Answers the call</text><text class="ns" x="1060" y="78" text-anchor="middle">on a safe phone number</text></g>
+        <g class="node" data-n="f1"><rect x="185" y="149" width="220" height="76" rx="10"/><text class="nt" x="295" y="182" text-anchor="middle">Checks every link</text><text class="ns" x="295" y="203" text-anchor="middle">in under 0.3 seconds</text></g>
+        <g class="node" data-n="f2"><rect x="440" y="149" width="220" height="76" rx="10"/><text class="nt" x="550" y="182" text-anchor="middle">Adds the points</text><text class="ns" x="550" y="203" text-anchor="middle">picks one action</text></g>
+        <g class="node key" data-n="f3"><rect x="695" y="149" width="220" height="76" rx="10"/><text class="nt" x="805" y="182" text-anchor="middle">Score 70 or more</text><text class="ns" x="805" y="203" text-anchor="middle">holds it, sends an alert</text></g>
+        <g class="node" data-n="a3"><rect x="695" y="274" width="220" height="76" rx="10"/><text class="nt" x="805" y="307" text-anchor="middle">Reads the alert card</text><text class="ns" x="805" y="328" text-anchor="middle">one sentence says why</text></g>
+        <g class="node" data-n="a4"><rect x="950" y="274" width="220" height="76" rx="10"/><text class="nt" x="1060" y="307" text-anchor="middle">Releases or stops it</text><text class="ns" x="1060" y="328" text-anchor="middle">saves a label</text></g>
+        <g class="node" data-n="l4"><rect x="950" y="399" width="220" height="76" rx="10"/><text class="nt" x="1060" y="432" text-anchor="middle">Reads the monthly</text><text class="ns" x="1060" y="453" text-anchor="middle">rule report</text></g>
+        <g class="node" data-n="l3"><rect x="695" y="399" width="220" height="76" rx="10"/><text class="nt" x="805" y="432" text-anchor="middle">Tests a change</text><text class="ns" x="805" y="453" text-anchor="middle">silently, for 2 weeks</text></g>
+        <g class="node" data-n="l2"><rect x="440" y="399" width="220" height="76" rx="10"/><text class="nt" x="550" y="432" text-anchor="middle">Second person</text><text class="ns" x="550" y="453" text-anchor="middle">approves (4 eyes)</text></g>
+        <g class="node" data-n="l1"><rect x="185" y="399" width="220" height="76" rx="10"/><text class="nt" x="295" y="432" text-anchor="middle">New rule version</text><text class="ns" x="295" y="453" text-anchor="middle">goes live</text></g>
+        <circle class="dot" r="8" cx="0" cy="0"/>
+      </svg></div>
+        <div class="panel">
+          <p class="cap-num">Ready</p><p class="cap-text"></p>
+          <div class="controls"><button class="btn primary" data-act="play" aria-pressed="false">Play</button><button class="btn" data-act="prev">Back</button><button class="btn" data-act="next">Next step</button><button class="btn" data-act="reset">Reset</button></div>
+          <div class="chips"><span class="chip">Urgent alerts: 15 min, 24/7</span><span class="chip">Other holds: 1 hour</span><span class="chip">Every hold decided by the next business day</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="part col" id="data">
+    <p class="kicker">Part 5</p>
+    <h2>What the detector looks at</h2>
+    <p>LDB already has all the essential data: 23 must-have items, plus 10 nice-to-have extras. Each group answers one simple question.</p>
+    <div class="grid2">
+      <div class="card"><span class="src">Payment hub</span><h3>The payment</h3><p>Amount, time, instant or not, who receives it.</p><p class="why">Is a lot of money leaving?</p></div>
+      <div class="card"><span class="src">Payee list</span><h3>The payee</h3><p>When it was added, or its IBAN changed, and from which device.</p><p class="why">Is the payee new?</p></div>
+      <div class="card"><span class="src">Name check (VoP)</span><h3>Name match</h3><p>Does the name match the account? What did the customer do next?</p><p class="why">Was a warning ignored?</p></div>
+      <div class="card"><span class="src">Online banking · LuxTrust</span><h3>Login and device</h3><p>When the device was first seen, the type of network, a session that suddenly jumps.</p><p class="why">Is this a new device?</p></div>
+      <div class="card"><span class="src">Security log</span><h3>Security changes</h3><p>New phone, email, password, LuxTrust device, alerts switched off, higher limits.</p><p class="why">Did someone take control?</p></div>
+      <div class="card"><span class="src">Core banking</span><h3>Account and other customers</h3><p>Balance, income stated at opening, how many customers pay this IBAN.</p><p class="why">Is it being emptied? Is it a mule?</p></div>
+    </div>
+    <div class="grid3">
+      <p class="callout"><b>No history yet?</b> For a new customer we use what they told us when opening the account. After 20 payments and 90 days we use their own habits.</p>
+      <p class="callout"><b>New payment system?</b> On day one every payee would look new. So we load 2 years of older transfers first and start gently for 30 days.</p>
+      <p class="callout"><b>Fair by design.</b> We never score sex, ethnicity or age. A foreign IBAN alone is never a warning sign, because half of Luxembourg's workers live abroad.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="part col" id="rules">
+    <p class="kicker">Part 6</p>
+    <h2>The 8 rules</h2>
+    <p>Each rule is one thing criminals find hard to avoid. Tap a rule to open it. The risk officer can change every number, and a second person must approve the change.</p>
+    <div class="stack" style="gap:8px">
+      <details class="rule"><summary><span class="id">R1</span><span class="nm">Control change, then money out</span><span class="pt">+25 to +55</span></summary><div class="body"><p><span class="lbl">In plain words</span>Someone changed the phone, email, password or LuxTrust, then sends money to a new payee.</p><p><span class="lbl">Why</span>A criminal locks the owner out first. Honest people rarely change their phone and pay a stranger on the same day.</p><p><span class="lbl">Example</span>New phone 2 hours ago, then €4,800 to a payee added 10 minutes ago.</p></div></details>
+      <details class="rule"><summary><span class="id">R2</span><span class="nm">Unfamiliar access</span><span class="pt">+15 to +50</span></summary><div class="body"><p><span class="lbl">In plain words</span>A device or network never seen before, or an open session that suddenly jumps to another computer.</p><p><span class="lbl">Why</span>A criminal using stolen details works from their own computer.</p><p><span class="lbl">Example</span>Login from a laptop first seen today, on a data-centre network.</p></div></details>
+      <details class="rule"><summary><span class="id">R3</span><span class="nm">Fresh payee with value at risk</span><span class="pt">+10 to +40</span></summary><div class="body"><p><span class="lbl">In plain words</span>A payee added recently, or an old payee whose IBAN was changed, and a real amount (from €500).</p><p><span class="lbl">Why</span>Every fraud ends at an account the criminal controls. Changing an old payee's IBAN counts as new, so that trick does not work.</p><p><span class="lbl">Example</span>Payee added 5 minutes ago, €3,000.</p></div></details>
+      <details class="rule"><summary><span class="id">R4</span><span class="nm">Name or purpose contradiction</span><span class="pt">+5 to +45</span></summary><div class="body"><p><span class="lbl">In plain words</span>The name check says "no match", but the customer goes on anyway. Or the reason they give does not fit.</p><p><span class="lbl">Why</span>Scammers tell victims to ignore the warning.</p><p><span class="lbl">Example</span>"No match" shown, the customer clicks "pay anyway".</p></div></details>
+      <details class="rule"><summary><span class="id">R5</span><span class="nm">Drain and split</span><span class="pt">+15 to +35</span></summary><div class="body"><p><span class="lbl">In plain words</span>A big part of the balance leaves to new payees within 72 hours, even in small pieces.</p><p><span class="lbl">Why</span>Criminals want to empty the account. Adding up 72 hours stops the "many small payments" trick.</p><p><span class="lbl">Example</span>80% of savings sent to new payees.</p></div></details>
+      <details class="rule"><summary><span class="id">R6</span><span class="nm">Risky destination</span><span class="pt">+10 to +35, or block</span></summary><div class="body"><p><span class="lbl">In plain words</span>The payee looks like a mule: several unrelated LDB customers suddenly pay the same new IBAN. Or it is on the mule list.</p><p><span class="lbl">Why</span>One mule collects money from many victims. LDB sees this across all its customers.</p><p><span class="lbl">Example</span>3 customers pay the same 1-day-old IBAN.</p></div></details>
+      <details class="rule"><summary><span class="id">R7</span><span class="nm">Scripted or coached session</span><span class="pt">+10 to +35</span></summary><div class="body"><p><span class="lbl">In plain words</span>Too fast for a human, a remote-control app running, or a long pause while someone gives instructions.</p><p><span class="lbl">Why</span>Robots are faster than people; tricked customers wait for the caller.</p><p><span class="lbl">Example</span>4-minute pause on the confirm page.</p></div></details>
+      <details class="rule"><summary><span class="id">R8</span><span class="nm">Probe, wake or set-and-forget</span><span class="pt">+15 to +20</span></summary><div class="body"><p><span class="lbl">In plain words</span>A tiny test payment first, an account that wakes up after months, a new standing order to a new payee, or many tries after being stopped.</p><p><span class="lbl">Why</span>Patient criminals test first and try to stay under the radar.</p><p><span class="lbl">Example</span>€1 test, then €2,000 to the same new payee.</p></div></details>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>Good signs take points away</h3><ul class="plain"><li>Payee paid before, months apart: −25</li><li>Well-known payee at LDB (many customers, years): −20</li><li>Old device on a home network: −10</li><li>Customer told LDB in advance: −30</li><li>Normal amount for this customer: −10</li></ul><p class="muted">At most −40 in total.</p></div>
+      <div class="card"><h3>Three safety rules</h3><ul class="plain"><li>Each signal counts once (a new device cannot score twice).</li><li>No single weak sign can reach the hold line of 70.</li><li>Some cases go straight to hold or block, for example a known mule account, or a customer who says "the bank asked me to move my money".</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="part col" id="score">
+    <p class="kicker">Part 7</p>
+    <h2>From score to action</h2>
+    <p>Points add up to a score from 0 to 100. The score picks one of five actions. Most payments score under 30 and nobody notices anything.</p>
+    <div class="ladder-static">
+      <div class="rungbox r0"><b>0–29</b><span><b>Allow.</b> Nothing extra.</span></div>
+      <div class="rungbox r1"><b>30–49</b><span><b>Warn.</b> A clear scam warning; the owner gets a message.</span></div>
+      <div class="rungbox r2"><b>50–69</b><span><b>Check.</b> LuxTrust confirms. New payee and €1,000+: <b>1-hour release</b>.</span></div>
+      <div class="rungbox r3"><b>70–89</b><span><b>Hold.</b> An analyst calls the customer first.</span></div>
+      <div class="rungbox r4"><b>90–100</b><span><b>Block.</b> Stop, end the session, call the owner.</span></div>
+    </div>
+    <div class="grid2">
+      <p class="callout warm"><b>1-hour release:</b> the payment waits 60 minutes as a normal (not instant) transfer. The owner can cancel it in the LuxTrust app. Or the customer can call LDB to send it now. EU law gives a normal transfer until the end of the next business day, so one hour is allowed.</p>
+      <p class="callout"><b>Safe channel rule:</b> a LuxTrust check or a phone call never goes to a phone, email or LuxTrust device that changed in the last 30 days. After a SIM swap, that phone belongs to the criminal.</p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="part" id="watch">
+    <div class="col stack">
+      <p class="kicker">Part 8</p>
+      <h2>Watch the detector score a payment</h2>
+      <p>Pick an example and press Play. First the payment arrives. Then each link gets an age (red means new, green means trusted). Then rules add points, good signs take points away, and the score lands on an action.</p>
+    </div>
+    <div class="wide box" id="detector" style="display:flex;flex-direction:column;gap:14px">
+      <div class="dettop">
+        <div class="tabs" role="group" aria-label="Choose an example">
+          <button class="tab" data-ex="sim" aria-pressed="true">SIM swap (fraud)</button>
+          <button class="tab" data-ex="coach" aria-pressed="false">Tricked customer (fraud)</button>
+          <button class="tab" data-ex="flat" aria-pressed="false">Buying a flat (honest)</button>
+        </div>
+        <div class="controls"><button class="btn primary" data-act="play" aria-pressed="false">Play</button><button class="btn" data-act="prev">Back</button><button class="btn" data-act="next">Next step</button><button class="btn" data-act="reset">Reset</button></div>
+      </div>
+      <div class="det">
+        <div class="dcol"><span class="coltitle">The payment</span><div class="paycard" id="d-pay"><p class="amt" id="d-amt"></p><p id="d-to"></p><p id="d-meta"></p></div><span class="coltitle">Measure time: link ages</span><div class="links" id="d-links"></div></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="dcol"><span class="coltitle">8 rules add points</span><div class="rgrid" id="d-rules"></div></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="dcol"><span class="coltitle">Good signs take away</span><div class="ladder" id="d-mits" style="gap:6px"></div></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="dcol"><span class="coltitle">Score and action</span>
+          <div class="scorebox"><p class="score" id="d-score">0<small>points</small></p>
+            <div class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><span class="needle" id="d-needle" style="left:0%"></span></div>
+            <div class="ladder" id="d-ladder"><div class="rung"><b>0–29</b>Allow</div><div class="rung"><b>30–49</b>Warn</div><div class="rung"><b>50–69</b>Check + 1-hour release</div><div class="rung"><b>70–89</b>Hold for a call</div><div class="rung"><b>90–100</b>Block</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="detcap"><p class="cap-num" id="d-num" style="padding-top:.25em">Ready</p><p class="cap-text" id="d-text"></p></div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="part" id="try">
+    <div class="col stack">
+      <p class="kicker">Part 9</p>
+      <h2>Try it: build your own payment</h2>
+      <p>Tick what is true about a payment and see the score change. This is a simplified version of the real rules, made for learning. Start with one of the ready-made stories, then change things.</p>
+      <div class="tabs" role="group" aria-label="Ready-made stories" id="calc-presets">
+        <button class="tab" data-preset="sim" aria-pressed="false">SIM swap</button>
+        <button class="tab" data-preset="coach" aria-pressed="false">Tricked customer</button>
+        <button class="tab" data-preset="flat" aria-pressed="false">Buying a flat</button>
+        <button class="tab" data-preset="rent" aria-pressed="true">Paying the usual rent</button>
+        <button class="tab" data-preset="clear" aria-pressed="false">Clear all</button>
+      </div>
+    </div>
+    <div class="wide calc" id="calc">
+      <div class="stack">
+        <fieldset><legend>Warning signs</legend>
+          <label><input type="checkbox" id="c-newpayee"><span>The payee was added (or its IBAN changed) in the last 24 hours</span><span class="p plus">+20</span></label>
+          <label><input type="checkbox" id="c-change"><span>Phone, email, password or LuxTrust changed in the last 24 hours</span><span class="p plus">+40</span></label>
+          <label><input type="checkbox" id="c-device"><span>Logged in from a device never seen before</span><span class="p plus">+20</span></label>
+          <label><input type="checkbox" id="c-big"><span>Amount far above what this customer usually sends</span><span class="p plus">+10</span></label>
+          <label><input type="radio" name="drain" id="c-drain0" value="0"><span>Less than half of the balance leaves</span><span class="p">0</span></label>
+          <label><input type="radio" name="drain" id="c-drain50" value="25"><span>50% to 79% of the balance leaves to new payees</span><span class="p plus">+25</span></label>
+          <label><input type="radio" name="drain" id="c-drain80" value="35"><span>80% or more of the balance leaves to new payees</span><span class="p plus">+35</span></label>
+          <label><input type="checkbox" id="c-nomatch"><span>Name check said "no match" and the customer went on</span><span class="p plus">+30</span></label>
+          <label><input type="checkbox" id="c-pause"><span>Long pause (3+ minutes) on the confirm page</span><span class="p plus">+10</span></label>
+          <label><input type="checkbox" id="c-mule"><span>3 or more other customers suddenly paid this new IBAN</span><span class="p plus">+35</span></label>
+          <label><input type="checkbox" id="c-asked"><span>Customer says "the bank, LuxTrust or the police asked me"</span><span class="p plus">hold</span></label>
+        </fieldset>
+        <fieldset><legend>Good signs (at most −40 together)</legend>
+          <label id="l-paid"><input type="checkbox" id="g-paid"><span>Payee paid before, at least twice, months apart</span><span class="p minus">−25</span></label>
+          <label><input type="checkbox" id="g-known"><span>Well-known payee: many LDB customers pay it for years</span><span class="p minus">−20</span></label>
+          <label id="l-olddev"><input type="checkbox" id="g-olddev"><span>Old device on the home network</span><span class="p minus">−10</span></label>
+          <label><input type="checkbox" id="g-told"><span>Customer told LDB about this payment in advance</span><span class="p minus">−30</span></label>
+        </fieldset>
+      </div>
+      <div class="result box">
+        <span class="coltitle">Score</span>
+        <p class="score" id="k-score">0<small>points</small></p>
+        <div class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><span class="needle" id="k-needle" style="left:0%"></span></div>
+        <p class="actionbox" id="k-action"></p>
+        <div><span class="coltitle">Why</span><ul class="why-list" id="k-why"></ul></div>
+        <p class="muted" style="font-size:14px">Some signs only count with a new payee, as in the real rules: a security change or a big share of the balance going to a payee you have paid for years is not suspicious.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="part" id="time">
+    <div class="col stack">
+      <p class="kicker">Part 10</p>
+      <h2>Buying time in action: stopping a mule ring</h2>
+      <p>This is the most original part of TrustAge. Three LDB customers are phished by the same gang and told to pay the same new account. Watch how one hour of waiting saves all the money.</p>
+    </div>
+    <div class="wide">
+      <div class="split flow" id="flow-mule" data-intro="Three LDB customers are phished by the same gang and told to pay the same new account. Press Play.">
+        <div class="figwrap"><svg class="dg" data-m="mule" viewBox="0 0 1200 430" role="img" aria-label="Mule ring: two victims' payments wait one hour; the crowd check alerts an analyst, who confirms fraud with victim 1; both payments are cancelled and victim 3 is blocked; the mule receives nothing.">
+        <defs>
+          <marker id="mule-off" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--edge)"/></marker>
+          <marker id="mule-done" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--blue)"/></marker>
+          <marker id="mule-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--accent)"/></marker>
+        </defs>
+        <path class="edge" data-e="m1" d="M230 68 H290 V185 H350"/>
+        <path class="edge" data-e="m2" d="M560 185 H610 V95 H660"/>
+        <path class="edge" data-e="m3" d="M230 215 H350"/>
+        <path class="edge" data-e="m4" d="M785 170 V290"/>
+        <text class="el" x="795" y="236">crowd check</text>
+        <path class="edge dash" data-e="m5" d="M660 330 H270 V90 H230"/>
+        <text class="el" x="470" y="322" text-anchor="middle">phone call</text>
+        <path class="edge" data-e="m6" d="M230 362 H300 V245 H350"/>
+        <path class="edge dash" data-e="m7" d="M910 95 H955 V215 H1000"/>
+
+        <g class="node" data-n="v1"><rect x="40" y="30" width="190" height="76" rx="10"/><text class="nt" x="135" y="63" text-anchor="middle">Victim 1</text><text class="ns" x="135" y="84" text-anchor="middle">phished · 10:02</text></g>
+        <g class="node" data-n="v2"><rect x="40" y="177" width="190" height="76" rx="10"/><text class="nt" x="135" y="210" text-anchor="middle">Victim 2</text><text class="ns" x="135" y="231" text-anchor="middle">phished · 10:40</text></g>
+        <g class="node" data-n="v3"><rect x="40" y="324" width="190" height="76" rx="10"/><text class="nt" x="135" y="357" text-anchor="middle">Victim 3</text><text class="ns" x="135" y="378" text-anchor="middle">phished · 12:30</text></g>
+        <g class="node key" data-n="fd"><rect x="350" y="150" width="210" height="130" rx="12"/><text class="nt" x="455" y="208" text-anchor="middle">TrustAge</text><text class="ns" x="455" y="230" text-anchor="middle">at LDB</text></g>
+        <g class="node" data-n="wait"><rect x="660" y="20" width="250" height="150" rx="12"/><text class="nt" x="785" y="50" text-anchor="middle">1-hour release</text></g>
+        <g data-s="c1"><rect class="wchip" x="676" y="66" width="218" height="38" rx="8"/><text class="ns" x="785" y="90" text-anchor="middle" style="fill:var(--ink);font-weight:600">€2,900 · leaves 11:02</text></g>
+        <g data-s="c2"><rect class="wchip" x="676" y="116" width="218" height="38" rx="8"/><text class="ns" x="785" y="140" text-anchor="middle" style="fill:var(--ink);font-weight:600">€3,100 · leaves 11:40</text></g>
+        <g data-s="cx"><line class="strike" x1="680" y1="85" x2="890" y2="85"/><line class="strike" x1="680" y1="135" x2="890" y2="135"/></g>
+        <g class="node" data-n="analyst"><rect x="660" y="290" width="250" height="80" rx="12"/><text class="nt" x="785" y="325" text-anchor="middle">Fraud analyst</text><text class="ns" x="785" y="346" text-anchor="middle">checks before money leaves</text></g>
+        <g class="node" data-n="mule"><rect x="1000" y="150" width="170" height="130" rx="12"/><text class="nt" x="1085" y="198" text-anchor="middle">New IBAN</text><text class="ns" x="1085" y="218" text-anchor="middle">the mule account</text><text class="nt" x="1085" y="252" text-anchor="middle">€0 received</text></g>
+        <g data-s="xm"><rect class="pill-bad" x="925" y="128" width="62" height="28" rx="14"/><text class="txt-bad" x="956" y="147" text-anchor="middle">stop</text></g>
+        <g data-s="list"><rect class="pill-bad" x="1000" y="292" width="170" height="30" rx="15"/><text class="txt-bad" x="1085" y="312" text-anchor="middle">on the mule list</text></g>
+        <g data-s="blk"><rect class="pill-bad" x="250" y="388" width="120" height="30" rx="15"/><text class="txt-bad" x="310" y="408" text-anchor="middle">blocked</text></g>
+        <g data-s="res"><rect class="pill-good" x="1000" y="334" width="170" height="44" rx="12"/><text class="txt-good" x="1085" y="361" text-anchor="middle">€6,000 saved</text></g>
+        <circle class="dot" r="8" cx="0" cy="0"/>
+      </svg></div>
+        <div class="panel">
+          <p class="cap-num">Ready</p><p class="cap-text"></p>
+          <div class="controls"><button class="btn primary" data-act="play" aria-pressed="false">Play</button><button class="btn" data-act="prev">Back</button><button class="btn" data-act="next">Next step</button><button class="btn" data-act="reset">Reset</button></div>
+          <p class="muted" style="font-size:14px">This is the best case: it needs two victims of the same account within the hour.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="part col" id="limits">
+    <p class="kicker">Part 11</p>
+    <h2>What it cannot do (say this openly)</h2>
+    <p>Examiners trust a design more when it admits its limits. These are ours.</p>
+    <div class="grid2">
+      <div class="card"><h3>A determined tricked customer</h3><p>If the customer uses her own laptop, the name matches, she approves every check and has not locked her savings, money can still leave. The hour and the warnings reduce this a lot, but not to zero.</p></div>
+      <div class="card"><h3>The first victim of a new mule</h3><p>If only one customer pays a mule, the crowd check sees nothing. Getting money back later is hard, because a recall needs the mule's consent.</p></div>
+      <div class="card"><h3>Weak signals in a web browser</h3><p>Spotting remote-control apps works better in a mobile app than in a web browser.</p></div>
+      <div class="card"><h3>Many false alarms at first</h3><p>At the start, maybe 5 to 10 of every 100 held payments are real fraud. That improves as analysts label cases and the rules are tuned.</p></div>
+    </div>
+    <div class="box stack">
+      <h3>Why no machine learning (yet)?</h3>
+      <p>Machine learning needs many examples of real fraud to learn from. LDB has none yet. So we start with clear rules, save every analyst decision as a label, and add machine learning only after about 200 to 300 confirmed cases and 12 months, as one extra signal with limited points.</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="part col" id="law">
+    <p class="kicker">Part 12</p>
+    <h2>The laws, in one table</h2>
+    <div class="tablewrap box" style="padding:6px 10px">
+      <table class="simple">
+        <thead><tr><th>Law</th><th>What it says, simply</th><th>What it means for us</th></tr></thead>
+        <tbody>
+          <tr><td><b>PSD2</b> (EU payment law)</td><td>Banks must monitor payments for fraud. A bank may refuse a payment only if its terms allow it, and must tell the customer why. A normal transfer must arrive by the end of the next business day.</td><td>We need a fraud-check clause in LDB's terms. The 1-hour release is allowed. Holds must be decided by the next business day.</td></tr>
+          <tr><td><b>Instant Payments Regulation</b></td><td>Instant payments arrive in 10 seconds. Banks must show the name check (VoP) since 9 October 2025. Only the customer can set their instant limit.</td><td>Our check takes 0.3 seconds. We use the name-check result (R4). We never impose an instant limit.</td></tr>
+          <tr><td><b>PSR / PSD3</b> (agreed November 2025)</td><td>Banks repay victims of fake-bank-staff scams. Banks must share fraud data.</td><td>These scams become LDB's cost, so stopping them saves real money.</td></tr>
+          <tr><td><b>GDPR</b></td><td>Fraud prevention is allowed, but a person must review decisions with big effects. A privacy check (DPIA) is needed.</td><td>A human reviews every hold and block. Age is never scored. Device IDs are scrambled.</td></tr>
+          <tr><td><b>DORA</b></td><td>Banks' IT systems must keep working, or fail safely.</td><td>If the detector is down, a simple backup rule is used and IT is alerted.</td></tr>
+          <tr><td><b>Anti-money laundering</b></td><td>Banks report suspicious money flows to the CRF.</td><td>Mule accounts found by the detector are passed to the AML team.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="part col" id="money">
+    <p class="kicker">Part 13</p>
+    <h2>Is it worth the money?</h2>
+    <p>These are example numbers (LDB is a fictional bank), but the logic is real.</p>
+    <div class="grid2">
+      <div class="card"><span class="coltitle">First-year cost</span><p class="score" style="font-size:44px">€0.66M</p><p class="muted">Building it (€340,000) plus 2 analysts, data and running costs.</p></div>
+      <div class="card"><span class="coltitle">Fraud stopped per year (base case)</span><p class="score" style="font-size:44px;color:var(--good)">€1.2M</p><p class="muted">80% of an estimated €1.5 million of attempted fraud.</p></div>
+    </div>
+    <p class="callout"><b>It pays for itself in the first year.</b> And monitoring is required by law anyway, so the real choice is between building this or buying an expensive product. We start with TrustAge and can add a vendor's machine learning later.</p>
+  </section>
+
+  <!-- 14 -->
+  <section class="part col" id="quiz">
+    <p class="kicker">Part 14</p>
+    <h2>Test yourself</h2>
+    <p>Pick an answer. You see at once if it is right and why.</p>
+    <p class="scoreline" id="qscore">0 of 10 answered · 0 correct</p>
+    <div class="stack" id="qlist"></div>
+    <button class="btn" id="qreset" style="align-self:flex-start">Start the quiz again</button>
+  </section>
+
+  <!-- 15 -->
+  <section class="part col" id="words">
+    <p class="kicker">Part 15</p>
+    <h2>Words you need</h2>
+    <div class="box">
+      <dl class="gloss">
+        <dt>Account takeover (ATO)</dt><dd>A criminal controls a customer's account, or tricks the customer, and sends money away.</dd>
+        <dt>Mule account</dt><dd>An account that receives stolen money and quickly passes it on.</dd>
+        <dt>Payee</dt><dd>The person or company that receives the money.</dd>
+        <dt>IBAN</dt><dd>The bank account number used for transfers in Europe.</dd>
+        <dt>LuxTrust</dt><dd>The login and approval app most Luxembourg banks use.</dd>
+        <dt>Step-up</dt><dd>An extra LuxTrust confirmation for a risky payment.</dd>
+        <dt>Name check (VoP)</dt><dd>Verification of Payee: the bank checks that the payee's name matches the IBAN.</dd>
+        <dt>Instant payment</dt><dd>A transfer that arrives within 10 seconds, any time of day.</dd>
+        <dt>SIM swap</dt><dd>A criminal moves your phone number to their own SIM card.</dd>
+        <dt>Link age</dt><dd>How long a device, phone number or payee has been known. Our core measure.</dd>
+        <dt>1-hour release</dt><dd>A payment that waits 60 minutes before leaving, and can be cancelled.</dd>
+        <dt>Cooling-off</dt><dd>For 12 hours after a new LuxTrust device, phone or email, that channel cannot approve big payments to new payees.</dd>
+        <dt>Crowd check</dt><dd>Looking at how many different LDB customers pay the same IBAN.</dd>
+        <dt>Mitigator</dt><dd>A good sign that takes points away.</dd>
+        <dt>Override</dt><dd>A case so clear that it goes straight to hold or block.</dd>
+        <dt>Shadow mode</dt><dd>A new rule runs silently and is measured before it affects any customer.</dd>
+        <dt>Four eyes</dt><dd>Every rule change needs a second person to approve it.</dd>
+        <dt>TOM</dt><dd>Target operating model: who does what, and how people use the system.</dd>
+        <dt>CSSF</dt><dd>The bank supervisor in Luxembourg.</dd>
+        <dt>CRF</dt><dd>Luxembourg's financial intelligence unit, which receives suspicious-activity reports.</dd>
+        <dt>DPIA</dt><dd>A privacy check required by GDPR before using personal data in a new way.</dd>
+      </dl>
+    </div>
+    <p class="footer">TrustAge study guide · Corporate Risk Assessment and Digital Transformation · University of Luxembourg · October 2026. Money figures are examples for a fictional bank.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+/* ---------- step-by-step diagram player ---------- */
+  function Flow(root, steps){
+    var self = this;
+    this.root = root; this.svg = $('svg', root); this.steps = steps;
+    this.i = -1; this.playing = false; this.timer = 0; this.raf = 0;
+    this.dot = $('.dot', this.svg); this.num = $('.cap-num', root); this.txt = $('.cap-text', root);
+    this.btn = $('[data-act=play]', root);
+    this.btn.addEventListener('click', function(){ self.playing ? self.pause() : self.play(); });
+    $('[data-act=next]', root).addEventListener('click', function(){ self.pause(); self.show(Math.min(self.i + 1, self.steps.length - 1), true); });
+    $('[data-act=prev]', root).addEventListener('click', function(){ self.pause(); self.show(Math.max(self.i - 1, -1), false); });
+    $('[data-act=reset]', root).addEventListener('click', function(){ self.pause(); self.show(-1, false); });
+    this.show(-1, false);
+  }
+  Flow.prototype.mark = function(e, state){
+    var id = this.svg.getAttribute('data-m') + '-' + (state || 'off');
+    e.setAttribute('marker-end', 'url(#' + id + ')');
+    if (e.hasAttribute('data-both')) e.setAttribute('marker-start', 'url(#' + id + ')');
+  };
+  Flow.prototype.show = function(i, animate, done){
+    var self = this, svg = this.svg;
+    cancelAnimationFrame(this.raf); clearTimeout(this.timer);
+    this.i = i;
+    $$('.node', svg).forEach(function(n){ n.classList.remove('on', 'done'); });
+    $$('.edge', svg).forEach(function(e){ e.classList.remove('on', 'done'); self.mark(e, 'off'); });
+    $$('[data-s]', svg).forEach(function(e){ e.classList.remove('show'); });
+    for (var k = 0; k <= i; k++){
+      var st = this.steps[k], last = (k === i);
+      (st.nodes || []).forEach(function(id){ var n = svg.querySelector('[data-n="' + id + '"]'); if (n) n.classList.add(last ? 'on' : 'done'); });
+      (st.edges || []).forEach(function(id){ var e = svg.querySelector('[data-e="' + id + '"]'); if (e){ e.classList.remove('done'); e.classList.add(last ? 'on' : 'done'); self.mark(e, last ? 'on' : 'done'); } });
+      (st.show || []).forEach(function(id){ $$('[data-s="' + id + '"]', svg).forEach(function(x){ x.classList.add('show'); }); });
+    }
+    if (i < 0){
+      this.num.textContent = 'Ready · ' + this.steps.length + ' steps';
+      this.txt.textContent = this.root.getAttribute('data-intro') || 'Press Play to see each step in order.';
+    } else {
+      this.num.textContent = 'Step ' + (i + 1) + ' of ' + this.steps.length;
+      this.txt.textContent = this.steps[i].text;
+    }
+    this.dot.style.opacity = 0;
+    var edges = i >= 0 ? (this.steps[i].edges || []).map(function(id){ return svg.querySelector('[data-e="' + id + '"]'); }).filter(Boolean) : [];
+    if (animate && !reduce && edges.length){ this.run(edges, 0, done); }
+    else if (done){ this.timer = setTimeout(done, 400); }
+  };
+  Flow.prototype.run = function(edges, k, done){
+    var self = this;
+    if (k >= edges.length){ this.dot.style.opacity = 0; if (done) done(); return; }
+    var p = edges[k], L = p.getTotalLength(), dur = Math.min(1500, Math.max(650, L * 2.3)), t0 = performance.now();
+    this.dot.style.opacity = 1;
+    var tick = function(t){
+      var f = Math.min(1, (t - t0) / dur), e = f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2;
+      var pt = p.getPointAtLength(e * L);
+      self.dot.setAttribute('cx', pt.x); self.dot.setAttribute('cy', pt.y);
+      if (f < 1) self.raf = requestAnimationFrame(tick); else self.run(edges, k + 1, done);
+    };
+    this.raf = requestAnimationFrame(tick);
+  };
+  Flow.prototype.play = function(){
+    this.playing = true; this.btn.textContent = 'Pause'; this.btn.setAttribute('aria-pressed', 'true');
+    if (this.i >= this.steps.length - 1) this.show(-1, false);
+    this.next();
+  };
+  Flow.prototype.next = function(){
+    var self = this;
+    if (!this.playing) return;
+    var n = this.i + 1;
+    if (n >= this.steps.length){ this.pause(); return; }
+    this.show(n, true, function(){ if (!self.playing) return; self.timer = setTimeout(function(){ self.next(); }, reduce ? 3000 : 1900); });
+  };
+  Flow.prototype.pause = function(){
+    this.playing = false; clearTimeout(this.timer); cancelAnimationFrame(this.raf);
+    if (this.dot) this.dot.style.opacity = 0;
+    this.btn.textContent = (this.i >= this.steps.length - 1) ? 'Play again' : 'Play';
+    this.btn.setAttribute('aria-pressed', 'false');
+  };
+
+  var ARCH = [
+    { nodes:['customer','web'], edges:['s1'], text:'The customer types a transfer in LDB\'s online banking.' },
+    { nodes:['web','luxtrust'], edges:['s2'], text:'LuxTrust checks that it is really the customer (a strong login check).' },
+    { nodes:['web','recv'], edges:['s3'], text:'The bank checks that the payee\'s name matches the account at the receiving bank (name check, VoP). The customer sees the result.' },
+    { nodes:['web','hub'], edges:['s4'], text:'Online banking passes the order to the payment hub, the part of the bank that sends money.' },
+    { nodes:['hub','loader'], edges:['s5'], text:'Before any money moves, the payment hub asks the Fraud Detector: is this safe?' },
+    { nodes:['records','loader'], edges:['s6'], text:'Part 1, the Transaction loader, collects the order plus the account\'s records: logins, devices and recent changes.' },
+    { nodes:['loader','builder','stores'], edges:['s7','s7b'], text:'The Attribute builder works out how old each link is: the device, the phone number, the payee. Measure time.' },
+    { nodes:['builder','engine'], edges:['s8'], text:'Part 2, the Fraud engine, adds up the points from the 8 rules and picks one action. All in under 0.3 seconds.' },
+    { nodes:['engine','hub'], edges:['s9'], text:'The answer goes back to the payment hub: allow, warn, check, 1-hour release, hold or block.' },
+    { nodes:['hub','recv'], edges:['s10'], text:'If the payment is allowed, the money goes to the receiving bank. Instant payments still arrive within 10 seconds.' },
+    { nodes:['engine','results','report'], edges:['s11','s12'], text:'Every decision is saved in the Results store. Held payments appear in part 3, the Report engine.' },
+    { nodes:['report','analyst'], edges:['s13'], text:'The fraud analyst opens the alert card. One sentence says why the payment was held.' },
+    { nodes:['analyst','customer'], edges:['s14'], text:'The analyst calls the customer on a safe phone number (never one that just changed), then releases or stops the payment.' },
+    { nodes:['report','lead','risk','engine'], edges:['s15','s16','s17'], text:'Each month the fraud lead tunes the rules. A second person from risk and compliance approves. A new rule version goes live.' },
+    { nodes:['it','engine'], edges:['s19'], text:'IT on-call keeps the detector running. If it is ever down, a safe backup rule is used: known payees pass, risky ones wait.' },
+    { nodes:['report','cssf'], edges:['s18'], text:'Fraud figures are reported to the CSSF, the bank supervisor in Luxembourg.' }
+  ];
+  var TOM = [
+    { nodes:['c1','f1'], edges:['t1'], text:'The customer sends a transfer. The detector checks how old every link is.' },
+    { nodes:['f1','f2'], edges:['t2'], text:'It adds the points from the 8 rules and picks one action.' },
+    { nodes:['f2','c2'], edges:['t3'], text:'Score under 70: the customer handles it alone. A warning, a LuxTrust check, or a 1-hour wait they can cancel.' },
+    { nodes:['f2','f3'], edges:['t4'], text:'Score 70 or more: the payment is held and an alert is created.' },
+    { nodes:['f3','a3'], edges:['t5'], text:'The fraud analyst opens the alert card. One sentence explains why, readable in 5 seconds.' },
+    { nodes:['a3','a4'], edges:['t6'], text:'The analyst decides: release the payment or stop it.' },
+    { nodes:['a4','c4'], edges:['t7'], text:'Before deciding, the analyst calls the customer on a safe phone number.' },
+    { nodes:['a4','l4'], edges:['t8'], text:'Every decision is saved as a label (fraud, scam or honest). Labels feed the monthly rule report.' },
+    { nodes:['l4','l3','l2'], edges:['t9','t10'], text:'The fraud lead tests a change silently for 2 weeks. A second person approves it (4 eyes).' },
+    { nodes:['l2','l1','f1'], edges:['t11','t12'], text:'The new rule version goes live and the loop starts again. No programming needed.' }
+  ];
+  var MULE = [
+    { nodes:['v1','fd'], edges:['m1'], text:'10:02 · Victim 1 was phished. The criminal sends €2,900 to a brand-new IBAN. Score 55: new device, new payee, large amount.' },
+    { nodes:['fd','wait'], edges:['m2'], show:['c1'], text:'The payee is new and the amount is over €1,000, so the payment waits 1 hour (it would leave at 11:02). The owner gets a cancel button in the LuxTrust app.' },
+    { nodes:['v2','fd','wait'], edges:['m3','m2'], show:['c2'], text:'10:40 · Victim 2, a different customer, pays €3,100 to the same IBAN. It waits too.' },
+    { nodes:['wait','analyst'], edges:['m4'], text:'Crowd check: two unrelated customers are waiting to pay the same 1-day-old IBAN. An analyst is alerted before any money leaves.' },
+    { nodes:['analyst','v1'], edges:['m5'], text:'10:52 · The analyst calls Victim 1 on the landline: "That was not me." Fraud confirmed.' },
+    { nodes:['wait','mule'], edges:['m7'], show:['cx','xm'], text:'Both waiting payments are cancelled. They never reach the mule account.' },
+    { nodes:['v3','fd','mule'], edges:['m6'], show:['list','blk'], text:'12:30 · The IBAN is now on the mule list. Victim 3 is blocked at once.' },
+    { nodes:['mule'], show:['res'], text:'Result: €0 reached the criminals. Without the 1-hour wait, €6,000 would be gone.' }
+  ];
+  var flows = [ new Flow($('#flow-arch'), ARCH), new Flow($('#flow-tom'), TOM), new Flow($('#flow-mule'), MULE) ];
+
+  /* ---------- detection walkthrough ---------- */
+  var RULES = [
+    ['R1','Control change, then money out'], ['R2','Unfamiliar access'], ['R3','Fresh payee with value at risk'], ['R4','Name or purpose contradiction'],
+    ['R5','Drain and split'], ['R6','Risky destination'], ['R7','Scripted or coached session'], ['R8','Probe, wake or set-and-forget']
+  ];
+  var MITS = [ ['M1','Payee paid before'], ['M2','Well-known payee at LDB'], ['M3','Old device, home network'], ['M4','Told us in advance'], ['M5','Normal amount for them'] ];
+  var EX = {
+    sim: {
+      intro:'A criminal swapped the customer\'s SIM card, reset the password and set up LuxTrust on a new phone. Now they send money.',
+      amt:'€12,000', to:'to a new payee (Lithuanian IBAN)', meta:'Instant transfer · 80% of the balance',
+      links:[['Device','fresh','Fresh · first seen 2 h ago'],['Phone and LuxTrust','fresh','Fresh · reset 2 h ago'],['Payee','fresh','Fresh · added 2 min ago'],['Payee at LDB','fresh','New · no other customer pays it']],
+      rules:[['R1',40,'Password and LuxTrust were reset 2 hours ago, then money goes out.'],['R2',20,'This device was first seen 2 hours ago.'],['R3',30,'Payee added 2 minutes ago (+20), and the amount is far above normal (+10).'],['R5',35,'80% of the balance is leaving to a new payee.']],
+      mits:[], cap:'Total 125, capped at 100.',
+      final:'Score 100: BLOCK. The session ends and LDB calls the owner on the old landline, never on the new phone. Alert: "Password and LuxTrust reset 2 h ago from a new phone, then €12,000 (80% of balance) to a new payee."'
+    },
+    coach: {
+      intro:'A fake "LuxTrust" caller says the account is hacked and dictates a "safe account". The customer uses her own laptop, and the name check matches.',
+      amt:'€18,000', to:'to a new payee (name matches)', meta:'Standard transfer · 90% of her savings',
+      links:[['Device','trusted','Trusted · used for 400 days'],['Phone and LuxTrust','trusted','Trusted · unchanged for 4 years'],['Payee','fresh','Fresh · added 6 min ago'],['Payee at LDB','fresh','New · 1 other customer paid it today']],
+      rules:[['R3',30,'Payee added 6 minutes ago (+20), and the amount is far above normal (+10).'],['R5',35,'90% of her savings is leaving to a new payee.'],['R7',10,'She paused 4 minutes on the confirm page, waiting for the caller.']],
+      mits:[['M3',-10,'Her own old laptop on her home network.']], cap:'',
+      final:'Score 65: a LuxTrust check on her own phone, plus a 1-hour release she can cancel. She may still approve. But the hour often outlasts the scam call, and the crowd check runs again before the money leaves.'
+    },
+    flat: {
+      intro:'An honest customer buys a flat. The notary needs €320,000. She told LDB about it 3 days ago.',
+      amt:'€320,000', to:'to the notary (new payee)', meta:'Standard transfer · 95% of the balance',
+      links:[['Device','trusted','Trusted · used for 3 years'],['Phone and LuxTrust','trusted','Trusted · unchanged for 4 years'],['Payee','fresh','Fresh · added today'],['Payee at LDB','trusted','Known · 35 LDB customers paid it']],
+      rules:[['R3',30,'New payee (+20), and a very large amount (+10).'],['R5',35,'95% of the balance is leaving.']],
+      mits:[['M4',-30,'She told LDB about this payment 3 days ago, from her usual laptop.'],['M2',-20,'A well-known notary: 35 LDB customers have paid it.']], cap:'Good signs are capped at −40, so the score is 65 − 40 = 25.',
+      final:'Score 25: ALLOW. No delay, no call. This is how honest big payments get through.'
+    }
+  };
+  var det = { root: $('#detector'), ex:'sim', i:-1, playing:false, timer:0 };
+  det.btn = $('[data-act=play]', det.root);
+  $('#d-rules').innerHTML = RULES.map(function(r){ return '<div class="rchip" data-r="' + r[0] + '"><span class="rc"><span>' + r[0] + '</span><span class="pts"></span></span><span class="rn">' + r[1] + '</span></div>'; }).join('');
+  $('#d-mits').innerHTML = MITS.map(function(m){ return '<div class="mchip" data-m="' + m[0] + '"><span class="rc"><span>' + m[0] + '</span><span class="pts"></span></span><span class="rn">' + m[1] + '</span></div>'; }).join('');
+
+  function detSteps(){
+    var x = EX[det.ex], s = [];
+    s.push({ text:x.intro, f:function(st){ st.pay = true; } });
+    s.push({ text:'Measure time: how old is each link on the path to the money? Red means new, green means trusted.', f:function(st){ st.links = true; } });
+    x.rules.forEach(function(r){ s.push({ text:r[0] + ' ' + ruleName(r[0]) + ': +' + r[1] + '. ' + r[2], f:function(st){ st.fired[r[0]] = r[1]; st.total += r[1]; } }); });
+    if (x.mits.length){ x.mits.forEach(function(m){ s.push({ text:m[0] + ' ' + mitName(m[0]) + ': ' + m[1] + '. ' + m[2], f:function(st){ st.mit[m[0]] = m[1]; st.minus += -m[1]; } }); }); }
+    else { s.push({ text:'No good signs here, so nothing is taken away.', f:function(){} }); }
+    s.push({ text:(x.cap ? x.cap + ' ' : '') + x.final, f:function(st){ st.final = true; } });
+    return s;
+  }
+  function ruleName(id){ for (var i = 0; i < RULES.length; i++) if (RULES[i][0] === id) return RULES[i][1]; return ''; }
+  function mitName(id){ for (var i = 0; i < MITS.length; i++) if (MITS[i][0] === id) return MITS[i][1]; return ''; }
+  function rung(score){ return score >= 90 ? 4 : score >= 70 ? 3 : score >= 50 ? 2 : score >= 30 ? 1 : 0; }
+
+  function detRender(i){
+    var x = EX[det.ex], steps = detSteps(), st = { pay:false, links:false, fired:{}, mit:{}, total:0, minus:0, final:false };
+    det.i = i;
+    for (var k = 0; k <= i; k++) steps[k].f(st);
+    $('#d-amt').textContent = x.amt; $('#d-to').textContent = x.to; $('#d-meta').textContent = x.meta;
+    $('#d-pay').classList.toggle('dim', !st.pay);
+    $('#d-links').innerHTML = x.links.map(function(l){
+      return '<div class="link' + (st.links ? '' : ' dim') + '"><span class="ln">' + l[0] + '</span><span class="badge ' + (st.links ? l[1] : '') + '">' + (st.links ? l[2] : '?') + '</span></div>';
+    }).join('');
+    $$('.rchip', det.root).forEach(function(c){ var id = c.getAttribute('data-r'), on = st.fired[id] !== undefined; c.classList.toggle('fire', on); $('.pts', c).textContent = on ? '+' + st.fired[id] : ''; });
+    $$('.mchip', det.root).forEach(function(c){ var id = c.getAttribute('data-m'), on = st.mit[id] !== undefined; c.classList.toggle('fire', on); $('.pts', c).textContent = on ? String(st.mit[id]).replace('-', '−') : ''; });
+    var minus = Math.min(40, st.minus), raw = st.total - minus, shown = st.final ? Math.max(0, Math.min(100, raw)) : Math.max(0, raw);
+    $('#d-score').innerHTML = shown + '<small>points</small>';
+    $('#d-needle').style.left = Math.min(100, shown) + '%';
+    $$('.rung', det.root).forEach(function(r, idx){ r.classList.toggle('on', st.final && idx === rung(shown)); });
+    if (i < 0){ $('#d-num').textContent = 'Ready'; $('#d-text').textContent = 'Pick an example, then press Play. ' + x.intro; }
+    else { $('#d-num').textContent = 'Step ' + (i + 1) + ' of ' + steps.length; $('#d-text').textContent = steps[i].text; }
+  }
+  function detPause(){ det.playing = false; clearTimeout(det.timer); det.btn.textContent = (det.i >= detSteps().length - 1) ? 'Play again' : 'Play'; det.btn.setAttribute('aria-pressed', 'false'); }
+  function detNext(){
+    if (!det.playing) return;
+    var n = det.i + 1, len = detSteps().length;
+    if (n >= len){ detPause(); return; }
+    detRender(n);
+    det.timer = setTimeout(detNext, reduce ? 3200 : 2600);
+  }
+  det.btn.addEventListener('click', function(){
+    if (det.playing){ detPause(); return; }
+    det.playing = true; det.btn.textContent = 'Pause'; det.btn.setAttribute('aria-pressed', 'true');
+    if (det.i >= detSteps().length - 1) detRender(-1);
+    detNext();
+  });
+  $('[data-act=next]', det.root).addEventListener('click', function(){ detPause(); detRender(Math.min(det.i + 1, detSteps().length - 1)); });
+  $('[data-act=prev]', det.root).addEventListener('click', function(){ detPause(); detRender(Math.max(det.i - 1, -1)); });
+  $('[data-act=reset]', det.root).addEventListener('click', function(){ detPause(); detRender(-1); });
+  $$('.tab', det.root).forEach(function(t){
+    t.addEventListener('click', function(){
+      $$('.tab', det.root).forEach(function(o){ o.setAttribute('aria-pressed', o === t ? 'true' : 'false'); });
+      det.ex = t.getAttribute('data-ex'); detPause(); detRender(-1);
+    });
+  });
+  detRender(-1);
+
+  
+
+  /* ---------- path to the money ---------- */
+  var PATHS = {
+    honest:{ stops:[['Login device','trusted','Trusted','Laptop used for 2 years'],['Phone and LuxTrust','trusted','Trusted','Unchanged for 4 years'],['Payee','trusted','Trusted','Landlord, paid 14 times'],['Payee at LDB','trusted','Trusted','3,000 customers pay it']], verdict:['good','Everything on the path is old. The payment goes through with 0 points.'] },
+    sim:{ stops:[['Login device','fresh','New','Laptop first seen 10 min ago'],['Phone and LuxTrust','fresh','New','Reset 2 hours ago'],['Payee','fresh','New','Added 2 minutes ago'],['Payee at LDB','fresh','New','Nobody else pays it']], verdict:['bad','Everything on the path is new. Blocked, and the bank calls the old landline.'] },
+    coach:{ stops:[['Login device','trusted','Trusted','Her own laptop, 400 days'],['Phone and LuxTrust','trusted','Trusted','Unchanged for 4 years'],['Payee','fresh','New','Added 6 minutes ago'],['Payee at LDB','fresh','New','1 other customer paid it today']], verdict:['mid','Only the end of the path is new. TrustAge looks hard at the payee and buys time: a LuxTrust check plus a 1-hour release.'] }
+  };
+  function drawPath(k){
+    var p = PATHS[k];
+    $('#path').innerHTML = p.stops.map(function(s){ return '<div class="stop"><span class="sl">' + s[0] + '</span><span class="badge ' + s[1] + '">' + s[2] + '</span><span class="sv">' + s[3] + '</span></div>'; }).join('') +
+      '<div class="stop money"><span class="sl">Money leaves</span><span class="sv">' + (k === 'honest' ? 'Yes, at once' : k === 'sim' ? 'No, stopped' : 'After a check and a 1-hour wait, unless cancelled') + '</span></div>';
+    var v = $('#path-verdict'); v.className = 'verdict ' + p.verdict[0]; v.textContent = p.verdict[1];
+    $$('#path-tabs .tab').forEach(function(t){ t.setAttribute('aria-pressed', t.getAttribute('data-p') === k ? 'true' : 'false'); });
+  }
+  $$('#path-tabs .tab').forEach(function(t){ t.addEventListener('click', function(){ drawPath(t.getAttribute('data-p')); }); });
+  drawPath('honest');
+
+  /* ---------- calculator ---------- */
+  var ids = ['c-newpayee','c-change','c-device','c-big','c-nomatch','c-pause','c-mule','c-asked','g-paid','g-known','g-olddev','g-told'];
+  var PRESETS = {
+    sim:{ on:['c-newpayee','c-change','c-device','c-big'], drain:'c-drain80' },
+    coach:{ on:['c-newpayee','c-big','c-pause','g-olddev'], drain:'c-drain80' },
+    flat:{ on:['c-newpayee','c-big','g-known','g-told'], drain:'c-drain80' },
+    rent:{ on:['g-paid','g-olddev'], drain:'c-drain0' },
+    clear:{ on:[], drain:'c-drain0' }
+  };
+  function el(id){ return document.getElementById(id); }
+  function calc(){
+    var newp = el('c-newpayee').checked;
+    // mutually exclusive pairs
+    el('g-paid').disabled = newp; if (newp) el('g-paid').checked = false; el('l-paid').classList.toggle('off', newp);
+    var newdev = el('c-device').checked;
+    el('g-olddev').disabled = newdev; if (newdev) el('g-olddev').checked = false; el('l-olddev').classList.toggle('off', newdev);
+    var why = [], plus = 0, minus = 0, floor = 0;
+    if (newp){ plus += 20; why.push('New payee: +20'); }
+    if (el('c-change').checked){ if (newp){ plus += 40; why.push('Security change, then money to a new payee (R1): +40'); } else why.push('Security change, but the payee is known: no points'); }
+    if (newdev){ plus += 20; why.push('New device (R2): +20'); }
+    if (el('c-big').checked){ if (newp){ plus += 10; why.push('Unusual amount to a new payee (R3): +10'); } else why.push('Big amount, but to a known payee: no points'); }
+    var d = document.querySelector('input[name="drain"]:checked'), dv = d ? parseInt(d.value, 10) : 0;
+    if (dv){ if (newp){ plus += dv; why.push('Big share of the balance to new payees (R5): +' + dv); } else why.push('Big share of the balance, but to a known payee: no points'); }
+    if (el('c-nomatch').checked){ plus += 30; why.push('Name-check warning ignored (R4): +30'); }
+    if (el('c-pause').checked){ plus += 10; why.push('Long pause on the confirm page (R7): +10'); }
+    if (el('c-mule').checked){ plus += 35; why.push('Many customers suddenly pay this IBAN (R6): +35'); }
+    if (el('c-asked').checked){ floor = 70; why.push('"The bank asked me": goes straight to hold (at least 70)'); }
+    if (el('g-paid').checked){ minus += 25; why.push('Payee paid before: −25'); }
+    if (el('g-known').checked){ minus += 20; why.push('Well-known payee: −20'); }
+    if (el('g-olddev').checked){ minus += 10; why.push('Old device at home: −10'); }
+    if (el('g-told').checked){ minus += 30; why.push('Told LDB in advance: −30'); }
+    if (minus > 40){ why.push('Good signs capped at −40 (they were −' + minus + ')'); minus = 40; }
+    var score = Math.max(0, Math.min(100, plus - minus));
+    if (plus - minus > 100) why.push('Total ' + (plus - minus) + ', capped at 100');
+    score = Math.max(score, floor);
+    el('k-score').innerHTML = score + '<small>points</small>';
+    el('k-needle').style.left = score + '%';
+    var a = el('k-action'), txt, cls;
+    if (score >= 90){ txt = 'BLOCK. Stop the payment, end the session, call the owner on a safe number.'; cls = 'r4'; }
+    else if (score >= 70){ txt = 'HOLD. An analyst calls the customer before the money can leave.'; cls = 'r3'; }
+    else if (score >= 50){ txt = 'CHECK. LuxTrust confirmation on a trusted phone.' + (newp ? ' If the amount is €1,000 or more: 1-hour release the owner can cancel.' : ''); cls = 'r2'; }
+    else if (score >= 30){ txt = 'WARN. Show a clear scam warning; the owner gets a message afterwards.'; cls = 'r1'; }
+    else { txt = 'ALLOW. The payment goes through with no extra steps.'; cls = 'r0'; }
+    a.className = 'actionbox ' + cls; a.textContent = txt;
+    el('k-why').innerHTML = why.length ? why.map(function(w){ return '<li>' + w + '</li>'; }).join('') : '<li>Nothing unusual is ticked.</li>';
+  }
+  function preset(k){
+    var p = PRESETS[k];
+    ids.forEach(function(id){ el(id).checked = p.on.indexOf(id) >= 0; });
+    el(p.drain).checked = true;
+    $$('#calc-presets .tab').forEach(function(t){ t.setAttribute('aria-pressed', t.getAttribute('data-preset') === k ? 'true' : 'false'); });
+    calc();
+  }
+  $$('#calc input').forEach(function(i){ i.addEventListener('change', function(){ $$('#calc-presets .tab').forEach(function(t){ t.setAttribute('aria-pressed', 'false'); }); calc(); }); });
+  $$('#calc-presets .tab').forEach(function(t){ t.addEventListener('click', function(){ preset(t.getAttribute('data-preset')); }); });
+  preset('rent');
+
+  /* ---------- quiz ---------- */
+  var QUIZ = [
+    ['What is the one question TrustAge asks about every payment?', ['Is this payment unusual for this customer?','What on the path to the money is new?','Is the payee in another country?'], 1, 'TrustAge looks for new links: a new device, phone, LuxTrust device or payee. Criminals cannot make new things old.'],
+    ['A customer pays an old payee whose IBAN was changed yesterday. How does TrustAge see it?', ['As a trusted old payee','As a new payee','It ignores the change'], 1, 'An edited IBAN resets the payee\'s age to zero. Otherwise criminals would just edit an existing payee.'],
+    ['A payment scores 60. The payee is new and the amount is €3,000. What happens?', ['It is allowed with no checks','A LuxTrust check, and the customer can choose a 1-hour release','It is blocked'], 1, '50–69 means a check. With a new payee and €1,000 or more, the payment waits 1 hour unless the customer calls to send it now.'],
+    ['Why does a LuxTrust check never go to a phone that changed last week?', ['Old phones are faster','After a SIM swap, that phone may belong to the criminal','It is too expensive'], 1, 'Sending the check to a phone the criminal controls would let them approve their own fraud.'],
+    ['How can LDB stop an instant payment that must arrive in 10 seconds?', ['It cannot','The check takes 0.3 seconds; if needed LDB refuses the instant order with a notice, so the 10-second clock never starts','Instant payments are not checked'], 1, 'Under PSD2 a refused order counts as never received. The customer can then send it as a normal transfer.'],
+    ['A commuter sends €1,500 to family in Portugal. Does the foreign IBAN add points?', ['Yes, +20','No, a foreign IBAN alone is never a warning sign','Only on weekends'], 1, 'Half of Luxembourg\'s workers live abroad. Foreign IBANs are normal here.'],
+    ['Why do we not use machine learning from day one?', ['It is illegal','LDB has no examples of real fraud yet for the model to learn from','It is too fast'], 1, 'We collect labels from analyst decisions first and add machine learning after about 200 to 300 confirmed cases.'],
+    ['What is a mule account?', ['A savings account for farmers','An account that receives stolen money and passes it on','The bank\'s own account'], 1, 'Criminals use mules to move money away quickly. Many victims often pay the same mule, which is what R6 and the crowd check look for.'],
+    ['On launch day every payee would look new. What do we do?', ['Block all payments for a week','Load 2 years of older transfers and start gently for 30 days','Nothing'], 1, 'Old transfers give payees their real age. During the 30-day warm-up a new device alone scores nothing.'],
+    ['Who must approve a change to a rule?', ['Nobody','A second person from risk and compliance (four eyes)','The customer'], 1, 'The fraud lead proposes, the change is tested silently, and a second person approves. This also protects against insiders.']
+  ];
+  var answered = {}, correct = 0;
+  function drawQuiz(){
+    answered = {}; correct = 0;
+    $('#qlist').innerHTML = QUIZ.map(function(q, i){
+      return '<div class="q" data-q="' + i + '"><h3>' + (i + 1) + '. ' + q[0] + '</h3><div class="opts">' +
+        q[1].map(function(o, j){ return '<button class="opt" data-o="' + j + '">' + o + '</button>'; }).join('') +
+        '</div><p class="fb" hidden></p></div>';
+    }).join('');
+    $$('#qlist .q').forEach(function(box){
+      var i = parseInt(box.getAttribute('data-q'), 10);
+      $$('.opt', box).forEach(function(b){
+        b.addEventListener('click', function(){
+          if (answered[i] !== undefined) return;
+          var j = parseInt(b.getAttribute('data-o'), 10), ok = (j === QUIZ[i][2]);
+          answered[i] = j; if (ok) correct++;
+          $$('.opt', box).forEach(function(x, xi){ if (xi === QUIZ[i][2]) x.classList.add('right'); else if (xi === j) x.classList.add('wrong'); });
+          var fb = $('.fb', box); fb.hidden = false; fb.textContent = (ok ? 'Right. ' : 'Not quite. ') + QUIZ[i][3];
+          updateScore();
+        });
+      });
+    });
+    updateScore();
+  }
+  function updateScore(){
+    var n = Object.keys(answered).length;
+    $('#qscore').textContent = n + ' of ' + QUIZ.length + ' answered · ' + correct + ' correct' + (n === QUIZ.length ? (correct >= 8 ? ' · Ready for the presentation.' : ' · Read the parts you missed once more.') : '');
+  }
+  $('#qreset').addEventListener('click', drawQuiz);
+  drawQuiz();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>TrustAge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one centred column; a short intro, then two equal choice cards side by side (stacked on phones). */
+:root{
+  --bg:#EDF0F5; --surface:#FFFFFF; --ink:#14203A; --muted:#566079; --line:#D5DBE5;
+  --accent:#C76A0E; --accent-soft:#FCEBD7; --blue:#2B5DA8; --blue-soft:#E3ECF8;
+  --btn-bg:#A85509; --btn-fg:#FFFFFF;
+  --font-d:'Sora','Segoe UI',Arial,sans-serif; --font-b:'Source Sans 3','Segoe UI',Arial,sans-serif; --font-m:'IBM Plex Mono',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0B111D; --surface:#141C2E; --ink:#E7ECF5; --muted:#A4AEC4; --line:#2B3754;
+  --accent:#F2A14A; --accent-soft:#3A2A16; --blue:#86AAEA; --blue-soft:#1C2A47;
+  --btn-bg:#F2A14A; --btn-fg:#1A1206; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0B111D; --surface:#141C2E; --ink:#E7ECF5; --muted:#A4AEC4; --line:#2B3754;
+  --accent:#F2A14A; --accent-soft:#3A2A16; --blue:#86AAEA; --blue-soft:#1C2A47;
+  --btn-bg:#F2A14A; --btn-fg:#1A1206; color-scheme:dark }
+body{ background:var(--bg); color:var(--ink); font:17px/1.6 var(--font-b); }
+.wrap{ max-width:980px; margin-inline:auto; padding-inline:16px; padding-block:56px 40px; display:flex; flex-direction:column; gap:28px; }
+.kicker{ margin:0; font:600 13px/1.2 var(--font-m); letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+h1{ margin:0; font:700 clamp(40px, 7vw, 68px)/1 var(--font-d); letter-spacing:-.02em; }
+.tag{ margin:0; font:600 clamp(20px, 3vw, 28px)/1.25 var(--font-d); color:var(--accent); text-wrap:balance; }
+.intro{ margin:0; max-width:62ch; }
+.choices{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px; }
+.choice{ display:flex; flex-direction:column; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:24px; color:var(--ink); text-decoration:none; transition:border-color .2s, transform .2s; }
+.choice:hover{ border-color:var(--accent); transform:translateY(-2px); }
+.choice:focus-visible{ outline:3px solid var(--blue); outline-offset:3px; }
+.choice h2{ margin:0; font:600 24px/1.2 var(--font-d); }
+.choice p{ margin:0; color:var(--muted); }
+.choice ul{ margin:0; padding-left:1.1em; color:var(--muted); font-size:16px; display:flex; flex-direction:column; gap:4px; }
+.go{ margin-top:auto; align-self:flex-start; font:600 16px/1 var(--font-b); padding:12px 18px; border-radius:9px; background:var(--btn-bg); color:var(--btn-fg); }
+.label{ font:600 12.5px/1 var(--font-m); color:var(--blue); text-transform:uppercase; letter-spacing:.06em; }
+.moves{ display:flex; flex-wrap:wrap; gap:8px; }
+.moves span{ font-size:15px; padding:6px 12px; border-radius:999px; background:var(--blue-soft); }
+.foot{ margin:0; color:var(--muted); font-size:14px; }
+@media (prefers-reduced-motion: reduce){ .choice{ transition:none; } .choice:hover{ transform:none; } }
+</style>
+
+</head>
+<body>
+<main class="wrap">
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <p class="kicker">Luxembourg Digital Bank · Account-takeover fraud detector</p>
+    <h1>TrustAge</h1>
+    <p class="tag">Fraudsters can steal a password, but not time.</p>
+    <p class="intro">TrustAge checks every online transfer before the money leaves. It asks one simple question: what on the path to the money is new? A new device, a new phone number or a new payee adds points. When the detector is not sure, it buys time.</p>
+    <div class="moves"><span>1 · Measure time</span><span>2 · Buy time</span><span>3 · Use time</span></div>
+  </div>
+
+  <div class="choices">
+    <a class="choice" href="deck.html">
+      <span class="label">For the presentation</span>
+      <h2>Presentation deck</h2>
+      <p>8 slides for 10 October, with speaker notes and animated diagrams.</p>
+      <ul><li>Use ← → to change slides</li><li>Press Play on the diagrams</li><li>Full screen for the projector</li></ul>
+      <span class="go">Open the deck →</span>
+    </a>
+    <a class="choice" href="study-guide.html">
+      <span class="label">For learning</span>
+      <h2>Study guide</h2>
+      <p>The whole concept in plain words, in about 20 minutes.</p>
+      <ul><li>Animated diagrams, step by step</li><li>A score calculator to try</li><li>A 10-question quiz</li></ul>
+      <span class="go">Open the study guide →</span>
+    </a>
+  </div>
+
+  <p class="foot">[Team name] · Corporate Risk Assessment and Digital Transformation · University of Luxembourg · October 2026. Luxembourg Digital Bank is a fictional bank; money figures are examples.</p>
+</main>
+
+</body>
+</html>
