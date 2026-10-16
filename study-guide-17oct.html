@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="color-scheme:light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>TrustAge Study Guide 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column (~760px) for text; diagrams, tables and tools break out to a wider band (~1200px); sticky chapter bar on top. */
+:root{
+  --bg:#F6EFDF; --surface:#FFFFFF; --surface-2:#FBF7EE; --ink:#14203A; --muted:#566079;
+  --line:#E4DAC6; --line-strong:#9AA5B8; --edge:#8E99AD;
+  --accent:#C76A0E; --accent-soft:#FCEBD7; --btn-bg:#A85509; --btn-fg:#FFFFFF;
+  --blue:#2B5DA8; --blue-soft:#E3ECF8; --bankzone:#F2F6FC; --zone:#FAF6EC;
+  --good:#2E7D4F; --good-soft:#E2F2E8; --warn:#8A5D00; --warn-soft:#FBF0D2;
+  --hold:#B54A12; --hold-soft:#FBE3D5; --bad:#B42318; --bad-soft:#FBE1DE;
+  --font-d:'Sora','Segoe UI',Arial,sans-serif; --font-b:'Source Sans 3','Segoe UI',Arial,sans-serif; --font-m:'IBM Plex Mono',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0B111D; --surface:#141C2E; --surface-2:#1A2439; --ink:#E7ECF5; --muted:#A4AEC4;
+  --line:#2B3754; --line-strong:#56637F; --edge:#6C7893;
+  --accent:#F2A14A; --accent-soft:#3A2A16; --btn-bg:#F2A14A; --btn-fg:#1A1206;
+  --blue:#86AAEA; --blue-soft:#1C2A47; --bankzone:#121D33; --zone:#10182A;
+  --good:#62C48F; --good-soft:#163323; --warn:#E5B94E; --warn-soft:#352B12;
+  --hold:#F08A4E; --hold-soft:#3A2217; --bad:#F2766B; --bad-soft:#3B1A1A; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0B111D; --surface:#141C2E; --surface-2:#1A2439; --ink:#E7ECF5; --muted:#A4AEC4;
+  --line:#2B3754; --line-strong:#56637F; --edge:#6C7893;
+  --accent:#F2A14A; --accent-soft:#3A2A16; --btn-bg:#F2A14A; --btn-fg:#1A1206;
+  --blue:#86AAEA; --blue-soft:#1C2A47; --bankzone:#121D33; --zone:#10182A;
+  --good:#62C48F; --good-soft:#163323; --warn:#E5B94E; --warn-soft:#352B12;
+  --hold:#F08A4E; --hold-soft:#3A2217; --bad:#F2766B; --bad-soft:#3B1A1A; color-scheme:dark }
+
+body{ background:var(--bg); color:var(--ink); font:17px/1.6 var(--font-b); }
+.page{ padding-inline:16px; padding-block:0 64px; }
+.col{ max-width:780px; margin-inline:auto; width:100%; }
+.wide{ max-width:1200px; margin-inline:auto; width:100%; }
+h1,h2,h3{ font-family:var(--font-d); text-wrap:balance; margin:0; }
+h1{ font-size:clamp(34px, 6vw, 56px); line-height:1.05; letter-spacing:-.02em; }
+h2{ font-size:clamp(24px, 3.4vw, 32px); line-height:1.15; }
+h3{ font-size:19px; line-height:1.3; }
+p{ margin:0; }
+b, strong{ font-weight:700; }
+a{ color:var(--blue); }
+.kicker{ font:600 13px/1.2 var(--font-m); letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+.muted{ color:var(--muted); }
+.stack{ display:flex; flex-direction:column; gap:14px; }
+.mono{ font-family:var(--font-m); font-variant-numeric:tabular-nums; }
+
+/* chapter bar */
+.bar{ position:sticky; top:env(safe-area-inset-top, 0px); z-index:5; background:var(--bg); border-bottom:1px solid var(--line); margin-inline:-16px; padding:10px 16px; }
+.bar nav{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:thin; max-width:1200px; margin-inline:auto; }
+.bar a{ flex:none; font:600 14px/1 var(--font-b); padding:8px 12px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); text-decoration:none; }
+.bar a:hover{ border-color:var(--accent); }
+.bar a:focus-visible, .btn:focus-visible, .opt:focus-visible, summary:focus-visible, input:focus-visible{ outline:3px solid var(--blue); outline-offset:2px; }
+
+.hero{ padding-block:44px 12px; display:flex; flex-direction:column; gap:16px; }
+.tag{ font-family:var(--font-d); font-size:clamp(20px, 2.8vw, 27px); font-weight:600; line-height:1.25; color:var(--accent); }
+.howto{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ font-size:14px; padding:6px 12px; border-radius:999px; background:var(--surface); border:1px solid var(--line); }
+
+section.part{ padding-block:48px 8px; display:flex; flex-direction:column; gap:20px; scroll-margin-top:64px; }
+.box{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:10px; }
+.callout{ background:var(--blue-soft); border-radius:12px; padding:16px 20px; }
+.callout.warm{ background:var(--accent-soft); }
+.callout.good{ background:var(--good-soft); }
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; }
+.grid3{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px; }
+.card{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; display:flex; flex-direction:column; gap:8px; min-width:0; }
+.card .n{ font:600 12.5px/1.2 var(--font-m); color:var(--accent); }
+ul.plain, ol.plain{ margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:8px; }
+.formula{ background:var(--ink); color:var(--surface); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:8px; }
+.formula .f{ font:600 clamp(18px, 2.6vw, 24px)/1.3 var(--font-m); }
+.calcline{ font-family:var(--font-m); font-size:15.5px; line-height:1.75; font-variant-numeric:tabular-nums; }
+.calcline b{ color:var(--accent); }
+
+/* tables */
+.tablewrap{ overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:14px; }
+table.t{ width:100%; border-collapse:collapse; font-size:15px; line-height:1.4; }
+.t th{ text-align:left; font:600 12px/1.2 var(--font-m); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); padding:10px 12px; border-bottom:2px solid var(--line-strong); white-space:nowrap; background:var(--surface-2); }
+.t td{ padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+.t td.id{ font:600 14px/1.4 var(--font-m); color:var(--accent); white-space:nowrap; }
+.t td.num, .t th.num{ text-align:right; font-family:var(--font-m); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.t td.pt{ font-weight:700; }
+.t tr.grp td{ background:var(--surface-2); font-weight:700; font-family:var(--font-d); font-size:14.5px; }
+.t tr.mit td.id, .t tr.mit td.pt{ color:var(--good); }
+.t tr.ovr td.id{ color:var(--bad); }
+.t td.why{ color:var(--muted); font-size:14.5px; }
+
+/* diagram */
+.split{ display:grid; grid-template-columns:minmax(0,1fr) 290px; gap:16px; align-items:start; }
+.figwrap{ min-width:0; overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:10px; }
+.dg{ display:block; width:100%; height:auto; color:var(--ink); }
+.panel{ display:flex; flex-direction:column; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px; position:sticky; top:70px; }
+.cap-num{ font:600 13px/1.2 var(--font-m); color:var(--accent); text-transform:uppercase; letter-spacing:.06em; }
+.cap-text{ font-size:17px; line-height:1.45; min-height:8.7em; }
+.btn{ font:600 15px/1 var(--font-b); padding:10px 15px; border-radius:8px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); cursor:pointer; white-space:nowrap; }
+.btn:hover{ border-color:var(--accent); }
+.btn.primary{ background:var(--btn-bg); color:var(--btn-fg); border-color:var(--btn-bg); min-width:6.5em; }
+.controls{ display:flex; flex-wrap:wrap; gap:8px; }
+.dg text{ fill:var(--ink); font-family:var(--font-b); }
+.dg .nt{ font-size:15px; font-weight:700; }
+.dg .ns{ font-size:12.5px; fill:var(--muted); }
+.dg .zl{ font-size:12.5px; font-weight:700; letter-spacing:.08em; fill:var(--muted); }
+.dg .zl.bank{ fill:var(--blue); font-size:14px; letter-spacing:.04em; }
+.dg .zl.fd{ fill:var(--accent); } .dg .zl.loop{ fill:var(--good); }
+.dg .el{ font-size:12px; fill:var(--muted); font-style:italic; }
+.dg .bankzone{ fill:var(--bankzone); stroke:var(--blue); stroke-width:1.6; }
+.dg .fdzone{ fill:none; stroke:var(--accent); stroke-width:1.6; stroke-dasharray:7 5; }
+.dg .loopzone{ fill:var(--good-soft); stroke:var(--good); stroke-width:1.2; stroke-dasharray:4 4; opacity:.7; }
+.dg .node rect, .dg .node circle, .dg .node .body{ fill:var(--surface); stroke:var(--line-strong); stroke-width:1.5; transition:fill .3s, stroke .3s; }
+.dg .node.key rect{ stroke:var(--accent); }
+.dg .node.done rect, .dg .node.done circle, .dg .node.done .body{ stroke:var(--blue); fill:var(--blue-soft); }
+.dg .node.on rect, .dg .node.on circle, .dg .node.on .body{ stroke:var(--accent); stroke-width:3; fill:var(--accent-soft); }
+.dg .edge{ fill:none; stroke:var(--edge); stroke-width:1.6; opacity:.6; transition:stroke .3s, opacity .3s; }
+.dg .edge.dash{ stroke-dasharray:6 5; }
+.dg .edge.done{ stroke:var(--blue); opacity:.95; }
+.dg .edge.on{ stroke:var(--accent); stroke-width:3; opacity:1; }
+.dg .dot{ fill:var(--accent); stroke:var(--surface); stroke-width:2.5; opacity:0; }
+
+/* ladder */
+.ladder-static{ display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:8px; }
+.rungbox{ border-radius:10px; padding:12px; display:flex; flex-direction:column; gap:4px; min-width:0; font-size:15px; line-height:1.35; }
+.rungbox b{ font-family:var(--font-m); font-weight:600; }
+.rungbox.a{ background:var(--good-soft); } .rungbox.a b{ color:var(--good); }
+.rungbox.w{ background:var(--warn-soft); } .rungbox.w b{ color:var(--warn); }
+.rungbox.c{ background:var(--accent-soft); } .rungbox.c b{ color:var(--accent); }
+.rungbox.h{ background:var(--hold-soft); } .rungbox.h b{ color:var(--hold); }
+.rungbox.k{ background:var(--bad-soft); } .rungbox.k b{ color:var(--bad); }
+
+/* calculators */
+.tool{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px 20px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:18px; align-items:start; }
+.tool h3{ grid-column:1 / -1; }
+.inputs{ display:flex; flex-direction:column; gap:12px; }
+.inputs label{ display:flex; flex-direction:column; gap:4px; font-size:15.5px; font-weight:600; }
+.inputs label span{ font-weight:400; color:var(--muted); font-size:14px; }
+.inputs input[type=number]{ font:600 17px/1.2 var(--font-m); padding:8px 10px; border-radius:8px; border:1px solid var(--line-strong); background:var(--surface-2); color:var(--ink); width:100%; max-width:220px; }
+.inputs input[type=range]{ width:100%; accent-color:var(--btn-bg); }
+.out{ background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:8px; }
+.out .big{ font:700 46px/1 var(--font-d); font-variant-numeric:tabular-nums; }
+.out .big small{ font:600 15px var(--font-b); color:var(--muted); margin-left:.3em; }
+.out p{ font-size:15.5px; line-height:1.45; }
+.act{ font-weight:700; padding:8px 12px; border-radius:8px; align-self:flex-start; }
+
+/* steps of the loop */
+.loop{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; }
+.loop .card .n{ color:var(--good); }
+
+/* timeline */
+.tl{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; }
+.tl .card{ border-top:4px solid var(--blue); }
+
+/* Q&A + quiz */
+details.qa{ background:var(--surface); border:1px solid var(--line); border-radius:12px; }
+details.qa summary{ cursor:pointer; padding:14px 18px; font-weight:700; list-style:none; display:flex; gap:10px; }
+details.qa summary::before{ content:'+'; font-family:var(--font-m); color:var(--accent); }
+details.qa[open] summary::before{ content:'−'; }
+details.qa summary::-webkit-details-marker{ display:none; }
+details.qa[open] summary{ border-bottom:1px solid var(--line); }
+details.qa .body{ padding:12px 18px 16px; display:flex; flex-direction:column; gap:8px; font-size:16px; line-height:1.5; }
+.q{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; display:flex; flex-direction:column; gap:10px; }
+.q h3{ font-size:17.5px; }
+.opts{ display:flex; flex-direction:column; gap:6px; }
+.opt{ text-align:left; font:16px/1.4 var(--font-b); padding:10px 12px; border-radius:8px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); cursor:pointer; }
+.opt:hover{ border-color:var(--accent); }
+.opt.right{ background:var(--good-soft); border-color:var(--good); font-weight:600; }
+.opt.wrong{ background:var(--bad-soft); border-color:var(--bad); }
+.fb{ font-size:15.5px; line-height:1.45; padding:10px 12px; border-radius:8px; background:var(--surface-2); }
+.scoreline{ font:600 16px/1.3 var(--font-m); }
+.footer{ padding-block:40px 0; color:var(--muted); font-size:14px; }
+
+@media (max-width:980px){
+  .split{ grid-template-columns:1fr; } .panel{ position:static; } .cap-text{ min-height:0; }
+  .dg{ min-width:820px; }
+  .tool{ grid-template-columns:1fr; }
+  .loop, .tl{ grid-template-columns:1fr 1fr; }
+  .ladder-static{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:560px){ .loop, .tl, .ladder-static{ grid-template-columns:1fr; } }
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; } html{ scroll-behavior:auto; } }
+html{ scroll-behavior:smooth; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bar"><nav aria-label="Chapters">
+    <a href="#changed">1 What changed</a><a href="#arch">2 Architecture</a><a href="#points">3 How points are set</a><a href="#table">4 Full table</a>
+    <a href="#examples">5 Examples</a><a href="#learn">6 Learns by itself</a><a href="#newbank">7 New bank</a><a href="#reports">8 Reports</a>
+    <a href="#questions">9 Hard questions</a><a href="#limits">10 Limits</a><a href="#quiz">11 Quiz</a>
+  </nav></div>
+
+  <header class="hero col">
+    <p class="kicker">Study guide 2 · for the 17 October review · Luxembourg Digital Bank</p>
+    <h1>TrustAge, part 2</h1>
+    <p class="tag">Where the points come from, how it learns by itself, and how it starts in a brand-new bank.</p>
+    <p>This guide explains what is new since the 10 October proposal. Read the first study guide for the basics (the 8 rules, buying time, the mule ring). This one answers the three questions from the feedback: <b>how exactly do we give points to a case</b>, <b>how does the detector adapt without anyone touching it</b>, and <b>what does the bank-level architecture look like</b>.</p>
+    <div class="howto"><span class="pill">≈ 20 min read</span><span class="pill">3 calculators to try</span><span class="pill">13 hard questions with answers</span><span class="pill">10-question quiz</span></div>
+    <p class="muted" style="font-size:15px"><a href="index.html">← Back to the start page</a> · <a href="deck-17oct.html">Open the 17 October deck</a></p>
+  </header>
+
+  <!-- 1 -->
+  <section class="part" id="changed">
+    <div class="col stack">
+      <p class="kicker">Part 1</p>
+      <h2>What changed since 10 October, and why</h2>
+      <p>The core idea is the same: <b>a fraudster can steal a password, but not time.</b> Every account takeover needs something new on the path to the money, so we measure how old each link is. What changed is how concrete and how self-running the design is.</p>
+    </div>
+    <div class="wide tablewrap">
+      <table class="t">
+        <thead><tr><th>Topic</th><th>10 October</th><th>17 October</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td><b>Architecture</b></td><td>Customer, LuxTrust, receiving bank, CSSF, IT and four staff roles on one picture</td><td>Only LDB's own systems, the detector's three parts, one learning loop and two people</td><td class="why">Feedback: too wide, unnecessary players. The detector's job happens inside the bank.</td></tr>
+          <tr><td><b>Points</b></td><td>Expert bands: strong 30–50, medium 15–25, weak 5–10</td><td>One formula for every signal: points = 7 × log₂(fraud share ÷ genuine share)</td><td class="why">Feedback: be concrete about how a case gets its score. Now every number has a reason and a meaning.</td></tr>
+          <tr><td><b>Adapting</b></td><td>Fraud lead retunes monthly, second person approves</td><td>Auto-tuner recounts every week, tests itself, writes a log; people can veto</td><td class="why">Feedback: it must adapt without someone's intervention (not necessarily machine learning).</td></tr>
+          <tr><td><b>History</b></td><td>Assumed 24 months of old LDB transfers</td><td>No history: trust starts at the verified onboarding</td><td class="why">LDB is a new bank, so there is no old data to load.</td></tr>
+          <tr><td><b>Reports</b></td><td>Described in words</td><td>Five mockups with example numbers</td><td class="why">Required for 17 October.</td></tr>
+          <tr><td><b>Some points</b></td><td>R1 24–72 h +25, VoP no match +30, crowd IBAN +35</td><td>+35, +35, +40</td><td class="why">The formula gave these values. All worked examples keep the same action.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="part" id="arch">
+    <div class="col stack">
+      <p class="kicker">Part 2</p>
+      <h2>The architecture at bank level</h2>
+      <p>Everything on this picture lives inside Luxembourg Digital Bank. Outside parties (the customer, LuxTrust, the receiving bank, the CSSF) still exist, but they are not part of the detector, so they are no longer drawn. Press <b>Play</b> to follow one payment, then the learning loop.</p>
+    </div>
+    <div class="wide split flow" id="flow-arch" data-intro="Everything shown is inside LDB. Press Play to follow one payment, then the learning loop.">
+      <div class="figwrap">
+      <svg class="dg" data-m="arch" viewBox="0 0 1200 560" role="img" aria-label="Bank-level architecture: online banking and the payment hub call the Fraud Detector. Inside it, the Transaction loader reads bank records, the Attribute builder computes link ages, the Fraud engine scores with the points table, the Results store keeps every decision, and the Report engine feeds the console used by the fraud analyst. A learning loop re-weights points weekly; the fraud lead reads the log.">
+        <defs>
+          <marker id="arch-off" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--edge)"/></marker>
+          <marker id="arch-done" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--blue)"/></marker>
+          <marker id="arch-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--accent)"/></marker>
+        </defs>
+        <rect class="bankzone" x="6" y="6" width="1188" height="548" rx="14"/>
+        <text class="zl bank" x="26" y="34">INSIDE LUXEMBOURG DIGITAL BANK</text>
+        <rect class="fdzone" x="250" y="168" width="934" height="250" rx="12"/>
+        <text class="zl fd" x="266" y="190">FRAUD DETECTOR · TRUSTAGE</text>
+        <rect class="loopzone" x="650" y="304" width="360" height="104" rx="10"/>
+        <text class="zl loop" x="662" y="402">LEARNING LOOP · WEEKLY</text>
+        <path class="edge" data-e="e1" d="M220 92 H970"/>
+        <text class="el" x="595" y="84" text-anchor="middle">payment order + name-check (VoP) result</text>
+        <path class="edge" data-e="e2" d="M1010 125 V150 H355 V214"/>
+        <text class="el" x="700" y="143" text-anchor="middle">"Is this safe?"</text>
+        <path class="edge" data-e="e3" d="M220 249 H270"/>
+        <path class="edge" data-e="e4" d="M440 249 H470"/>
+        <path class="edge" data-e="e5" d="M640 249 H670"/>
+        <path class="edge" data-e="e6" d="M755 214 V176 H1110 V125"/>
+        <text class="el" x="935" y="194" text-anchor="middle">answer in &lt; 0.3 s</text>
+        <path class="edge" data-e="e7" d="M840 249 H870"/>
+        <path class="edge" data-e="e8" d="M990 249 H1030"/>
+        <path class="edge" data-e="e9" d="M1100 284 V320"/>
+        <path class="edge" data-e="e10" data-both="1" d="M1100 382 V452"/>
+        <path class="edge" data-e="e11" d="M1030 351 H995"/>
+        <path class="edge" data-e="e12" d="M930 284 V320"/>
+        <path class="edge" data-e="e13" d="M870 351 H845"/>
+        <path class="edge" data-e="e14" d="M755 320 V284"/>
+        <path class="edge dash" data-e="e15" d="M930 382 V452"/>
+        <text class="el" x="940" y="436">log + veto</text>
+        <text class="el" x="1110" y="436">review</text>
+        <g class="node" data-n="web"><rect x="30" y="60" width="190" height="65" rx="10"/><text class="nt" x="125" y="89" text-anchor="middle">Online banking</text><text class="ns" x="125" y="108" text-anchor="middle">web app · customer's order</text></g>
+        <g class="node" data-n="hub"><rect x="970" y="60" width="200" height="65" rx="10"/><text class="nt" x="1070" y="89" text-anchor="middle">Payment hub</text><text class="ns" x="1070" y="108" text-anchor="middle">sends money only if allowed</text></g>
+        <g class="node" data-n="records"><rect x="30" y="200" width="190" height="200" rx="10"/><text class="nt" x="125" y="230" text-anchor="middle">Bank records</text>
+          <text class="ns" x="46" y="258">· logins, devices, IPs</text><text class="ns" x="46" y="280">· phone / email / LuxTrust</text><text class="ns" x="46" y="296">  changes</text><text class="ns" x="46" y="318">· KYC + onboarding anchors</text><text class="ns" x="46" y="340">· balances, payees</text><text class="ns" x="46" y="362">· mule list</text></g>
+        <g class="node" data-n="loader"><rect x="270" y="214" width="170" height="70" rx="10"/><text class="nt" x="355" y="244" text-anchor="middle">Transaction loader</text><text class="ns" x="355" y="264" text-anchor="middle">part 1 · collects, checks</text></g>
+        <g class="node" data-n="builder"><rect x="470" y="214" width="170" height="70" rx="10"/><text class="nt" x="555" y="244" text-anchor="middle">Attribute builder</text><text class="ns" x="555" y="264" text-anchor="middle">how old is each link?</text></g>
+        <g class="node key" data-n="engine"><rect x="670" y="214" width="170" height="70" rx="10"/><text class="nt" x="755" y="244" text-anchor="middle">Fraud engine</text><text class="ns" x="755" y="264" text-anchor="middle">part 2 · points → action</text></g>
+        <g class="node" data-n="results"><rect x="870" y="214" width="120" height="70" rx="10"/><text class="nt" x="930" y="244" text-anchor="middle">Results store</text><text class="ns" x="930" y="264" text-anchor="middle">audit trail</text></g>
+        <g class="node" data-n="report"><rect x="1030" y="214" width="140" height="70" rx="10"/><text class="nt" x="1100" y="244" text-anchor="middle">Report engine</text><text class="ns" x="1100" y="264" text-anchor="middle">part 3 · 5 reports</text></g>
+        <g class="node" data-n="points"><rect x="670" y="320" width="175" height="62" rx="10"/><text class="nt" x="757" y="347" text-anchor="middle">Points table</text><text class="ns" x="757" y="366" text-anchor="middle">versioned · v1.4</text></g>
+        <g class="node" data-n="tuner"><rect x="870" y="320" width="125" height="62" rx="10"/><text class="nt" x="932" y="347" text-anchor="middle">Auto-tuner</text><text class="ns" x="932" y="366" text-anchor="middle">recount + test</text></g>
+        <g class="node" data-n="console"><rect x="1030" y="320" width="140" height="62" rx="10"/><text class="nt" x="1100" y="347" text-anchor="middle">Console</text><text class="ns" x="1100" y="366" text-anchor="middle">alerts · reports</text></g>
+        <g class="node" data-n="lead"><circle cx="930" cy="466" r="11"/><path class="body" d="M912 502 Q912 481 930 481 Q948 481 948 502 Z"/><text class="nt" x="930" y="524" text-anchor="middle" style="font-size:14px">Fraud lead</text><text class="ns" x="930" y="541" text-anchor="middle">reads the log, can veto</text></g>
+        <g class="node" data-n="analyst"><circle cx="1100" cy="466" r="11"/><path class="body" d="M1082 502 Q1082 481 1100 481 Q1118 481 1118 502 Z"/><text class="nt" x="1100" y="524" text-anchor="middle" style="font-size:14px">Fraud analyst</text><text class="ns" x="1100" y="541" text-anchor="middle">decides held payments</text></g>
+        <circle class="dot" r="8" cx="0" cy="0"/>
+      </svg>
+      </div>
+      <div class="panel">
+        <p class="cap-num">Ready</p>
+        <p class="cap-text"></p>
+        <div class="controls">
+          <button class="btn primary" data-act="play" aria-pressed="false">Play</button>
+          <button class="btn" data-act="prev">Back</button>
+          <button class="btn" data-act="next">Next step</button>
+          <button class="btn" data-act="reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col stack">
+      <h3>Each part: what goes in, what comes out</h3>
+    </div>
+    <div class="wide tablewrap">
+      <table class="t">
+        <thead><tr><th>Part</th><th>Input</th><th>Output</th><th>Who uses it</th></tr></thead>
+        <tbody>
+          <tr><td><b>Online banking + payment hub</b></td><td>The customer's transfer</td><td>Asks the detector before sending; sends only if allowed</td><td class="why">The payment process (already exists at LDB)</td></tr>
+          <tr><td><b>1 · Transaction loader</b></td><td>The order + bank records (logins, devices, security changes, KYC, payees, mule list)</td><td>One checked record. Missing fields are flagged and add points; nothing passes silently</td><td class="why">Automatic</td></tr>
+          <tr><td><b>Attribute builder</b></td><td>The checked record</td><td>Link ages (from the verified onboarding), 72-hour totals, how many customers pay this IBAN</td><td class="why">Automatic</td></tr>
+          <tr><td><b>2 · Fraud engine</b></td><td>Attributes + the current points table</td><td>Score, action, reason codes, one plain sentence, in under 0.3 s</td><td class="why">Automatic</td></tr>
+          <tr><td><b>Results store</b></td><td>Every decision</td><td>Append-only audit trail with the table version used</td><td class="why">Audit, CSSF, the learning loop</td></tr>
+          <tr><td><b>3 · Report engine + console</b></td><td>Results + outcomes</td><td>Five reports (Part 8)</td><td class="why">Fraud analyst, fraud lead, management</td></tr>
+          <tr><td><b>Auto-tuner</b></td><td>Outcomes + genuine rates of the last 90 days</td><td>The next points table, only if it passes the safety test</td><td class="why">Automatic; the fraud lead reads the log</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <p class="callout"><b>Operating model in one sentence:</b> the detector decides most payments alone in under a second; a fraud analyst decides only the held ones (score 70+), after a call to the phone number verified at onboarding; the fraud lead never has to act, but reads the weekly log and can veto any change.</p>
+      <h3>Instant payments and the 10-second rule</h3>
+      <p>Instant transfers must reach the payee's bank within 10 seconds (Instant Payments Regulation 2024/886). TrustAge answers in under 0.3 s, so Allow, Warn and a passed LuxTrust check stay instant. If a 1-hour release, a hold or a block applies, LDB refuses the <i>instant</i> order within the 10 seconds and tells the customer at once, with the reason (PSD2 Art. 79). As LDB's terms allow, the payment then continues as a standard SEPA transfer, which must arrive by the end of the next business day (PSD2 Art. 83). So every hold has a hard deadline: decide by D+1.</p>
+      <h3>When people are the bottleneck</h3>
+      <ul class="plain">
+        <li><b>Nights and weekends.</b> One analyst is on call for P1 and P2 alerts (about 2 holds a day, so one person is enough). P3 waits for the next business day, as planned, which is still inside the D+1 deadline.</li>
+        <li><b>Customer not reached.</b> Two calls to the onboarding phone plus an in-app message. If there is still no answer at the D+1 cut-off, the payment is refused and the customer is told. A held payment is <b>never released by default</b>.</li>
+        <li><b>Scam wave.</b> If holds still exceed capacity with the hold line at its maximum of 75 (Rail 7), the fraud lead sends the in-app warning from the campaign board, the queue is sorted by amount at risk, and a trained colleague from operations joins the queue.</li>
+        <li><b>Safe channel for every message.</b> For 30 days after a phone, email or LuxTrust change, warnings and confirmations also go to the <i>old</i> phone and email. Otherwise the "Warn" message after a SIM swap would go to the criminal's new number.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="part" id="points">
+    <div class="col stack">
+      <p class="kicker">Part 3</p>
+      <h2>How we give points to a case</h2>
+      <p>For every signal we ask two simple questions:</p>
+      <ol class="plain">
+        <li><b>F:</b> out of 100 frauds, in how many does this signal appear?</li>
+        <li><b>G:</b> out of 100 genuine payments, in how many does it appear?</li>
+      </ol>
+      <p>F ÷ G tells us how much <b>more likely</b> fraud becomes when we see the signal. Bankers call this a <b>likelihood ratio</b>. The formula turns it into points:</p>
+      <div class="formula">
+        <span class="f">points = 7 × log₂(F ÷ G), rounded to 5</span>
+        <p style="opacity:.85">Every +7 points means the odds of fraud <b>double</b>. +14 means 4×, +21 means 8×, +70 means about 1,000×.</p>
+      </div>
+      <h3>Why a logarithm? Because it lets us add.</h3>
+      <p>Evidence multiplies: a signal that makes fraud 9× likelier, plus one that makes it 40× likelier, together make it about 360× likelier. Multiplying is hard to explain to a risk officer. The logarithm turns multiplying into adding: +20 and +35 points simply add up to +55. That is why the score is a simple sum, and still means something precise. Credit scorecards use the same trick ("points to double the odds").</p>
+      <h3>Worked example: R3 fresh payee</h3>
+      <p class="calcline">A payee added less than 24 h ago, payment ≥ €500<br>F = <b>70%</b> of frauds · G = <b>8%</b> of genuine payments<br>70 ÷ 8 = 8.75× more likely<br>7 × log₂(8.75) = 7 × 3.13 = 21.9 → <b>+20 points</b></p>
+      <h3>Good signs work the same way, in reverse</h3>
+      <p class="calcline">M1 trusted payee (paid twice, ≥ 30 days apart)<br>F = <b>5%</b> · G = <b>60%</b> → 0.08× → 7 × log₂(0.08) = −25.1 → <b>−25 points</b></p>
+      <h3>Where F and G come from</h3>
+      <ul class="plain">
+        <li><b>G (genuine share) is measured, not guessed.</b> Over 99.9% of payments are genuine, so LDB counts G on its own traffic. After 30 days (≈ 75,000 transfers) every G is precise to a few tenths of a percent.</li>
+        <li><b>F (fraud share) starts as an estimate</b> from public cases (fake BILnet site, SIM swaps, fake bank calls), our 40-scenario library and the fraud team's judgment. Then the detector corrects it with real cases (Part 6).</li>
+        <li><b>The estimate is robust.</b> If our F is wrong by half (35% instead of 70%), the points move by only 7 × log₂(2) = 7. If it is wrong by a third, by 4. That is the advantage of the log scale.</li>
+        <li><b>No double counting.</b> Extras such as "+ IBAN edited" or "+ amount far above normal" are measured <i>among fresh-payee payments only</i>, so they add only what is new. Signals that often come together are capped per rule (R2 max +50, R5 max +35, good signs max −40). R5 (drain) overlaps with R3, because a drain usually goes to a new payee; its cap keeps that in check. And the calibration check (Rail 9) tests whether the summed score still matches reality.</li>
+      </ul>
+    </div>
+
+    <div class="wide tool" id="tool-lr">
+      <h3>Try it: give a signal its points</h3>
+      <div class="inputs">
+        <label>F · in how many of 100 frauds does it appear? <span>e.g. 70 for a fresh payee</span><input type="number" id="lr-f" min="0.1" max="100" step="0.1" value="70"></label>
+        <label>G · in how many of 100 genuine payments? <span>e.g. 8 (measured on LDB's payments)</span><input type="number" id="lr-g" min="0.01" max="100" step="0.01" value="8"></label>
+      </div>
+      <div class="out" aria-live="polite">
+        <p class="big" id="lr-pts">+20<small>points</small></p>
+        <p id="lr-txt"></p>
+      </div>
+    </div>
+
+    <div class="col stack">
+      <h3>What a score means</h3>
+      <p>We assume, for planning, that <b>1 in 20,000</b> LDB transfers is account-takeover fraud (LDB measures its real rate from month 1; for comparison, the EBA and ECB put EU credit-transfer fraud at about 0.001% of value in 2024). Then every score has a probability:</p>
+    </div>
+    <div class="wide ladder-static">
+      <div class="rungbox a"><b>0–29 · Allow</b><span>under 1 in 1,000 such payments is fraud</span></div>
+      <div class="rungbox w"><b>30–49 · Warn</b><span>1 in 1,000 to 1 in 160; the owner is notified (also on the old phone or email after a change)</span></div>
+      <div class="rungbox c"><b>50–69 · Check</b><span>1 in 140 to 1 in 25; LuxTrust check, 1-hour release if new payee ≥ €1,000</span></div>
+      <div class="rungbox h"><b>70–89 · Hold</b><span>1 in 20 to 1 in 4; the analyst calls before release</span></div>
+      <div class="rungbox k"><b>90+ · Block</b><span>1 in 4 or more; session ends, access blocked, call</span></div>
+    </div>
+    <div class="col"><p class="callout"><b>How the score is shown:</b> on screens the score is shown between 0 and 100 (the SIM swap's 135 appears as 100, the rent's −10 as 0). The odds use the raw sum. An override (O1–O4) lifts the score to its minimum, and the alert then shows the override's reason instead of odds.</p></div>
+    <div class="wide tool" id="tool-odds">
+      <h3>Try it: what does a score mean?</h3>
+      <div class="inputs">
+        <label>Score <span>drag the slider</span><input type="range" id="od-s" min="0" max="120" step="5" value="70"></label>
+        <label>Planning rate: 1 fraud in how many transfers? <span>change it to see how the meaning shifts</span><input type="number" id="od-p" min="1000" max="200000" step="1000" value="20000"></label>
+      </div>
+      <div class="out" aria-live="polite">
+        <p class="big" id="od-big">70<small>points</small></p>
+        <p id="od-txt"></p>
+        <p class="act" id="od-act"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="part" id="table">
+    <div class="col stack">
+      <p class="kicker">Part 4</p>
+      <h2>The full points table</h2>
+      <p>All 27 signals, 5 good signs and 4 overrides. F is our starting estimate, G is LDB's expected genuine rate (replaced by the measured rate after 30 days). P = alert priority: P1 answered within 15 minutes 24/7, P2 within 1 hour, P3 next business day.</p>
+    </div>
+    <div class="wide tablewrap">
+      <table class="t">
+        <thead><tr><th>ID</th><th>Signal (trigger)</th><th class="num">F</th><th class="num">G</th><th class="num">×</th><th class="num">Points</th><th>P</th><th>Business reason</th></tr></thead>
+        <tbody>
+          <tr class="grp"><td colspan="8">R1 · Control change, then money out</td></tr>
+          <tr><td class="id">R1a</td><td>Phone, email, password or LuxTrust changed &lt; 24 h ago, then ≥ €500 to a fresh or young payee (72 h total)</td><td class="num">35%</td><td class="num">0.3%</td><td class="num">117</td><td class="num pt">+50</td><td>P1</td><td class="why">SIM swap and account recovery attacks change the controls first. Honest customers rarely change their phone and pay a new person the same day.</td></tr>
+          <tr><td class="id">R1b</td><td>Same, change 24–72 h ago</td><td class="num">10%</td><td class="num">0.4%</td><td class="num">25</td><td class="num pt">+35</td><td>P1</td><td class="why">Patient criminals wait a day to avoid simple "same-day" rules.</td></tr>
+          <tr><td class="id">R1c</td><td>Same, change 3–7 days ago</td><td class="num">6%</td><td class="num">1%</td><td class="num">6</td><td class="num pt">+20</td><td>P2</td><td class="why">The points fade with the age of the change instead of stopping at 72 h, so waiting a few days does not reset the risk to zero.</td></tr>
+          <tr class="grp"><td colspan="8">R2 · Unfamiliar access (cap +50)</td></tr>
+          <tr><td class="id">R2a</td><td>Device first seen &lt; 24 h ago</td><td class="num">55%</td><td class="num">6%</td><td class="num">9</td><td class="num pt">+20</td><td>P2</td><td class="why">Stolen credentials are used on the criminal's device. New phones are common, so it is only medium evidence.</td></tr>
+          <tr><td class="id">R2b</td><td>Hosting provider, VPN or Tor network</td><td class="num">15%</td><td class="num">3%</td><td class="num">5</td><td class="num pt">+15</td><td>P2</td><td class="why">Hides the criminal's location. Weak, because cross-border workers use VPNs.</td></tr>
+          <tr><td class="id">R2c</td><td>Session break: network AND browser fingerprint change mid-session</td><td class="num">20%</td><td class="num">0.15%</td><td class="num">133</td><td class="num pt">+50</td><td>P1</td><td class="why">Typical of a stolen session cookie or a fake-site relay.</td></tr>
+          <tr class="grp"><td colspan="8">R3 · Fresh payee with value at risk</td></tr>
+          <tr><td class="id">R3a</td><td>Payee added &lt; 24 h ago, payment ≥ €500</td><td class="num">70%</td><td class="num">8%</td><td class="num">9</td><td class="num pt">+20</td><td>P2</td><td class="why">Money must reach the criminal's account, which is almost always new to the victim.</td></tr>
+          <tr><td class="id">R3b</td><td>Young payee (1–30 days), ≥ €500</td><td class="num">15%</td><td class="num">6%</td><td class="num">2.5</td><td class="num pt">+10</td><td>P2</td><td class="why">Some criminals add the payee days before using it.</td></tr>
+          <tr><td class="id">R3c</td><td>+ IBAN of an existing payee was edited (measured among fresh payees)</td><td class="num">11%</td><td class="num">2.5%</td><td class="num">4.4</td><td class="num pt">+15</td><td>P2</td><td class="why">Editing a trusted payee's IBAN hides the new account behind an old name.</td></tr>
+          <tr><td class="id">R3d</td><td>+ amount &gt; 2× the customer's own 95th percentile (among fresh payees)</td><td class="num">50%</td><td class="num">15%</td><td class="num">3.3</td><td class="num pt">+10</td><td>P2</td><td class="why">Criminals take as much as possible at once.</td></tr>
+          <tr class="grp"><td colspan="8">R4 · Name or purpose contradiction</td></tr>
+          <tr><td class="id">R4a</td><td>Name check (VoP) says "no match" and the customer continues</td><td class="num">25%</td><td class="num">1%</td><td class="num">25</td><td class="num pt">+35</td><td>P2</td><td class="why">Mule accounts are in other people's names; coached victims are told to ignore the warning.</td></tr>
+          <tr><td class="id">R4b</td><td>VoP "close match"</td><td class="num">10%</td><td class="num">3%</td><td class="num">3.3</td><td class="num pt">+10</td><td>P2</td><td class="why">Small spelling differences are common for honest payees too.</td></tr>
+          <tr><td class="id">R4c</td><td>VoP not possible (receiving bank does not answer)</td><td class="num">5%</td><td class="num">2.5%</td><td class="num">2</td><td class="num pt">+5</td><td>P3</td><td class="why">Missing evidence is a small risk, never a free pass.</td></tr>
+          <tr><td class="id">R4d</td><td>+ purpose answer contradicts the payee (e.g. "invoice" to a private person, "security transfer")</td><td class="num">20%</td><td class="num">4%</td><td class="num">5</td><td class="num pt">+15</td><td>P2</td><td class="why">Scam scripts make victims choose odd purposes.</td></tr>
+          <tr class="grp"><td colspan="8">R5 · Drain and split (cap +35)</td></tr>
+          <tr><td class="id">R5a</td><td>72 h total to fresh/young payees ≥ 50% of the balance</td><td class="num">60%</td><td class="num">5%</td><td class="num">12</td><td class="num pt">+25</td><td>P2</td><td class="why">Fraud empties the account, even in small pieces.</td></tr>
+          <tr><td class="id">R5b</td><td>Same, ≥ 80% of the balance</td><td class="num">40%</td><td class="num">1%</td><td class="num">40</td><td class="num pt">+35</td><td>P2</td><td class="why">Very rare for honest customers unless declared (e.g. buying a flat).</td></tr>
+          <tr><td class="id">R5c</td><td>72 h total ≥ 3× the customer's usual 72 h</td><td class="num">45%</td><td class="num">9%</td><td class="num">5</td><td class="num pt">+15</td><td>P2</td><td class="why">Sudden change against the customer's own habit.</td></tr>
+          <tr class="grp"><td colspan="8">R6 · Risky destination</td></tr>
+          <tr class="ovr"><td class="id">R6a</td><td>Payee IBAN on the mule list</td><td class="num" colspan="4" style="text-align:center">override O1 → 90+</td><td>P1</td><td class="why">Confirmed criminal account.</td></tr>
+          <tr><td class="id">R6b</td><td>New IBAN paid by ≥ 3 unrelated LDB customers in 72 h (or 2 waiting in a 1-hour release)</td><td class="num">10%</td><td class="num">0.2%</td><td class="num">50</td><td class="num pt">+40</td><td>P1</td><td class="why">One mule collects from many victims. Only a bank-wide view can see it.</td></tr>
+          <tr><td class="id">R6c</td><td>Payee is an LDB account that passes money on within hours</td><td class="num">5%</td><td class="num">0.3%</td><td class="num">17</td><td class="num pt">+30</td><td>P1</td><td class="why">LDB itself may host a mule. Also sent to AML.</td></tr>
+          <tr><td class="id">R6d</td><td>First ever payment to a crypto or e-money provider</td><td class="num">10%</td><td class="num">3%</td><td class="num">3.3</td><td class="num pt">+10</td><td>P2</td><td class="why">Hard to recall once converted.</td></tr>
+          <tr class="grp"><td colspan="8">R7 · Scripted or coached session</td></tr>
+          <tr><td class="id">R7a</td><td>Login to confirm &lt; 30 s with a pasted IBAN</td><td class="num">20%</td><td class="num">4%</td><td class="num">5</td><td class="num pt">+15</td><td>P2</td><td class="why">Scripts and relays are faster than humans.</td></tr>
+          <tr><td class="id">R7b</td><td>Remote-access tool active during the payment</td><td class="num">10%</td><td class="num">0.3%</td><td class="num">33</td><td class="num pt">+35</td><td>P1</td><td class="why">"Tech support" scams take over the victim's screen.</td></tr>
+          <tr><td class="id">R7c</td><td>Pause &gt; 3 min on the confirm page</td><td class="num">25%</td><td class="num">8%</td><td class="num">3.1</td><td class="num pt">+10</td><td>P3</td><td class="why">The victim waits for the caller's instructions.</td></tr>
+          <tr class="grp"><td colspan="8">R8 · Probe, wake or set-and-forget</td></tr>
+          <tr><td class="id">R8a</td><td>Test payment ≤ €10, then ≥ 20× that within 48 h to the same payee</td><td class="num">10%</td><td class="num">2%</td><td class="num">5</td><td class="num pt">+15</td><td>P3</td><td class="why">Criminals check the mule account works first.</td></tr>
+          <tr><td class="id">R8b</td><td>Account dormant ≥ 90 days wakes up with a transfer</td><td class="num">8%</td><td class="num">2%</td><td class="num">4</td><td class="num pt">+15</td><td>P3</td><td class="why">Owners of quiet accounts notice late.</td></tr>
+          <tr><td class="id">R8c</td><td>New or edited standing order to a fresh payee</td><td class="num">5%</td><td class="num">1%</td><td class="num">5</td><td class="num pt">+15</td><td>P3</td><td class="why">Slow theft that repeats every month.</td></tr>
+          <tr><td class="id">R8d</td><td>≥ 3 declined or held attempts in 24 h</td><td class="num">6%</td><td class="num">0.5%</td><td class="num">12</td><td class="num pt">+25</td><td>P2</td><td class="why">The criminal keeps trying smaller amounts.</td></tr>
+          <tr class="grp"><td colspan="8">Good signs (mitigators, max −40 together; never cancel an override)</td></tr>
+          <tr class="mit"><td class="id">M1</td><td>Trusted payee: paid twice, ≥ 30 days apart</td><td class="num">5%</td><td class="num">60%</td><td class="num">0.08</td><td class="num pt">−25</td><td>–</td><td class="why">Criminals almost never use the victim's old payees.</td></tr>
+          <tr class="mit"><td class="id">M2</td><td>Well-known payee: on LDB's biller/notary list, or paid by ≥ 20 customers over ≥ 30 days</td><td class="num">3%</td><td class="num">25%</td><td class="num">0.12</td><td class="num pt">−20</td><td>–</td><td class="why">Utilities, tax office, notaries are not mules.</td></tr>
+          <tr class="mit"><td class="id">M3</td><td>Old or anchored device on the usual home or mobile network</td><td class="num">30%</td><td class="num">70%</td><td class="num">0.43</td><td class="num pt">−10</td><td>–</td><td class="why">Small, because coached victims use their own device.</td></tr>
+          <tr class="mit"><td class="id">M4</td><td>Payment declared in advance from a trusted channel (or payee declared at onboarding)</td><td class="num">0.5%</td><td class="num">10%</td><td class="num">0.05</td><td class="num pt">−30</td><td>–</td><td class="why">Lets big honest payments through without friction.</td></tr>
+          <tr class="mit"><td class="id">M5</td><td>Within habit: amount ≤ usual, usual time and payee type</td><td class="num">15%</td><td class="num">50%</td><td class="num">0.3</td><td class="num pt">−10</td><td>–</td><td class="why">Reduces false alarms for regular customers.</td></tr>
+          <tr class="grp"><td colspan="8">Overrides (fixed; never changed by the auto-tuner)</td></tr>
+          <tr class="ovr"><td class="id">O1</td><td>Payee on the mule list</td><td colspan="4" class="num" style="text-align:center">score at least 90</td><td>P1</td><td class="why">Block.</td></tr>
+          <tr class="ovr"><td class="id">O2</td><td>Session break (R2c) + fresh payee</td><td colspan="4" class="num" style="text-align:center">at least 90</td><td>P1</td><td class="why">Block: classic relay attack.</td></tr>
+          <tr class="ovr"><td class="id">O3</td><td>≥ 2 control changes in 24 h + fresh payee + ≥ €1,000</td><td colspan="4" class="num" style="text-align:center">at least 70</td><td>P1</td><td class="why">Hold: full account takeover pattern.</td></tr>
+          <tr class="ovr"><td class="id">O4</td><td>Customer says "the bank / LuxTrust / police asked me to move it"</td><td colspan="4" class="num" style="text-align:center">at least 70</td><td>P1</td><td class="why">Hold: no real bank ever asks this.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="part" id="examples">
+    <div class="col stack">
+      <p class="kicker">Part 5</p>
+      <h2>Worked examples, with the arithmetic</h2>
+      <p>The same five cases as in the deck. Each line shows which signal fired and its points.</p>
+    </div>
+    <div class="wide tablewrap">
+      <table class="t">
+        <thead><tr><th>Case</th><th>Signals and points</th><th class="num">Score</th><th>Odds (1 in 20,000 base)</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><b>SIM swap</b> · fraud<br><span class="muted">€12,000 instant, 80% of balance</span></td><td>R1a +50 (reset 2 h ago) · R2a +20 (new device) · R3a +20 · R3d +10 (8× usual) · R5b +35</td><td class="num">135<br><span class="muted">shown as 100</span></td><td>≈ 97 in 100 (from the raw 135)</td><td><b style="color:var(--bad)">Block</b>, call the onboarding phone</td></tr>
+          <tr><td><b>Phone changed, new payee</b> · alert card<br><span class="muted">€4,800 instant</span></td><td>R1b +35 (2 days ago) · R3a +20 · R3d +10 (6× usual) · R4b +10 (close match)</td><td class="num">75</td><td>≈ 1 in 13</td><td><b style="color:var(--hold)">Hold</b>, analyst calls</td></tr>
+          <tr><td><b>Coached victim</b> · fraud<br><span class="muted">€18,000, own laptop, name matches</span></td><td>R3a +20 · R3d +10 · R5b +35 · R7c +10 (4-min pause) · M3 −10</td><td class="num">65</td><td>≈ 1 in 33</td><td><b style="color:var(--accent)">Check</b> + 1-hour release (hardest case)</td></tr>
+          <tr><td><b>Buying a flat</b> · honest<br><span class="muted">€320,000 to a notary, declared</span></td><td>R3a +20 · R3d +10 · R5b +35 · M4 −30 · M2 −20 (capped at −40)</td><td class="num">25</td><td>≈ 1 in 1,700</td><td><b style="color:var(--good)">Allow</b></td></tr>
+          <tr><td><b>New customer's rent</b> · honest<br><span class="muted">€1,450, account 5 days old</span></td><td>R3a +20 · M4 −30 (landlord declared at onboarding). Device and phone are anchored, so R1 and R2 do not fire.</td><td class="num">−10<br><span class="muted">shown as 0</span></td><td>≈ 1 in 54,000</td><td><b style="color:var(--good)">Allow</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col"><p class="callout warm"><b>Say this openly:</b> the coached victim on her own laptop with a matching name is the hardest case for any detector. TrustAge does not block her; it buys an hour (the 1-hour release she can cancel), during which the scam call often ends and other customers paying the same IBAN are spotted.</p></div>
+  </section>
+
+  <!-- 6 -->
+  <section class="part" id="learn">
+    <div class="col stack">
+      <p class="kicker">Part 6</p>
+      <h2>How it adapts by itself, without anyone touching it</h2>
+      <p>This is <b>counting, not machine learning</b>. Every week the detector recounts the two numbers of the formula (F and G) for every signal, from what really happened, and recomputes the points. A person can read and redo every step in a spreadsheet.</p>
+    </div>
+    <div class="wide loop">
+      <div class="card"><span class="n">1 · every payment</span><h3>Decide</h3><p>Score with the current points table. Store the reasons and the table version.</p></div>
+      <div class="card"><span class="n">2 · as it happens</span><h3>Learn the outcome</h3><p>Each payment later gets a label (see the table below).</p></div>
+      <div class="card"><span class="n">3 · every Sunday 03:00</span><h3>Recount</h3><p>New F and G for every signal, new points with the same formula.</p></div>
+      <div class="card"><span class="n">4 · before going live</span><h3>Safety test</h3><p>Replay 40 scenarios and the last 30 days. Fail? Change rejected, fraud lead alerted.</p></div>
+    </div>
+    <div class="col stack">
+      <h3>Where the outcomes (labels) come from</h3>
+    </div>
+    <div class="wide tablewrap">
+      <table class="t">
+        <thead><tr><th>Source</th><th>When</th><th>Counts as</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Analyst decision on a held payment</td><td>Minutes</td><td>Fraud or genuine</td><td class="why">Fast and reliable, but only covers what was held.</td></tr>
+          <tr><td>Customer cancels during the 1-hour release</td><td>Within the hour</td><td>Half a fraud case</td><td class="why">Often a scam that the customer realised; not always.</td></tr>
+          <tr><td>Customer's fraud claim later (PSD2 allows up to 13 months)</td><td>Days to months</td><td>Fraud (a <b>missed</b> case)</td><td class="why">The most valuable label: it teaches the detector what it did not see, so it does not only learn from its own alerts.</td></tr>
+          <tr><td>Receiving bank confirms a mule / recall result</td><td>Days</td><td>Fraud</td><td class="why">Also adds the IBAN to the mule list at once.</td></tr>
+          <tr><td>Blocked payment, after the call</td><td>Hours</td><td>Fraud if the customer did not make it; genuine if they did; <b>no label</b> if not reached</td><td class="why">A block alone never counts as fraud, so the detector cannot prove itself right.</td></tr>
+          <tr><td>No complaint 60 days after the payment</td><td>60 days</td><td>Genuine (can still flip)</td><td class="why">Feeds G, the genuine share. In the first 60 days after launch, G is counted on all payments minus known frauds and claims (fraud is so rare that the error is below 0.01%).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col stack">
+      <h3>The recount formula</h3>
+      <div class="formula">
+        <span class="f">F_new = (20 × F_estimate + fraud cases with the signal) ÷ (20 + all fraud cases)</span>
+        <p style="opacity:.85">Our first estimate counts like 20 cases. With few real cases, the estimate dominates; with many, reality takes over. G is simply measured on the last 90 days of genuine payments (in the first 60 days after launch: all payments minus known frauds).</p>
+      </div>
+      <p class="calcline">Example, month 4 · R3 fresh payee · 25 confirmed frauds since launch, 21 had a fresh payee<br>F = (20 × 70% + 21) ÷ (20 + 25) = 35 ÷ 45 = <b>78%</b><br>G = measured on LDB = <b>5.5%</b> (our guess was 8%)<br>78 ÷ 5.5 = 14× → 7 × log₂(14) = 26.7 → <b>+25</b> (was +20; within the +5 limit)<br>Log: "R3 fresh payee +20 → +25: 21 of 25 confirmed frauds had one; only 5.5% of genuine payments do."</p>
+    </div>
+    <div class="wide tool" id="tool-learn">
+      <h3>Try it: watch a rule learn</h3>
+      <div class="inputs">
+        <label>Our first estimate F (%) <span>e.g. 70 for R3</span><input type="number" id="ln-f0" min="0.1" max="100" step="0.1" value="70"></label>
+        <label>Confirmed fraud cases since launch <span>all of them</span><input type="number" id="ln-n" min="0" max="5000" step="1" value="25"></label>
+        <label>…of which had this signal <input type="number" id="ln-k" min="0" max="5000" step="1" value="21"></label>
+        <label>Measured genuine share G (%) <input type="number" id="ln-g" min="0.01" max="100" step="0.01" value="5.5"></label>
+        <label>Current points <input type="number" id="ln-p" min="-40" max="60" step="5" value="20"></label>
+      </div>
+      <div class="out" aria-live="polite">
+        <p class="big" id="ln-big">+25<small>new points</small></p>
+        <p id="ln-txt"></p>
+        <p class="calcline" id="ln-log" style="font-size:14px"></p>
+      </div>
+    </div>
+    <div class="col stack">
+      <h3>The safety rails (why self-tuning is still auditable)</h3>
+      <div class="grid2">
+        <div class="card"><span class="n">Rail 1</span><h3>Expert estimate = 20 cases</h3><p>One or two odd cases cannot swing a rule.</p></div>
+        <div class="card"><span class="n">Rail 2</span><h3>Max ±5 points per week</h3><p>Change is gradual and visible. Each rule also has a floor and a ceiling (for example R1a never below +30).</p></div>
+        <div class="card"><span class="n">Rail 3</span><h3>Overrides are frozen</h3><p>Block rules (O1–O4) and the −40 cap on good signs never change by themselves. Only people can change them, with four eyes.</p></div>
+        <div class="card"><span class="n">Rail 4</span><h3>Safety test before going live</h3><p>All 40 library scenarios must still reach their action, and holds on the last 30 days must stay under analyst capacity (30 per day). Otherwise the change is rejected.</p></div>
+        <div class="card"><span class="n">Rail 5</span><h3>Drift alarm</h3><p>If a signal suddenly fires on many genuine payments (G doubles in a week, e.g. after a browser update), its points are halved for 7 days and the fraud lead is told. Sudden jumps are never trusted.</p></div>
+        <div class="card"><span class="n">Rail 6</span><h3>New signals start silent</h3><p>Extra data (supplementary attributes) is scored at 0 and only measured. Once seen in ≥ 5 frauds with F ÷ G ≥ 4, it is promoted automatically, at most +15. Bigger needs a person. This is how new fraud tactics get covered without redesigning anything.</p></div>
+        <div class="card"><span class="n">Rail 7</span><h3>Hold line follows capacity</h3><p>The hold line may move between 65 and 75 by itself to keep holds within what the analysts can handle.</p></div>
+        <div class="card"><span class="n">Rail 8</span><h3>Everything is logged and reversible</h3><p>Every table version is stored with one sentence per change. The fraud lead can veto or roll back in one click. Risk (second line) reviews the monthly learning report.</p></div>
+        <div class="card"><span class="n">Rail 9</span><h3>Calibration check</h3><p>Adding points assumes the signals are independent, and some are not. So the KPI page checks the score against reality in two steps. <b>From day 1</b>, the genuine side: the G values predict how many genuine payments should land in each band (for example about 0.1% in Hold); if the real share is more than 2× off, the fraud lead is told. <b>From about 30 confirmed frauds</b> (around month 5), the fraud side too: the odds each band promises (a hold: 1 in 20 to 1 in 4) against the real fraud share in that band. Overlapping signals show up here.</p></div>
+      </div>
+      <p class="callout">Real-time parts that also adapt by themselves: the <b>mule list</b> (a confirmed fraud IBAN is added within minutes), <b>payee reputation</b> (IBANs paid safely by many customers become "well known"), and each customer's <b>own baseline</b> (usual amounts, recomputed nightly). And the core idea adapts by design: devices and payees <b>age into trust</b> on their own.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="part" id="newbank">
+    <div class="col stack">
+      <p class="kicker">Part 7</p>
+      <h2>Starting in a brand-new bank, with no history</h2>
+      <p>LDB has no old transactions to learn from. TrustAge does not need them, because it does not ask "is this unusual for this customer?" (which needs history). It asks <b>"was this link verified at onboarding, or added later?"</b></p>
+    </div>
+    <div class="wide grid3">
+      <div class="card"><span class="n">Idea 1</span><h3>Trust starts at onboarding</h3><p>Opening an account at LDB means eKYC plus LuxTrust registration. The device, phone and email verified at that moment are <b>anchored</b>: trusted from day 1. A takeover always changes something <i>after</i> that, and that change is what R1 and R2 catch.</p></div>
+      <div class="card"><span class="n">Idea 2</span><h3>Early-trusted payees</h3><p>Three routes: (a) the customer's own account at their old bank that funded LDB (same name, verified by VoP), (b) payees declared at onboarding (landlord, employer), (c) a preloaded list of Luxembourg billers and notaries.</p></div>
+      <div class="card"><span class="n">Idea 3</span><h3>Genuine side in 30 days</h3><p>Over 99.9% of payments are genuine, so G can be measured almost at once: 30 days of traffic (≈ 75,000 transfers) is enough for every signal.</p></div>
+      <div class="card"><span class="n">Idea 4</span><h3>Fraud side is borrowed</h3><p>F starts from public cases, our scenario library and shared mule lists (fraud-data sharing will become mandatory under the EU Payment Services Regulation). Honest point: a small bank sees few frauds, so F learns slowly. In year 1 most learning comes from G and from capacity.</p></div>
+      <div class="card"><span class="n">Idea 5</span><h3>Stricter first 60 days</h3><p>Criminals test new banks early. A launch pack keeps a 12-hour cooling-off after any new device, phone or email: that channel cannot approve fresh-payee payments ≥ €1,000.</p></div>
+      <div class="card"><span class="n">Idea 6</span><h3>Each new customer's habits</h3><p>Until a customer has history, their "usual amount" comes from what they declared at onboarding, blended into real behaviour: weight w = min(1, payments ÷ 20, days ÷ 90).</p></div>
+    </div>
+    <div class="col stack"><h3>Launch timeline</h3></div>
+    <div class="wide tl">
+      <div class="card"><span class="n">Before launch</span><p>Starting points from F estimates and benchmark G. Tested on 50,000 synthetic customers and 40 scenarios. Biller list and mule feed loaded.</p></div>
+      <div class="card"><span class="n">Days 1–30</span><p>Launch mode: anchors give trust, hold line set by capacity, G measured every day. Weekly recount already running, ±5 limit.</p></div>
+      <div class="card"><span class="n">Day 30</span><p>One larger, logged recount of G from LDB's own traffic. Must pass the safety test.</p></div>
+      <div class="card"><span class="n">Month 3 onwards</span><p>Normal weekly self-tuning. F learning speeds up as cases build up, plus shared data from other banks.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="part" id="reports">
+    <div class="col stack">
+      <p class="kicker">Part 8</p>
+      <h2>The five reports</h2>
+      <p>The Report engine produces one report per person and purpose. See them as mockups on slide 6 of the <a href="deck-17oct.html#s6">17 October deck</a>.</p>
+    </div>
+    <div class="wide tablewrap">
+      <table class="t">
+        <thead><tr><th>Report</th><th>Who</th><th>When</th><th>What it shows</th><th>Decision it supports</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · Alert card</b></td><td>Fraud analyst</td><td>Each held payment</td><td>One-sentence reason, points per signal as bars, link ages, the safe phone number, customer snapshot, what the customer was told</td><td class="why">Release or stop, within 15 min (P1) or 1 h (P2)</td></tr>
+          <tr><td><b>2 · Queue</b></td><td>Fraud analyst</td><td>Live</td><td>Held payments by priority and time left, with status</td><td class="why">What to work on next</td></tr>
+          <tr><td><b>3 · Campaign board</b></td><td>Fraud lead</td><td>Daily</td><td>New IBANs paid by several customers, signals above normal, possible scam waves</td><td class="why">Warn all customers? Add an IBAN to the mule list?</td></tr>
+          <tr><td><b>4 · What TrustAge learned</b></td><td>Fraud lead, risk (2nd line)</td><td>Monthly (weekly log)</td><td>Each automatic change with its reason, drift alarms, promoted signals, safety-test result, vetoes</td><td class="why">Veto or accept; audit evidence</td></tr>
+          <tr><td><b>5 · KPI page</b></td><td>Management</td><td>Monthly</td><td>Fraud stopped, losses vs risk appetite (1 bp of transfer value), precision, holds vs capacity, calibration per band, customer friction, speed. Each fraud is tagged with its EBA category for LDB's semi-annual fraud report to the CSSF (PSD2 Art. 96(6))</td><td class="why">Is the risk within appetite? Staffing?</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="part col" id="questions">
+    <p class="kicker">Part 9</p>
+    <h2>Hard questions the committee may ask</h2>
+    <div class="stack">
+      <details class="qa"><summary>"Your fraud percentages are still guesses, aren't they?"</summary><div class="body"><p>At the start, yes, and we label them as estimates. But they are only half the formula; the other half (G) is measured on LDB's own payments within 30 days. The log scale makes guesses robust: if F is wrong by half, the points move by 7. And the recount replaces the guess with real cases automatically.</p></div></details>
+      <details class="qa"><summary>"Don't you count the same evidence twice?"</summary><div class="body"><p>Add-on signals (IBAN edited, amount far above normal) are measured only among payments that already have a fresh payee, so they add only new information. Signals that tend to come together are capped per rule (R2 max +50, R5 max +35), and good signs are capped at −40. The safety test checks the total hold rate, and the monthly calibration check (Rail 9) compares each band with reality: on genuine payments from day 1, on fraud cases once about 30 are confirmed.</p></div></details>
+      <details class="qa"><summary>"A system that changes itself without people: isn't that a model risk?"</summary><div class="body"><p>It changes itself only within rails: ±5 points per week, floors and ceilings, frozen overrides, a safety test before every change, a one-sentence log, one-click rollback, and a monthly review by the fraud lead and risk (second line). It never releases a held payment; people decide those. That is less risky than a monthly manual retune, which is slower and less documented.</p></div></details>
+      <details class="qa"><summary>"Could criminals poison the learning?"</summary><div class="body"><p>Hard. After the launch period, G only uses payments that are 60 days old with no complaint. A sudden jump in any signal triggers the drift alarm and halves the points, instead of trusting the jump. The block rules cannot change by themselves. And a rule can move at most 5 points a week, so a slow attack would be visible in the weekly log for months.</p></div></details>
+      <details class="qa"><summary>"Doesn't it only learn from what it already catches?"</summary><div class="body"><p>No: customer fraud claims (missed frauds) are labels too, and they are the most valuable ones. Under PSD2 a customer can report an unauthorised payment for up to 13 months, so the genuine label after 60 days can still flip to fraud.</p></div></details>
+      <details class="qa"><summary>"Why not machine learning?"</summary><div class="body"><p>A new bank has no labelled fraud cases; a model would need hundreds. Our counting method is the honest version of learning: it uses exactly the evidence that exists, and every number is explainable. Once LDB has around 200–300 confirmed cases and a year of data, a model can be tested in shadow mode next to the rules.</p></div></details>
+      <details class="qa"><summary>"What does the AI Act say?"</summary><div class="body"><p>Systems based on rules defined by people are generally outside the AI Act's definition of an AI system; our weekly recount is simple statistics on top of human-defined rules. Even if it counted as AI, systems used to detect financial fraud are explicitly excluded from the high-risk credit-scoring category (Annex III, point 5(b)). We keep human review of every hold anyway (GDPR Art. 22).</p></div></details>
+      <details class="qa"><summary>"Why trust a device on day 1 of a new customer?"</summary><div class="body"><p>Because it was verified at onboarding with eKYC and LuxTrust, which is stronger evidence than time. To beat this, a criminal would have to take over the onboarding itself, which is the job of the KYC controls.</p></div></details>
+      <details class="qa"><summary>"Why 1 in 20,000?"</summary><div class="body"><p>It is a planning assumption that only translates scores into odds; the points themselves do not depend on it. LDB measures its real rate from month 1. For context, the EBA and ECB report EU credit-transfer fraud at about 0.001% of value in 2024.</p></div></details>
+      <details class="qa"><summary>"Why weekly and not in real time?"</summary><div class="body"><p>Fraud outcomes arrive with a delay (days to months), so recounting every minute would only add noise. Weekly gives enough cases, a stable version history and a safety test each time. The parts that must be fast are fast: the mule list updates within minutes, baselines nightly.</p></div></details>
+      <details class="qa"><summary>"Which rule actually requires a detector like this?"</summary><div class="body"><p>The PSD2 rules on strong customer authentication (Delegated Regulation 2018/389, Art. 2) require transaction monitoring that considers at least: compromised or stolen credentials (R1 control change, R2c stolen session), the amount (R3d, R5), known fraud scenarios (our 40-scenario library, mule list, R6, R8), signs of malware in the session (R7b remote-access tool) and abnormal use of the device (R2a new device, LuxTrust anchors). PSD2 Art. 96(6) adds fraud reporting to the CSSF, which the KPI page feeds. The system itself falls under DORA, and the privacy side (DPIA, GDPR) is in the first study guide.</p></div></details>
+      <details class="qa"><summary>"A coached victim authorises the payment herself. Why is that LDB's problem?"</summary><div class="body"><p>Under PSD2, the bank refunds unauthorised payments, so a coached victim today usually carries the loss. The new EU Payment Services Regulation (provisionally agreed by Parliament and Council in November 2025, not yet in force) changes this for one case: when the criminal pretends to be the bank's staff and the customer reports it to the police, the bank must refund in full. That is why O4 ("the bank asked me to move it") forces a hold, and why the 1-hour release and the purpose question (R4d) matter even though TrustAge is built for account takeover.</p></div></details>
+      <details class="qa"><summary>"Criminals will learn your thresholds. Then what?"</summary><div class="body"><p>The design makes thresholds hard to game. R1 fades over 7 days instead of stopping at 72 h (R1a, R1b, R1c). R5 looks at 72-hour totals, so splitting under €500 does not help, and R8d catches repeated tries. The thresholds are not published, and the weekly recount moves points as tactics change. What criminals cannot fake is time: a payee or device they add is new, whatever amount they choose.</p></div></details>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="part col" id="limits">
+    <p class="kicker">Part 10</p>
+    <h2>Main assumptions and limits</h2>
+    <ul class="plain">
+      <li><b>F estimates</b> are starting values from public cases and expert judgment. They are clearly labelled and replaced by real counts over time.</li>
+      <li><b>Planning rate</b> of 1 fraud in 20,000 transfers; volumes of about 2,500 transfers a day in the first months.</li>
+      <li><b>The hub can call the detector</b> before executing a payment (answer within 0.3 s). <b>If the detector is down</b> or gives no answer within 0.5 s, a fixed fallback applies: payments to trusted payees go through; fresh-payee payments ≥ €1,000 are not sent as instant and wait as standard transfers until the detector is back (if it is still down at the D+1 cut-off, an analyst decides them by hand); IT is alerted (DORA incident process).</li>
+      <li><b>LDB's terms</b> allow a payment to be held for a safety check (PSD2 Art. 79 requires this before refusing).</li>
+      <li><b>Small-bank learning is slow</b> on the fraud side: about 25 confirmed cases in the first 4 months.</li>
+      <li><b>Blind spots:</b> coached victim with matching name; mules that collect from only one LDB victim; attacks through channels the detector does not see (for example cards).</li>
+      <li><b>Web app limits:</b> LDB's online banking runs in a browser, where remote-access tools (R7b) and session fingerprints (R2c) are harder to see than in a mobile app. Their F values are kept modest for that reason.</li>
+      <li><b>Mule accounts at LDB:</b> a new digital bank attracts people who open accounts to receive stolen money. R6c sees money passing through; stopping such accounts at opening is a KYC and AML task, not TrustAge's.</li>
+    </ul>
+  </section>
+
+  <!-- 11 -->
+  <section class="part col" id="quiz">
+    <p class="kicker">Part 11</p>
+    <h2>Test yourself</h2>
+    <p>Pick an answer. You see at once if it is right and why.</p>
+    <p class="scoreline" id="qscore"></p>
+    <div class="stack" id="qlist"></div>
+    <button class="btn" id="qreset" style="align-self:flex-start">Start the quiz again</button>
+  </section>
+
+  <p class="footer col">[Team name] · Corporate Risk Assessment and Digital Transformation · University of Luxembourg · October 2026. Luxembourg Digital Bank is a fictional bank; all figures are examples or planning assumptions. <a href="index.html">Back to the start page</a></p>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var r5 = function(x){ return 5 * Math.round(x / 5); };
+  var pts = function(f, g){ return 7 * Math.log2(f / g); };
+  var sgn = function(x){ return (x > 0 ? '+' : x < 0 ? '−' : '') + Math.abs(x); };
+  var fmtx = function(x){ return x >= 10 ? Math.round(x).toLocaleString('en-US') : x >= 1 ? x.toFixed(1) : x.toFixed(2); };
+
+  /* ---------- diagram player ---------- */
+  function Flow(root, steps){
+    var self = this;
+    this.root = root; this.svg = $('svg', root); this.steps = steps;
+    this.i = -1; this.playing = false; this.timer = 0; this.raf = 0;
+    this.dot = $('.dot', this.svg); this.num = $('.cap-num', root); this.txt = $('.cap-text', root);
+    this.btn = $('[data-act=play]', root);
+    this.btn.addEventListener('click', function(){ self.playing ? self.pause() : self.play(); });
+    $('[data-act=next]', root).addEventListener('click', function(){ self.pause(); self.show(Math.min(self.i + 1, self.steps.length - 1), true); });
+    $('[data-act=prev]', root).addEventListener('click', function(){ self.pause(); self.show(Math.max(self.i - 1, -1), false); });
+    $('[data-act=reset]', root).addEventListener('click', function(){ self.pause(); self.show(-1, false); });
+    this.show(-1, false);
+  }
+  Flow.prototype.mark = function(e, state){
+    var id = this.svg.getAttribute('data-m') + '-' + (state || 'off');
+    e.setAttribute('marker-end', 'url(#' + id + ')');
+    if (e.hasAttribute('data-both')) e.setAttribute('marker-start', 'url(#' + id + ')');
+  };
+  Flow.prototype.show = function(i, animate, done){
+    var self = this, svg = this.svg;
+    cancelAnimationFrame(this.raf); clearTimeout(this.timer);
+    this.i = i;
+    $$('.node', svg).forEach(function(n){ n.classList.remove('on', 'done'); });
+    $$('.edge', svg).forEach(function(e){ e.classList.remove('on', 'done'); self.mark(e, 'off'); });
+    for (var k = 0; k <= i; k++){
+      var st = this.steps[k], last = (k === i);
+      (st.nodes || []).forEach(function(id){ var n = svg.querySelector('[data-n="' + id + '"]'); if (n) n.classList.add(last ? 'on' : 'done'); });
+      (st.edges || []).forEach(function(id){ var e = svg.querySelector('[data-e="' + id + '"]'); if (e){ e.classList.remove('done'); e.classList.add(last ? 'on' : 'done'); self.mark(e, last ? 'on' : 'done'); } });
+    }
+    if (i < 0){ this.num.textContent = 'Ready · ' + this.steps.length + ' steps'; this.txt.textContent = this.root.getAttribute('data-intro'); }
+    else { this.num.textContent = 'Step ' + (i + 1) + ' of ' + this.steps.length; this.txt.textContent = this.steps[i].text; }
+    this.dot.style.opacity = 0;
+    var edges = i >= 0 ? (this.steps[i].edges || []).map(function(id){ return svg.querySelector('[data-e="' + id + '"]'); }).filter(Boolean) : [];
+    if (animate && !reduce && edges.length){ this.run(edges, 0, done); }
+    else if (done){ this.timer = setTimeout(done, 400); }
+  };
+  Flow.prototype.run = function(edges, k, done){
+    var self = this;
+    if (k >= edges.length){ this.dot.style.opacity = 0; if (done) done(); return; }
+    var p = edges[k], L = p.getTotalLength(), dur = Math.min(1500, Math.max(650, L * 2.3)), t0 = performance.now();
+    this.dot.style.opacity = 1;
+    var tick = function(t){
+      var f = Math.min(1, (t - t0) / dur), e = f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2;
+      var pt = p.getPointAtLength(e * L);
+      self.dot.setAttribute('cx', pt.x); self.dot.setAttribute('cy', pt.y);
+      if (f < 1) self.raf = requestAnimationFrame(tick); else self.run(edges, k + 1, done);
+    };
+    this.raf = requestAnimationFrame(tick);
+  };
+  Flow.prototype.play = function(){
+    this.playing = true; this.btn.textContent = 'Pause'; this.btn.setAttribute('aria-pressed', 'true');
+    if (this.i >= this.steps.length - 1) this.show(-1, false);
+    this.next();
+  };
+  Flow.prototype.next = function(){
+    var self = this;
+    if (!this.playing) return;
+    var n = this.i + 1;
+    if (n >= this.steps.length){ this.pause(); return; }
+    this.show(n, true, function(){ if (!self.playing) return; self.timer = setTimeout(function(){ self.next(); }, reduce ? 3000 : 1900); });
+  };
+  Flow.prototype.pause = function(){
+    this.playing = false; clearTimeout(this.timer); cancelAnimationFrame(this.raf);
+    if (this.dot) this.dot.style.opacity = 0;
+    this.btn.textContent = (this.i >= this.steps.length - 1) ? 'Play again' : 'Play';
+    this.btn.setAttribute('aria-pressed', 'false');
+  };
+  new Flow($('#flow-arch'), [
+    { nodes:['web','hub'], edges:['e1'], text:'The customer\'s transfer goes from online banking to the payment hub, with the name-check (VoP) result.' },
+    { nodes:['hub','loader'], edges:['e2'], text:'Before any money moves, the payment hub asks the detector: is this safe?' },
+    { nodes:['records','loader'], edges:['e3'], text:'Part 1, the Transaction loader, collects and checks the bank\'s own records. Missing data adds points; it never passes silently.' },
+    { nodes:['loader','builder'], edges:['e4'], text:'The Attribute builder works out link ages, counted from the verified onboarding, plus 72-hour totals and how many customers pay this IBAN.' },
+    { nodes:['builder','engine','points'], edges:['e5','e14'], text:'Part 2, the Fraud engine, reads the current points table (v1.4), adds the points and picks one action.' },
+    { nodes:['engine','hub'], edges:['e6'], text:'The answer goes back in under 0.3 seconds: allow, warn, check, 1-hour release, hold or block.' },
+    { nodes:['engine','results'], edges:['e7'], text:'Every decision is stored with its reasons and the table version, for audit.' },
+    { nodes:['results','report','console'], edges:['e8','e9'], text:'Part 3, the Report engine, turns held payments into alert cards in the console.' },
+    { nodes:['console','analyst'], edges:['e10'], text:'The fraud analyst reads the card, calls the customer on the phone verified at onboarding, then releases or stops the payment.' },
+    { nodes:['console','tuner'], edges:['e11'], text:'The decision becomes a label. So do fraud claims, cancellations and 60 days with no complaint.' },
+    { nodes:['results','tuner','points'], edges:['e12','e13'], text:'Every Sunday the auto-tuner recounts the evidence, runs the safety test and publishes the next points table. No one has to press a button.' },
+    { nodes:['tuner','lead'], edges:['e15'], text:'The fraud lead reads one sentence per change and can veto. The detector does not wait for approval.' }
+  ]);
+
+  /* ---------- tool 1: points from F and G ---------- */
+  function lr(){
+    var f = parseFloat($('#lr-f').value), g = parseFloat($('#lr-g').value);
+    if (!(f > 0) || !(g > 0)){ $('#lr-txt').textContent = 'Enter two numbers above 0.'; return; }
+    var x = f / g, raw = pts(f, g), p = Math.max(-40, Math.min(60, r5(raw)));
+    $('#lr-pts').innerHTML = sgn(p) + '<small>points</small>';
+    $('#lr-txt').textContent = (x >= 1 ? 'Fraud is ' + fmtx(x) + '× more likely' : 'Fraud is ' + fmtx(1 / x) + '× less likely') + ' when this signal is present. 7 × log₂(' + fmtx(x) + ') = ' + raw.toFixed(1) + ', rounded to ' + sgn(p) + (raw !== p && Math.abs(raw) > 60 ? ' (capped).' : '.') + (x < 1 ? ' This is a good sign: it takes points away.' : '');
+  }
+  ['#lr-f','#lr-g'].forEach(function(id){ $(id).addEventListener('input', lr); }); lr();
+
+  /* ---------- tool 2: score meaning ---------- */
+  function action(s){ return s >= 90 ? ['Block','var(--bad-soft)','var(--bad)'] : s >= 70 ? ['Hold for an analyst call','var(--hold-soft)','var(--hold)'] : s >= 50 ? ['LuxTrust check + 1-hour release','var(--accent-soft)','var(--accent)'] : s >= 30 ? ['Warn, owner notified','var(--warn-soft)','var(--warn)'] : ['Allow','var(--good-soft)','var(--good)']; }
+  function od(){
+    var s = parseInt($('#od-s').value, 10), base = parseFloat($('#od-p').value) || 20000;
+    var m = Math.pow(2, s / 7), p = m / (m + base), a = action(s);
+    $('#od-big').innerHTML = s + '<small>points</small>';
+    var share = p >= 0.5 ? 'about ' + Math.round(p * 100) + ' in 100' : 'about 1 in ' + Math.round(1 / p).toLocaleString('en-US');
+    $('#od-txt').textContent = 'Odds of fraud ' + fmtx(m) + '× an average transfer. With 1 fraud in ' + base.toLocaleString('en-US') + ' transfers, ' + share + ' payments with this score are fraud.';
+    var act = $('#od-act'); act.textContent = a[0]; act.style.background = a[1]; act.style.color = a[2];
+  }
+  ['#od-s','#od-p'].forEach(function(id){ $(id).addEventListener('input', od); }); od();
+
+  /* ---------- tool 3: learning ---------- */
+  function ln(){
+    var f0 = parseFloat($('#ln-f0').value) / 100, n = parseInt($('#ln-n').value, 10) || 0, k = parseInt($('#ln-k').value, 10) || 0,
+        g = parseFloat($('#ln-g').value) / 100, cur = parseInt($('#ln-p').value, 10) || 0;
+    if (k > n){ $('#ln-txt').textContent = 'Cases with the signal cannot be more than all cases.'; return; }
+    if (!(f0 > 0) || !(g > 0)){ $('#ln-txt').textContent = 'Enter an estimate and a genuine share above 0.'; return; }
+    var f = (20 * f0 + k) / (20 + n), raw = pts(f, g), target = r5(raw), next = Math.max(cur - 5, Math.min(cur + 5, target));
+    $('#ln-big').innerHTML = sgn(next) + '<small>new points</small>';
+    $('#ln-txt').textContent = 'F = (20 × ' + Math.round(f0 * 1000) / 10 + '% + ' + k + ') ÷ (20 + ' + n + ') = ' + (f * 100).toFixed(1) + '%. F ÷ G = ' + fmtx(f / g) + '× → 7 × log₂ = ' + raw.toFixed(1) + ' → target ' + sgn(target) + '.' + (next !== target ? ' Limited to ±5 per week, so this week ' + sgn(next) + '.' : '');
+    $('#ln-log').textContent = next === cur ? 'Log: no change (' + sgn(cur) + ').' : 'Log: ' + sgn(cur) + ' → ' + sgn(next) + ': ' + k + ' of ' + n + ' confirmed frauds had this signal; ' + (g * 100).toFixed(1) + '% of genuine payments do.';
+  }
+  ['#ln-f0','#ln-n','#ln-k','#ln-g','#ln-p'].forEach(function(id){ $(id).addEventListener('input', ln); }); ln();
+
+  /* ---------- quiz ---------- */
+  var QUIZ = [
+    ['What does "+7 points" mean in TrustAge?', ['The payment is 7% riskier', 'The odds of fraud double', 'Seven rules fired'], 1, 'Points = 7 × log₂(F ÷ G), so every 7 points doubles the odds. 70 points ≈ 1,000×.'],
+    ['LDB is a new bank. Where does G (the genuine share) come from?', ['From another bank\'s data', 'It is measured on LDB\'s own payments within about 30 days', 'It is guessed forever'], 1, 'Almost all payments are genuine, so 30 days of LDB traffic is enough to measure G for every signal.'],
+    ['Why does our first estimate count as 20 cases?', ['So one or two odd cases cannot swing a rule', 'Because the law says so', 'To make the maths shorter'], 0, 'With few cases the estimate dominates; with many, real cases take over.'],
+    ['"New device" suddenly fires on 14% of genuine logins instead of 6%. What happens?', ['Points double', 'Nothing until the monthly meeting', 'The points are halved for 7 days and the fraud lead is told'], 2, 'That is the drift alarm. Sudden jumps are never trusted.'],
+    ['Which of these can never change by itself?', ['The points of R3', 'The block overrides O1–O4', 'The genuine share G'], 1, 'Overrides and the −40 cap on good signs are frozen; only people can change them, with four eyes.'],
+    ['A customer opened her account 5 days ago. Is her device "new"?', ['Yes, everything is new at a new bank', 'No: it was verified at onboarding, so it is anchored and trusted', 'Only on weekends'], 1, 'Trust starts at the verified onboarding. A takeover changes something after that.'],
+    ['With 1 fraud in 20,000 transfers, what does a score of 70 mean?', ['About 1 in 20 such payments is fraud', 'Certainly fraud', '70% chance of fraud'], 0, '2^(70/7) = 1,024× the odds → 1,024 ÷ 21,024 ≈ 5%, about 1 in 20.'],
+    ['When is an automatic change rejected?', ['Never', 'When a library scenario would slip through or holds would exceed analyst capacity', 'When it lowers points'], 1, 'Every new table is replayed on 40 scenarios and the last 30 days first.'],
+    ['Who releases a held payment?', ['The auto-tuner', 'The fraud analyst, after a call', 'Nobody, it releases itself after an hour'], 1, 'Holds always need a person (GDPR Art. 22). Only the 1-hour release (score 50–69) leaves by itself unless cancelled.'],
+    ['How does a brand-new fraud tactic get covered without redesigning the detector?', ['A programmer writes new code each time', 'New data starts as a silent 0-point signal and is promoted automatically once it proves itself (max +15)', 'It cannot'], 1, 'Promoted once seen in ≥ 5 frauds with F ÷ G ≥ 4. Bigger values need a person.']
+  ];
+  var answered = {};
+  function qscore(){
+    var n = Object.keys(answered).length, c = 0; Object.keys(answered).forEach(function(k){ if (answered[k]) c++; });
+    $('#qscore').textContent = n + ' of ' + QUIZ.length + ' answered · ' + c + ' correct';
+  }
+  function qrender(){
+    answered = {};
+    $('#qlist').innerHTML = QUIZ.map(function(q, i){
+      return '<div class="q" data-q="' + i + '"><h3>' + (i + 1) + '. ' + q[0] + '</h3><div class="opts">' +
+        q[1].map(function(o, j){ return '<button class="opt" data-o="' + j + '">' + o + '</button>'; }).join('') +
+        '</div><p class="fb" hidden></p></div>';
+    }).join('');
+    $$('.q').forEach(function(box){
+      var i = parseInt(box.getAttribute('data-q'), 10);
+      $$('.opt', box).forEach(function(b){
+        b.addEventListener('click', function(){
+          if (answered[i] !== undefined) return;
+          var j = parseInt(b.getAttribute('data-o'), 10), ok = (j === QUIZ[i][2]);
+          answered[i] = ok;
+          b.classList.add(ok ? 'right' : 'wrong');
+          if (!ok) $$('.opt', box)[QUIZ[i][2]].classList.add('right');
+          var fb = $('.fb', box); fb.hidden = false; fb.textContent = (ok ? 'Right. ' : 'Not quite. ') + QUIZ[i][3];
+          qscore();
+        });
+      });
+    });
+    qscore();
+  }
+  $('#qreset').addEventListener('click', qrender);
+  qrender();
+})();
+</script>
+</body>
+</html>

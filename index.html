@@ -41,6 +41,12 @@ h1{ margin:0; font:700 clamp(40px, 7vw, 68px)/1 var(--font-d); letter-spacing:-.
 .label{ font:600 12.5px/1 var(--font-m); color:var(--blue); text-transform:uppercase; letter-spacing:.06em; }
 .moves{ display:flex; flex-wrap:wrap; gap:8px; }
 .moves span{ font-size:15px; padding:6px 12px; border-radius:999px; background:var(--blue-soft); }
+.round{ display:flex; flex-direction:column; gap:12px; }
+.roundhead{ display:flex; align-items:center; gap:10px; }
+.when{ font:600 14px/1.2 var(--font-m); letter-spacing:.06em; text-transform:uppercase; color:var(--ink); }
+.newtag{ font:600 12px/1 var(--font-m); padding:5px 9px; border-radius:999px; background:var(--accent); color:var(--btn-fg); }
+.round.past .choice{ background:transparent; }
+.round.past .go{ background:var(--surface); color:var(--ink); border:1px solid var(--line); }
 .foot{ margin:0; color:var(--muted); font-size:14px; }
 @media (prefers-reduced-motion: reduce){ .choice{ transition:none; } .choice:hover{ transform:none; } }
 </style>
@@ -56,21 +62,44 @@ h1{ margin:0; font:700 clamp(40px, 7vw, 68px)/1 var(--font-d); letter-spacing:-.
     <div class="moves"><span>1 · Measure time</span><span>2 · Buy time</span><span>3 · Use time</span></div>
   </div>
 
-  <div class="choices">
-    <a class="choice" href="deck.html">
-      <span class="label">For the presentation</span>
-      <h2>Presentation deck</h2>
-      <p>8 slides for 10 October, with speaker notes and animated diagrams.</p>
-      <ul><li>Use ← → to change slides</li><li>Press Play on the diagrams</li><li>Full screen for the projector</li></ul>
-      <span class="go">Open the deck →</span>
-    </a>
-    <a class="choice" href="study-guide.html">
-      <span class="label">For learning</span>
-      <h2>Study guide</h2>
-      <p>The whole concept in plain words, in about 20 minutes.</p>
-      <ul><li>Animated diagrams, step by step</li><li>A score calculator to try</li><li>A 10-question quiz</li></ul>
-      <span class="go">Open the study guide →</span>
-    </a>
+  <div class="round">
+    <div class="roundhead"><span class="when">17 October · almost-final design</span><span class="newtag">New</span></div>
+    <div class="choices">
+      <a class="choice" href="deck-17oct.html">
+        <span class="label">For the presentation</span>
+        <h2>Design review deck</h2>
+        <p>6 slides: what changed, bank-level architecture, how points are set, a scored example, self-learning, and 5 report mockups.</p>
+        <ul><li>Use ← → to change slides</li><li>Press Play on the diagram and the examples</li><li>Click the tabs to see each report</li></ul>
+        <span class="go">Open the 17 October deck →</span>
+      </a>
+      <a class="choice" href="study-guide-17oct.html">
+        <span class="label">For learning</span>
+        <h2>Study guide 2</h2>
+        <p>Where the points come from, how it learns by itself, and how it starts in a new bank, in about 20 minutes.</p>
+        <ul><li>3 calculators: points, score meaning, learning</li><li>The full table of 27 signals</li><li>13 hard questions with answers, and a quiz</li></ul>
+        <span class="go">Open study guide 2 →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="round past">
+    <div class="roundhead"><span class="when">10 October · first proposal</span></div>
+    <div class="choices">
+      <a class="choice" href="deck.html">
+        <span class="label">For the presentation</span>
+        <h2>Presentation deck</h2>
+        <p>8 slides for 10 October, with speaker notes and animated diagrams.</p>
+        <ul><li>Use ← → to change slides</li><li>Press Play on the diagrams</li><li>Full screen for the projector</li></ul>
+        <span class="go">Open the 10 October deck →</span>
+      </a>
+      <a class="choice" href="study-guide.html">
+        <span class="label">For learning</span>
+        <h2>Study guide</h2>
+        <p>The whole concept in plain words, in about 20 minutes.</p>
+        <ul><li>Animated diagrams, step by step</li><li>A score calculator to try</li><li>A 10-question quiz</li></ul>
+        <span class="go">Open the study guide →</span>
+      </a>
+    </div>
   </div>
 
   <p class="foot">[Team name] · Corporate Risk Assessment and Digital Transformation · University of Luxembourg · October 2026. Luxembourg Digital Bank is a fictional bank; money figures are examples.</p>
