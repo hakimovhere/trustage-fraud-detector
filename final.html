@@ -376,7 +376,7 @@ body.print *{transition:none!important;animation-duration:.001s!important;animat
 <section class="slide" id="s3" data-time="60">
   <div class="head"><div class="eyebrow">Target operating model</div><h2>The machine decides most. People decide holds.</h2></div>
   <svg class="dg abs" id="tom" viewBox="0 0 1456 520" style="left:72px;top:196px;width:1456px;height:520px">
-    <g class="b" data-b="2"><path class="flow" d="M1311 480 V506 H300 V50 H330"/><text class="lab" x="800" y="498" text-anchor="middle">every answer becomes a label</text>
+    <g class="b" data-b="2"><path class="flow" d="M1311 480 V506 H300 V50 H330"/><text class="lab" x="800" y="498" text-anchor="middle">every call answer and every customer claim becomes a label</text>
       <path class="flow" d="M455 90 V180"/><text class="lab" x="470" y="142">new points table</text>
       <g><rect class="gbox" x="330" y="10" width="250" height="80" rx="14"/><text class="nt" x="455" y="46" text-anchor="middle">Weekly learning</text><text class="ns" x="455" y="72" text-anchor="middle">recount + safety test</text></g></g>
     <path class="lane g" d="M220 255 H330"/>
@@ -406,7 +406,7 @@ body.print *{transition:none!important;animation-duration:.001s!important;animat
 </section>
 
 <!-- 4 ARCHITECTURE -->
-<section class="slide" id="s4" data-time="55">
+<section class="slide" id="s4" data-time="70">
   <div class="head"><div class="eyebrow">Fraud architecture and components</div><h2>Three parts inside LDB, one answer in 0.3 s</h2></div>
   <svg class="dg abs" id="arch" viewBox="0 0 1456 600" style="left:140px;top:178px;width:1320px;height:544px">
     <rect class="zone" x="320" y="170" width="1116" height="262" rx="16"/><text class="zl" x="342" y="198">TRUSTAGE · INSIDE LDB</text>
@@ -423,8 +423,10 @@ body.print *{transition:none!important;animation-duration:.001s!important;animat
     <path class="edge" data-e="e11" d="M1100 320 V350"/>
     <path class="edge" data-e="e12" d="M1010 382 H980"/>
     <path class="edge" data-e="e13" d="M885 350 V320"/>
-    <path class="edge" data-e="e14" d="M1220 495 H1160 V414"/>
+    <path class="edge" data-e="e14" d="M1220 480 H1160 V414"/>
     <path class="edge" data-e="e15" d="M1060 414 V552" style="stroke-dasharray:7 6"/>
+    <path class="edge" data-e="e16" d="M830 515 H1220"/><text class="lab" x="945" y="505" text-anchor="middle">opens a case</text>
+    <path class="edge" data-e="e17" d="M1262 460 V440 H1205 V302 H1190"/>
     <g class="node" data-n="web"><rect class="box" x="40" y="30" width="240" height="80" rx="14"/><text class="nt" x="160" y="64" text-anchor="middle">Online banking</text><text class="ns" x="160" y="90" text-anchor="middle">customer's order</text></g>
     <g class="node" data-n="hub"><rect class="box" x="1176" y="30" width="240" height="80" rx="14"/><text class="nt" x="1296" y="64" text-anchor="middle">Payment hub</text><text class="ns" x="1296" y="90" text-anchor="middle">sends only if allowed</text></g>
     <g class="node" data-n="records"><rect class="box" x="40" y="200" width="240" height="190" rx="14"/><text class="nt" x="160" y="236" text-anchor="middle">Bank records</text>
@@ -437,16 +439,17 @@ body.print *{transition:none!important;animation-duration:.001s!important;animat
     <g class="node" data-n="points"><rect class="box" x="790" y="350" width="190" height="64" rx="12"/><text class="nt" x="885" y="390" text-anchor="middle" style="font-size:19px">Points table</text></g>
     <g class="node" data-n="tuner"><rect class="box" x="1010" y="350" width="180" height="64" rx="12" style="stroke:var(--good)"/><text class="nt" x="1100" y="390" text-anchor="middle" style="font-size:19px">Auto-tuner</text></g>
     <g class="node" data-n="console"><rect class="box" x="1220" y="460" width="190" height="70" rx="12"/><text class="nt" x="1315" y="502" text-anchor="middle" style="font-size:19px">Console</text></g>
+    <g class="node" data-n="claim"><rect class="box" x="600" y="474" width="230" height="82" rx="14" style="stroke:var(--bad)"/><text class="nt" x="715" y="508" text-anchor="middle" style="font-size:19px;fill:var(--bad)">Customer claim</text><text class="ns" x="715" y="535" text-anchor="middle">fraud got through</text></g>
     <g class="node" data-n="lead"><circle class="box" cx="1060" cy="566" r="13"/><text class="ns" x="1084" y="572" style="fill:var(--ink);font-weight:600">fraud lead · veto</text></g>
     <g class="node" data-n="analyst"><circle class="box" cx="1315" cy="566" r="13"/><text class="ns" x="1339" y="572" style="fill:var(--ink);font-weight:600">analyst</text></g>
     <circle class="dot" id="adot" r="10" cx="-20" cy="-20"/>
   </svg>
-  <div class="cap" id="acap" style="left:196px;top:600px;width:640px"><small id="acapn">STEP 1 / 10</small><span id="acapt"></span></div>
+  <div class="cap" id="acap" style="left:196px;top:600px;width:470px"><small id="acapn">STEP 1 / 12</small><span id="acapt"></span></div>
   <div class="notes2 b" data-b="1" style="top:748px">
     <div class="note"><b>Instant payment held?</b> Refused within 10 s, then continues as a standard transfer, decided by D+1.</div>
     <div class="note"><b>TrustAge down?</b> Trusted payees still pass; €1,000+ to new payees waits.</div>
   </div>
-  <aside class="notes">Here is the architecture, **all inside LDB**. [the dot follows the payment] The customer orders a transfer. Before sending, the payment hub asks TrustAge: **is this safe?** Part one, the **transaction loader**, collects and checks the bank's records. The **attribute builder** turns them into ages. Part two, the **fraud engine**, scores with the points table and answers in under 0.3 seconds. Every decision is stored for audit. Part three, the **report engine**, shows held payments to the analyst. And outcomes flow back into the weekly recount. [click] Two details: a held instant payment is refused within ten seconds and continues as a standard transfer, decided by the next day. If TrustAge is down, trusted payees still pass.</aside>
+  <aside class="notes">Here is the architecture, **all inside LDB**. [the dot follows the payment] The customer orders a transfer. Before sending, the payment hub asks TrustAge: **is this safe?** Part one, the **transaction loader**, collects and checks the bank's records. The **attribute builder** turns them into ages. Part two, the **fraud engine**, scores with the points table and answers in under 0.3 seconds. Every decision is stored for audit. Part three, the **report engine**, shows held payments to the analyst. [the dot goes to the red box] And when a fraud **gets through**? The customer's claim opens a case on the console. The analyst links it to the **stored decision**, so it is labelled a **missed fraud**: it appears on the KPI page, the IBAN goes on the mule list, and LDB asks the receiving bank to recall the money. Calls and claims both flow back into the weekly recount. [click] Two details: a held instant payment is refused within ten seconds and continues as a standard transfer, decided by the next day. If TrustAge is down, trusted payees still pass.</aside>
 </section>
 
 <!-- 5 DATA -->
@@ -593,11 +596,11 @@ body.print *{transition:none!important;animation-duration:.001s!important;animat
       <div class="tl"><span class="k">Customer friction</span><span class="v">1.1%</span><span class="s">extra check or wait · target ≤ 1.5%</span><div class="gg"><i style="width:73%"></i></div></div>
       <div class="tl"><span class="k">Speed, 99% of decisions</span><span class="v">290 ms</span><span class="s">limit 300 ms · instant stays within 10 s</span><div class="gg am"><i style="width:97%"></i></div></div>
     </div>
-    <p class="pnote">Each fraud is tagged with its EBA category for LDB's semi-annual fraud report to the CSSF.</p>
+    <p class="pn info2" style="margin-top:16px"><b>Missed fraud comes from customer claims:</b> 2 this month (€7,200), each linked to its stored decision. A late claim (up to 13 months) updates the month, so these figures are provisional. Each fraud carries its EBA category for the semi-annual CSSF report.</p>
    </div>
   </div>
   <div class="mocknote b" data-b="0" style="--d:.4s">Report mockups · example numbers, month 4 · click a tab or press →</div>
-  <aside class="notes">The report engine gives **each person one report**. [point to the card] This is the alert card for the held payment. One sentence says **why**. The bars show exactly which signals added the points, so there is no black box. On the right, the link ages, the call-back script, and the clock: P1 cases are answered within fifteen minutes. [click through the tabs, or press → for each] The analyst also has a live **queue**, sorted by priority. The fraud lead has a daily **campaign board** for attacks across customers, and a monthly report of **what TrustAge changed by itself**, with a one-line reason for each change. Management gets the **KPI page**, which also feeds the fraud statistics for the CSSF. All numbers on these mockups are examples for month four.</aside>
+  <aside class="notes">The report engine gives **each person one report**. [point to the card] This is the alert card for the held payment. One sentence says **why**. The bars show exactly which signals added the points, so there is no black box. On the right, the link ages, the call-back script, and the clock: P1 cases are answered within fifteen minutes. [click through the tabs, or press → for each] The analyst also has a live **queue**, sorted by priority. The fraud lead has a daily **campaign board** for attacks across customers, and a monthly report of **what TrustAge changed by itself**, with a one-line reason for each change. Management gets the **KPI page**. Frauds we missed reach it through **customer claims**, so a late claim updates the month; it also feeds the fraud statistics for the CSSF. All numbers on these mockups are examples for month four.</aside>
 </section>
 
 <!-- 8 LEARNING -->
@@ -615,7 +618,7 @@ body.print *{transition:none!important;animation-duration:.001s!important;animat
     <circle class="dot" id="ldot" r="11" cx="370" cy="120" style="fill:var(--good)"/>
   </svg>
   <div class="logc b" data-b="1">
-    <div class="h">LOG · MONTH 4 · TABLE v1.5</div>
+    <div class="h">LOG · MONTH 4 · TABLE v1.4</div>
     <div class="big">R3 fresh payee <em id="tick">+20</em></div>
     <div>21 of 25 confirmed frauds had one;<br>only 5.5% of genuine payments do.</div>
     <div class="ok" style="margin-top:10px">✓ every library scenario still reaches its action</div>
@@ -627,7 +630,7 @@ body.print *{transition:none!important;animation-duration:.001s!important;animat
     <div class="rail b" data-b="2" style="--d:.36s"><b>New rule</b> starts at 0 points</div>
     <div class="rail b" data-b="2" style="--d:.48s"><b>Veto</b> and one-click rollback</div>
   </div>
-  <aside class="notes">You asked how the detector adapts **without human intervention**. [point to the loop] Every payment gets an outcome: the analyst's decision, a cancellation, a customer claim, or 60 days without complaint. **Every Sunday night** TrustAge recounts F and G and recomputes the points with the same formula. It is **counting, not machine learning**, so anyone can check it. [click] For example, by month four, 21 of 25 frauds had a fresh payee, so that signal rises **from 20 to 25**, and the log explains why. [click] **Nine safety rails** keep it in check: at most five points a week, floors for core rules, overrides changed only by people, and a new rule starts at zero until the evidence supports it. The fraud lead can always veto.</aside>
+  <aside class="notes">You asked how the detector adapts **without human intervention**. [point to the loop] Every payment gets an outcome: the analyst's decision, a cancellation, a customer claim, or 60 days without complaint. The **claim** matters most: it is the only way we learn what we **missed**, so TrustAge does not just learn what it already catches. **Every Sunday night** TrustAge recounts F and G and recomputes the points with the same formula. It is **counting, not machine learning**, so anyone can check it. [click] For example, by month four, 21 of 25 frauds had a fresh payee, so that signal rises **from 20 to 25**, and the log explains why. [click] **Nine safety rails** keep it in check: at most five points a week, floors for core rules, overrides changed only by people, and a new rule starts at zero until the evidence supports it. The fraud lead can always veto.</aside>
 </section>
 
 <!-- 9 RESULTS -->
@@ -725,7 +728,9 @@ H.s4=(function(){ const ST=[
   {n:['hub'],e:['e6'],t:'Answer back in under 0.3 seconds'},
   {n:['store'],e:['e7'],t:'Every decision stored with its reasons'},
   {n:['report','console','analyst'],e:['e8','e9','e10'],t:'Part 3 shows held payments to the analyst'},
-  {n:['tuner','points'],e:['e14','e11','e12'],t:'Outcomes feed the weekly recount'},
+  {n:['claim','console'],e:['e16'],t:'A fraud got through? The customer\'s claim opens a case'},
+  {n:['store','report'],e:['e17','e8'],t:'Linked to its stored decision, it counts as missed fraud in the reports'},
+  {n:['tuner','points'],e:['e14','e11','e12'],t:'Calls and claims feed the weekly recount'},
   {n:['lead'],e:['e15'],t:'The fraud lead reads the log and can veto'} ];
   let svg, dot;
   function paint(k){ $$('.node',svg).forEach(x=>x.classList.remove('on','done')); $$('.edge',svg).forEach(x=>x.classList.remove('on','done'));
