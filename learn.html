@@ -102,6 +102,11 @@ button{font:inherit;color:inherit}
 .chgbox .lbl{color:var(--chg)}
 .trap{background:var(--bad-bg);border-radius:12px;padding:12px 14px;font-size:.95rem}
 .trap .lbl{color:var(--bad)}
+.need{background:var(--good-bg);border-radius:12px;padding:12px 14px;font-size:.98rem}
+.need .lbl{color:var(--good)}
+.ifnot{background:var(--blue-bg);border-radius:12px;padding:12px 14px;font-size:.95rem}
+.ifnot .lbl{color:var(--blue)}
+.need ul,.need ol,.ifnot ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
 .body{display:grid;gap:12px;margin-top:14px;max-width:65ch}
 .body ul,.body ol,.ex ul,.ex ol,.simple ul,.simple ol,.chgbox ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
 .hook{margin-top:18px;border:1px dashed var(--pri);border-radius:12px;padding:10px 14px;display:grid;gap:2px}
@@ -360,18 +365,63 @@ const BLOCKS = [
 ]},
 
 /* ═════════════ PART B · THE DESIGN ═════════════ */
-{id:'purpose', part:'B · The design, chapter by chapter', title:'Purpose and the fraud we target', sub:'§1–2: why LDB needs it, the attack routes, the one weakness of every route', mins:12, steps:[
- {t:'card', tag:'§1 · Purpose', h:'What LDB needs',
-  simple:`A detector that <b>stops account takeover on outgoing transfers before the money leaves</b>, <b>explains every decision</b>, and <b>works from the first day</b> without any fraud history. It must also be affordable for a small bank.`,
+{id:'purpose', part:'B · The design, chapter by chapter', title:'Purpose and the fraud we target', sub:'§1–2: what TrustAge must do, what a "link" is, and the new link every attack route leaves', mins:18, steps:[
+ {t:'card', tag:'§1 · Purpose', h:'What LDB needs, in four parts',
+  simple:`TrustAge has one job: <b>stop account takeover on outgoing transfers</b>. The report puts four conditions on it, and each one has a reason:<ol><li><b>Before the money leaves.</b> An instant payment reaches the other bank in 10 seconds. Spotting fraud afterwards gives you a report, but the money is already gone.</li><li><b>Explain every decision.</b> The analyst has to tell the customer why a payment is held, and an auditor or the CSSF may ask about it months later.</li><li><b>Work from the first day.</b> LDB is new. It has no past frauds to learn from.</li><li><b>Affordable.</b> A small new bank cannot pay for a big-bank system.</li></ol>`,
+  ex:`A smoke alarm: it has to ring <b>before</b> the house burns down (before the money leaves), tell you <b>which room</b> (explain), work on the day you move in (day one), and cost less than the house (affordable).`,
   pro:`"LDB needs a detector that stops account takeover on outgoing transfers before the money leaves, explains every decision, and works from the first day without any fraud history" (§1).`},
- {t:'card', tag:'§1 · Background', h:'The numbers behind the problem',
+ {t:'card', tag:'§1 · Background', h:'Why this is a real problem',
   ex:`<div class="stats"><div class="stat"><b>€2.2 bn</b><span>credit-transfer fraud in the EEA, 2024, up 16% (EBA–ECB)</span></div><div class="stat"><b>~60</b><span>clients lost ~€550,000 to a fake BILnet site (2025)</span></div><div class="stat"><b>700+</b><span>phishing complaints in Luxembourg, 2024–2025</span></div><div class="stat"><b>10 s</b><span>for an instant payment to reach the payee's bank</span></div></div>`,
-  simple:`<b>Manipulation of the payer</b> (coached victims) is the fastest-growing type. In October 2026 the Luxembourg police warned about callers posing as bank or LuxTrust staff.`},
- {t:'card', tag:'§2 · The core idea', h:'Every route has to add something new',
-  simple:`Whatever the route, before the money moves the criminal must add a <b>new link</b> between the account and the money: a new device, a new network, a changed phone, a new payee, or a destination that strangers also pay. The rules look for that new link.`,
-  ex:`The real owner: device and phone verified at onboarding 92 days ago, payee paid twice. A takeover: device first seen 2 minutes ago, phone changed 2 days ago, payee added 10 minutes ago.`,
-  pro:`"Every takeover puts a new link between the account and the money, such as a device, a phone number or a payee, and a criminal cannot make that link old" (abstract).`},
- {t:'card', tag:'§2 · Table 3', h:'Eight routes and the link each cannot avoid',
+  simple:`Each number answers a question you may be asked:<ul><li><b>Is the problem big?</b> €2.2 billion a year in the EEA, and growing 16%.</li><li><b>Does it happen here?</b> Yes: the fake BILnet site, 700+ phishing complaints, and in October 2026 a police warning about callers posing as bank or LuxTrust staff.</li><li><b>Why the hurry?</b> Instant payments leave in 10 seconds, so the check must happen before sending.</li><li><b>Which type grows fastest?</b> <b>Manipulation of the payer</b>: the customer is tricked into paying the criminal personally. It is also the hardest type for TrustAge (see "What TrustAge does not cover").</li></ul>`},
+ {t:'card', tag:'§2 · Key word', h:'What we mean by a "link"',
+  simple:`A <b>link</b> is anything that connects the account to the money leaving it. We look at five kinds:<ul><li><b>Device</b>: the laptop or phone used to log in, and the network it connects from</li><li><b>Phone and e-mail</b>: the contact details, password and LuxTrust that protect the account</li><li><b>Session</b>: one logged-in visit, from login to logout</li><li><b>Payee</b>: the account that receives the money</li><li><b>Destination</b>: who else is paying that same account</li></ul>Every link has an <b>age</b>: how long it has been tied to this customer.`,
+  ex:`An honest customer, Anna: the laptop she has used since opening the account (92 days old), her phone number (92 days), her landlord as payee (paid three times). All her links are old.`},
+ {t:'card', tag:'§2 · The core idea', h:'Why a criminal has to add a new link',
+  simple:`The criminal does not have Anna's laptop, her phone or her landlord's account. To get money out, they must bring something <b>of their own</b>: their own device, their own phone number, or their own account as the payee. Whatever they bring is <b>brand new</b> to Anna's account. So TrustAge asks of every link: <b>how old is it?</b>`,
+  ex:`<b>Anna:</b> device 92 days old, phone verified at onboarding, payee paid twice.<br><b>Criminal in Anna's account:</b> device first seen 2 minutes ago, phone changed 2 days ago, payee added 10 minutes ago.`,
+  pro:`"Every takeover puts a new link between the account and the money, such as a device, a phone number or a payee, and a criminal cannot make that link old" (abstract).`, means:`A password can be copied in a second. A link cannot be made three months old without waiting three months, and while the criminal waits, warnings go to Anna's old phone and e-mail.`,
+  hook:`A criminal can steal a password, but cannot make a link old.`},
+ {t:'card', tag:'§2 · Why this idea', h:'Why link age suits a brand-new bank',
+  simple:`Many fraud systems ask "is this payment <b>unusual for this customer</b>?" That needs months of each customer's history, and LDB has none. Link age only needs to know <b>when each link first appeared</b>. LDB records that from the moment the customer opens the account (onboarding), so the idea works on day one.`,
+  ex:`A teacher on the first day of term doesn't know any student's habits yet. She does know who was on this morning's class list and who just walked in from the street.`,
+  pro:`§10: "A check of whether a payment is unusual for the customer would need months of data."`},
+ {t:'card', tag:'Before the routes', h:'The rule names you will see next',
+  simple:`The next screens name the rules that catch each attack. For now you only need the idea behind each code:`,
+  body:`<div class="tbl-wrap"><table><thead><tr><th>Code</th><th>In plain words</th></tr></thead><tbody>
+  <tr><td class="id">R1</td><td>Phone, e-mail, password or LuxTrust <b>changed</b> shortly before money goes out</td></tr>
+  <tr><td class="id">R2</td><td><b>Unfamiliar access</b>: a new device or a hiding network (VPN, Tor). <b>R2c</b>: the session suddenly jumps to another network and browser</td></tr>
+  <tr><td class="id">R3</td><td><b>Fresh payee</b>: money to an account added recently. <b>R3c</b>: an existing payee's IBAN was edited</td></tr>
+  <tr><td class="id">R4</td><td>The <b>name check</b> (VoP) or the payment purpose doesn't fit</td></tr>
+  <tr><td class="id">R5</td><td><b>Draining</b> the account, even in small pieces over 72 hours</td></tr>
+  <tr><td class="id">R6</td><td><b>Risky destination</b>: an account that looks like a money mule</td></tr>
+  <tr><td class="id">R7</td><td><b>Coached session</b>: pasted IBAN at script speed, a remote-access app, long pauses</td></tr>
+  <tr><td class="id">R8</td><td><b>Probing</b>: a tiny test payment, a sleeping account waking up</td></tr>
+  <tr><td class="id">O1–O4</td><td><b>Overrides</b>: fixed patterns that never pass, e.g. O2 = session jump + fresh payee → block</td></tr></tbody></table></div>`,
+  ex:`R = a rule that adds points. O = an override with a fixed decision. (Later you will also meet M = a good sign that removes points.)`},
+ {t:'card', tag:'§2 · Routes 1–4', h:'The criminal operates your account',
+  body:`<div class="tbl-wrap"><table><thead><tr><th>Route: what happens</th><th>New link it leaves</th><th>Seen by</th></tr></thead><tbody>
+  <tr><td><b>Phishing / clone site.</b> You type your login on a fake bank page. The criminal then logs in from their own laptop.</td><td>A device and network you never used, then a payee you never paid</td><td class="id">R2, R3</td></tr>
+  <tr><td><b>Real-time relay.</b> The fake page passes your codes to the real bank while you type, so even the LuxTrust code works.</td><td>Mid-session, the session jumps to the criminal's network and browser; then a payee is added or edited</td><td class="id">R2c, R3, O2</td></tr>
+  <tr><td><b>Stolen session cookie.</b> Malware copies your "already logged in" pass. No login is needed.</td><td>The same session suddenly continues from a new network and browser</td><td class="id">R2c</td></tr>
+  <tr><td><b>SIM swap / e-mail takeover.</b> The criminal moves your phone number or e-mail to themselves, then resets your password.</td><td>Phone, e-mail, password or LuxTrust changed shortly before money moves</td><td class="id">R1</td></tr></tbody></table></div>`,
+  simple:`In all four, the criminal is at the keyboard, so they <b>cannot use your device</b>. That is why these routes leave the clearest new links and TrustAge is strongest here.`},
+ {t:'card', tag:'§2 · Route 5', h:'You are tricked into paying',
+  simple:`<b>Fake bank, LuxTrust or police caller; "safe account"; remote-access "tech support".</b> A caller frightens you ("your account is hacked") and tells you to move your money to a "safe account". <b>You</b> press the buttons, on <b>your own</b> device. So your device and phone links stay old.`,
+  body:`<div class="tbl-wrap"><table><thead><tr><th>New link it still leaves</th><th>Seen by</th></tr></thead><tbody>
+  <tr><td>A payee you have never paid</td><td class="id">R3</td></tr>
+  <tr><td>Often after a name warning you click past</td><td class="id">R4</td></tr>
+  <tr><td>Often most of the balance</td><td class="id">R5</td></tr>
+  <tr><td>Signs of coaching: pasted IBAN, remote-access app, long pause</td><td class="id">R7</td></tr>
+  <tr><td>You answer "the bank / police asked me to move it"</td><td class="id">O4</td></tr></tbody></table></div>`,
+  trap:`This route leaves the <b>fewest</b> new links, often only the payee. That is why coached victims are only <b>partly</b> covered: TrustAge slows them down with a question and a 1-hour release rather than always stopping them.`},
+ {t:'card', tag:'§2 · Routes 6–8', h:'Tricks to hide the new link',
+  body:`<div class="tbl-wrap"><table><thead><tr><th>Trick</th><th>Why it still fails</th><th>Seen by</th></tr></thead><tbody>
+  <tr><td><b>Edit a trusted payee's IBAN.</b> Keep the landlord's name, swap in the criminal's account number.</td><td>An edited IBAN counts as a brand-new payee: its age resets to zero</td><td class="id">R3c</td></tr>
+  <tr><td><b>Low and slow.</b> Send €5 as a test, split €3,000 into six €500s, wait a while, or use a sleeping account.</td><td>The money still lands at a fresh payee, and TrustAge adds up everything sent over 72 hours</td><td class="id">R1c, R5, R8</td></tr>
+  <tr><td><b>Mules.</b> One mule account collects money from many victims.</td><td>Several unrelated LDB customers suddenly pay the same new IBAN</td><td class="id">R6</td></tr></tbody></table></div>`,
+  simple:`The mule row is special: one customer alone can't see it. Only the <b>bank-wide</b> view does, which is why it sits in the attribute builder, not in one customer's data.`},
+ {t:'card', tag:'§2 · Table 3', h:'All eight routes on one page',
+  simple:`This is the table as printed in the report. Read each row left to right: <b>route → the new link it cannot avoid → the rule that sees it</b>.`,
   body:`<div class="tbl-wrap"><table><thead><tr><th>Route</th><th>Cannot avoid</th><th>Caught by</th></tr></thead><tbody>
   <tr><td>Phishing / clone site</td><td>Device and network never used, then a payee never paid</td><td class="id">R2, R3</td></tr>
   <tr><td>Real-time relay</td><td>Session jumps to criminal's network and browser, then payee added/edited</td><td class="id">R2c, R3, O2</td></tr>
@@ -388,31 +438,97 @@ const BLOCKS = [
    {x:'Third unrelated LDB customer this weekend paying the same new Lithuanian IBAN.',b:'R6',why:'R6b, the crowd signal.'},
    {x:'Session suddenly continues from a different network and browser fingerprint.',b:'R2',why:'R2c, a stolen cookie or relay.'},
    {x:'Password reset 2 hours ago from a new e-mail, then money out.',b:'R1'}]},
- {t:'card', tag:'§2 · Scope', h:'What TrustAge does not cover',
-  simple:`<b>Out of scope:</b> card fraud, cheques, and fraud by the account owner. <b>Partly covered:</b> coached victims who pay from their own device to a name that matches.`,
-  ex:`A customer who sends money to a romance scammer from her own laptop, to a name that checks out, leaves almost no new link. TrustAge slows her down rather than stopping her.`},
+ {t:'card', tag:'§2 · Scope', h:'What TrustAge does not cover, and why',
+  simple:`<b>Out of scope:</b><ul><li><b>Card fraud and cheques</b>: the brief asks only about online transfers.</li><li><b>Fraud by the account owner</b>: there is no stranger, so there is no new link to find.</li></ul><b>Partly covered:</b> coached victims who pay from their own device to a name that matches. They leave almost no new link.`,
+  ex:`A customer sends money to a romance scammer from her own laptop, to a name that checks out. Only the payee is new. TrustAge slows her down (a question, a 1-hour release) rather than stopping her.`,
+  pro:`The brief: "capture ATO fraud in online checking accounts by analysing the wire transfers." Report §2: "Card fraud, cheques and fraud by the account owner are out of scope. Coached victims are only partly covered."`},
  {t:'mcq', q:'Why does TrustAge look at new links rather than "is this unusual for the customer"?', opts:['Unusual-for-the-customer needs months of history that a new bank lacks; link age only needs the onboarding record','Because criminals always use VPNs','Because PSD2 forbids behaviour profiles','Because it is cheaper to store'], a:0, why:'§10: "A check of whether a payment is unusual for the customer would need months of data." Was this link verified at onboarding or added later? That needs no history.'},
+ {t:'mcq', q:'Why are coached victims harder to catch than a phishing takeover?', opts:['They pay from their own device and phone, so often only the payee is a new link','Because they always use instant payments','Because SCA blocks them','Because they never pass the name check'], a:0, why:'In a takeover the criminal must bring their own device or phone. A coached victim uses their own, so TrustAge sees mostly the fresh payee, plus R4, R5, R7 and O4 if they appear.'},
  {t:'recall', must:1, q:'Say the purpose of TrustAge in one sentence, and the core idea in one more.', ans:`<p><b>Purpose:</b> stop account takeover on outgoing transfers before the money leaves, explain every decision, and work from day one without history.</p><p><b>Core idea:</b> every takeover adds a new link (device, phone, payee); TrustAge measures how old each link is, because a criminal cannot make a link old.</p>`}
 ]},
 
-{id:'assume', part:'B · The design, chapter by chapter', title:'The eight assumptions', sub:'§2.1: A1–A8, what each means and why it is safe', mins:10, steps:[
- {t:'card', tag:'A1 · A2', h:'New bank; SCA already in place',
-  simple:`<b>A1:</b> LDB is new and has no transaction history. Trust is anchored at <b>onboarding</b> (eKYC + LuxTrust registration). <b>A2:</b> every transfer already passes SCA through LuxTrust (PSD2 Art. 97); TrustAge adds to it.`,
-  ex:`eKYC = online identity check at account opening: photo of your ID plus a selfie. The device and phone used then become "anchored".`},
- {t:'card', tag:'A3 · A4 · A5', h:'Fraud rate, volume, speed',
-  simple:`<b>A3:</b> plan with 1 ATO fraud in 20,000 transfers, only to turn scores into odds; cautious because criminals target new banks; replaced by the measured rate from month 1. <b>A4:</b> about 2,500 transfers a day at first. <b>A5:</b> the payment hub calls TrustAge before executing and waits up to 0.5 s.`,
-  pro:`The EEA credit-transfer fraud rate was about 0.001% of value in 2024; 1 in 20,000 is deliberately more pessimistic.`},
- {t:'card', tag:'A6 · A7 · A8', h:'Contract, name check, estimates',
-  simple:`<b>A6:</b> LDB's terms allow a payment to be held for a safety check, and an instant order to continue as a standard transfer (PSD2 Art. 79 needs a contractual basis to refuse). <b>A7:</b> VoP is available for every euro transfer (since 9 Oct 2025). <b>A8:</b> the starting F values are estimates (public cases, a 40-scenario library, team judgement), labelled as such and replaced by real counts.`,
-  ex:`A6 is like the small print in your phone contract that lets the operator block your SIM if it is stolen.`},
+{id:'assume', part:'B · The design, chapter by chapter', title:'The eight assumptions', sub:'§2.1: A1–A8, one per screen: what it says, why we need it, and what happens if it is wrong', mins:18, steps:[
+ {t:'card', tag:'Start here', h:'What an assumption is, and why we need them',
+  simple:`An <b>assumption</b> is something we treat as true because we <b>cannot check it yet</b>. LDB is fictional and brand-new: we have no data, no past frauds and no contracts to read. So a few facts had to be taken as given before we could design anything.`,
+  ex:`Planning a birthday party: you assume about 20 guests, a free room on Saturday, and a shop that delivers the cake. If one of these turns out wrong, you know exactly which part of the plan to change.`,
+  need:`Writing them down does three things:<ol><li><b>Honesty:</b> the reader sees what our numbers depend on.</li><li><b>Checking:</b> LDB can confirm or reject each one.</li><li><b>Damage control:</b> if one is wrong, we know which part of TrustAge changes, and how it recovers.</li></ol>`},
+ {t:'card', tag:'Overview', h:'The eight, in three groups',
+  body:`<div class="tbl-wrap"><table><thead><tr><th>Group</th><th>Assumptions</th></tr></thead><tbody>
+  <tr><td><b>About LDB itself</b></td><td>A1 new bank, trust starts at onboarding · A4 about 2,500 transfers a day</td></tr>
+  <tr><td><b>Things the law or LDB's systems already provide</b></td><td>A2 SCA on every transfer · A5 the payment hub asks first · A6 the terms allow a hold · A7 the name check (VoP)</td></tr>
+  <tr><td><b>Numbers we had to estimate</b></td><td>A3 1 fraud in 20,000 · A8 the starting F values</td></tr></tbody></table></div>`,
+  simple:`The first two groups are facts LDB can confirm in a day. Only the last group is real guesswork, and both of those numbers are <b>replaced by LDB's own counts</b> once it is running.`},
+ {t:'card', tag:'A1 of 8', h:'A1 · LDB is new; trust starts at onboarding',
+  simple:`LDB has <b>no history</b> of past transfers. The one moment we know for sure who the customer is: <b>onboarding</b>, when they opened the account with an ID photo plus a selfie (eKYC) and registered LuxTrust. The device, phone number and e-mail used then are <b>anchored</b>: trusted from day one.`,
+  need:`The professor told us LDB is new, so we cannot assume history. But a detector needs <b>some</b> starting point of trust, or every customer looks like a stranger. Onboarding is the one verified moment we have, and <b>every link age is counted from it</b>.`,
+  ifnot:`If LDB did have history, nothing breaks; we could add customer profiles later. If onboarding were weak (no real ID check), a criminal could open the account with their own device, and link age would trust the wrong person. That is fraud by the account owner, which is out of scope.`,
+  ex:`A hotel gives you a key card at check-in after seeing your passport. For the rest of your stay that card is trusted. A card that turns up later from nowhere is not.`,
+  pro:`"LDB is new and has no transaction history. Trust is anchored at onboarding (eKYC plus LuxTrust registration)" (A1).`},
+ {t:'card', tag:'A2 of 8', h:'A2 · SCA already checks every transfer',
+  simple:`Every transfer already passes <b>strong customer authentication</b> (SCA) through LuxTrust: two proofs, such as password plus a code in the app. The law requires it (PSD2 Art. 97). TrustAge is an <b>extra layer after SCA</b>; it does not replace it.`,
+  need:`It tells the reader what TrustAge does <b>not</b> do: it never checks passwords or codes. And it explains why TrustAge is needed at all: takeovers get <b>through</b> SCA with stolen or relayed codes, or because the real customer approves a payment a criminal is steering.`,
+  ifnot:`SCA is the law, so this is our safest assumption. Even if a payment skipped SCA, TrustAge would score it the same way; it just could not rely on that first lock.`,
+  ex:`Your front door has a good lock (SCA). TrustAge is the neighbour who notices that the person with your key arrived in a car nobody has seen before.`,
+  pro:`"TrustAge adds to SCA because takeover fraud usually gets through it, either with stolen or relayed credentials or with the real customer acting on a criminal's instructions" (A2).`},
+ {t:'card', tag:'A3 of 8', h:'A3 · We plan with 1 fraud in 20,000 transfers',
+  simple:`Before LDB has any data, we assume that about <b>1 transfer in 20,000</b> is account-takeover fraud. We use this number <b>only</b> to translate points into odds. It does not decide anything by itself.`,
+  need:`Points tell you how much <b>more</b> likely fraud is: 70 points ≈ ×1,000. To say what that means in plain terms you need a starting rate: 1 in 20,000, made 1,000 times more likely, is about <b>1 in 20</b>. So about 1 held payment in 20 is fraud. Executives and analysts understand that sentence, and it tells us how much work the holds will be.`,
+  ifnot:`The hold line (70) and every signal's points stay exactly the same. Only the translation shifts: if the real rate were 1 in 100,000, about 1 hold in 100 would be fraud. In any case LDB replaces 1 in 20,000 with its <b>measured</b> rate from month 1.`,
+  ex:`A weather app needs to know how often it rains in your city at all. "Dark clouds make rain 4× more likely" means little until you know whether it rains there once a week or once a year.`,
+  pro:`"We plan with 1 ATO fraud in 20,000 transfers and use this rate only to translate scores into odds" (A3).`, means:`<b>Why so pessimistic?</b> The real EEA rate was about 0.001% of value in 2024. We assume more fraud on purpose, because criminals tend to target new digital banks early.`},
+ {t:'card', tag:'A4 of 8', h:'A4 · About 2,500 transfers a day at first',
+  simple:`We assume LDB processes about <b>2,500 transfers a day</b> in its first months.`,
+  need:`Volume sets the size of everything around the detector:<ul><li><b>People:</b> how many payments get held each day, so how many analysts are needed.</li><li><b>Learning speed:</b> how fast G can be measured (30 days ≈ 75,000 transfers).</li><li><b>Cost:</b> €430,000 a year ÷ about 900,000 transfers ≈ <b>€0.48 per transfer</b>.</li></ul>`,
+  ifnot:`More transfers means more holds. Rail 7 can move the hold line between 65 and 75 to keep holds within the analysts' capacity, and the cost per transfer falls. Fewer transfers means G takes a little longer to measure. The rules themselves don't change.`,
+  ex:`A new café plans its staff for about 200 customers a day. If 400 come, it adds staff. The recipes stay the same.`,
+  pro:`"About 2,500 transfers a day in the first months" (A4).`},
+ {t:'card', tag:'A5 of 8', h:'A5 · The payment hub asks first and waits 0.5 s',
+  simple:`LDB's <b>payment hub</b> (the system that actually sends the money) asks TrustAge <b>before</b> it executes a payment, and waits up to <b>0.5 seconds</b> for the answer.`,
+  need:`This is what lets TrustAge <b>stop</b> fraud instead of only reporting it. A detector that looks after the money has left can only write a report. The 0.5 s also sets our speed target: TrustAge answers in under <b>0.3 s</b>, which leaves room inside the 10-second limit for instant payments.`,
+  ifnot:`If TrustAge does not answer within 0.5 s, a fixed <b>fail mode</b> applies: payments to trusted payees go through; €1,000 or more to fresh payees waits as a standard transfer until TrustAge is back. IT is alerted through the DORA incident process.`,
+  ex:`A cashier checks a banknote <b>before</b> handing over the shopping, not after the customer has left the shop.`,
+  pro:`"The payment hub calls the detector before executing a payment and waits up to 0.5 s for an answer" (A5).`},
+ {t:'card', tag:'A6 of 8', h:`A6 · LDB's terms allow a hold`,
+  simple:`The customer contract (LDB's terms) allows LDB to <b>hold a payment for a safety check</b>, and to continue an <b>instant</b> payment as a <b>standard</b> transfer after that check.`,
+  need:`A bank cannot stop a customer's payment just because it looks suspicious. <b>PSD2 Art. 79</b> says a refusal needs a <b>contractual basis</b>, and the customer must be told why. Without A6 there would be no legal "Hold", no time for the call-back, and no way to slow down an instant payment. Turning instant into standard gives the analyst until <b>D+1</b> to call.`,
+  ifnot:`LDB would have only two choices: pay at once or refuse outright. Many honest customers would be refused instead of called, and every instant payment would leave in 10 seconds with no time to check. The fix is easy: write the clause into the terms before launch.`,
+  ex:`The small print in your phone contract lets the operator block your SIM if it looks stolen. Without that clause, they could not do it.`,
+  pro:`"LDB's terms allow a payment to be held for a safety check and an instant order to be continued as a standard transfer after such a check. PSD2 Art. 79 requires a contractual basis before a payment can be refused" (A6).`},
+ {t:'card', tag:'A7 of 8', h:'A7 · The name check (VoP) is always available',
+  simple:`For every euro transfer, LDB gets a <b>Verification of Payee</b> (VoP) answer from the receiving bank: match, close match, no match, or not possible. The Instant Payments Regulation requires this since <b>9 October 2025</b>.`,
+  need:`Rule <b>R4</b> uses this answer. Mule accounts are often in <b>someone else's name</b>, so a "no match" that the customer clicks past is strong evidence. Without A7 we could not count on R4 for every payment.`,
+  ifnot:`When the answer is missing, it counts as the risky value of its signal: <b>R4c "VoP not possible", +5 points</b> (clarified after the PDF). The other rules still score the payment as usual.`,
+  ex:`A parcel addressed to "J. Kovacs" when the mailbox says "J. Kovac" is a close match. Addressed to "Maria Lopez", it is no match: something is off.`,
+  pro:`"Verification of Payee (VoP) results are available for every euro transfer, as the Instant Payments Regulation requires since 9 October 2025" (A7).`},
+ {t:'card', tag:'A8 of 8', h:'A8 · The starting F values are estimates',
+  simple:`Each signal's points come from two numbers: <b>F</b> = how often it shows up in <b>fraud</b>, and <b>G</b> = how often in <b>genuine</b> payments. On day one LDB has seen no fraud, so every F is an <b>estimate</b> from public cases, a 40-scenario library and the team's judgement. They are labelled as estimates.`,
+  need:`The formula 7 × log₂(F/G) needs an F for every signal from the first day. G is easy: 30 days of LDB's own traffic measures it. F is hard: fraud is rare, so real counts take months. Without A8 the detector could not start.`,
+  ifnot:`This is our <b>weakest</b> assumption, but mistakes are cheap: if an F is wrong by a factor of 2, the points change by only 7. The estimate counts as just <b>20 cases</b>, so real outcomes soon outweigh it, and the weekly recount replaces it.`,
+  ex:`A newly qualified doctor uses textbook numbers ("this symptom appears in 70% of flu cases") until they have seen enough of their own patients.`,
+  pro:`"The starting F values are estimates from public cases, a 40-scenario library and the team's judgement. They are labelled as estimates and replaced by real counts over time" (A8).`},
+ {t:'card', tag:'Summary', h:'All eight on one page',
+  body:`<div class="tbl-wrap"><table><thead><tr><th>#</th><th>We assume</th><th>We need it because</th><th>If it is wrong</th></tr></thead><tbody>
+  <tr><td class="id">A1</td><td>New bank; trust from onboarding</td><td>Link ages need a verified starting point</td><td>History would only help; weak eKYC is out of scope</td></tr>
+  <tr><td class="id">A2</td><td>SCA on every transfer</td><td>Shows TrustAge is a second layer, and why one is needed</td><td>The law requires it; TrustAge scores the same</td></tr>
+  <tr><td class="id">A3</td><td>1 fraud in 20,000</td><td>Turns points into odds ("1 hold in 20 is fraud")</td><td>Only the translation shifts; measured from month 1</td></tr>
+  <tr><td class="id">A4</td><td>~2,500 transfers a day</td><td>Sizes staff, learning speed and cost</td><td>Rail 7 moves the hold line; cost per transfer changes</td></tr>
+  <tr><td class="id">A5</td><td>Hub asks first, waits 0.5 s</td><td>Lets TrustAge stop money, not just report it</td><td>Fail mode: trusted payees go, risky ones wait</td></tr>
+  <tr><td class="id">A6</td><td>Terms allow a hold</td><td>PSD2 Art. 79: a hold needs a contract and a reason</td><td>Only pay or refuse; add the clause before launch</td></tr>
+  <tr><td class="id">A7</td><td>VoP for every euro transfer</td><td>R4 needs the name check</td><td>Missing answer = R4c, +5</td></tr>
+  <tr><td class="id">A8</td><td>Starting F values are estimates</td><td>The formula needs F on day one</td><td>Factor 2 = 7 points; weekly recount replaces it</td></tr></tbody></table></div>`,
+  hook:`Every assumption is either a fact LDB can confirm in a day, or a number LDB replaces with its own counts.`},
  {t:'sort', must:1, kicker:'Which assumption?', q:'Which assumption makes this possible?', buckets:[{k:'a1',label:'A1',sub:'anchored at onboarding'},{k:'a3',label:'A3',sub:'1 in 20,000'},{k:'a6',label:'A6',sub:'terms allow a hold'},{k:'a8',label:'A8',sub:'F starts as estimate'}], items:[
    {x:'A held instant payment continues as a standard transfer.',b:'a6'},
    {x:'A score of 70 is translated into "about 1 in 20 is fraud".',b:'a3'},
    {x:'The device used at account opening is trusted from day one.',b:'a1'},
    {x:'R3a starts with F = 70% before LDB has seen a single fraud.',b:'a8'},
    {x:'LDB may refuse a payment it suspects, with a reason.',b:'a6'}]},
+ {t:'mcq', must:1, q:'Why does TrustAge need A6 (the terms allow a hold)?', opts:['PSD2 Art. 79 lets a bank refuse or hold a payment only with a contractual basis and a reason','It makes TrustAge answer faster','It replaces SCA','It sets the fraud rate'], a:0, why:'Without the clause there is no legal Hold, and no way to turn an instant payment into a standard one that gives the analyst until D+1 to call.'},
+ {t:'mcq', q:'Why is A5 (the hub asks TrustAge before sending) essential?', opts:['Without it TrustAge could only report fraud after the money has left, not stop it','It is needed for the name check','It lowers the cost per transfer','It replaces the call-back'], a:0, why:'Being asked first is what lets TrustAge stop the money. The 0.5 s wait also sets the speed target of under 0.3 s, and the fail mode covers the case where no answer comes.'},
+ {t:'mcq', must:1, q:'The real fraud rate turns out to be 1 in 100,000, not 1 in 20,000. What changes?', opts:['Only the translation: about 1 hold in 100 is fraud instead of 1 in 20; the points and the hold line stay','Every signal loses half its points','The hold line moves to 140','TrustAge stops working'], a:0, why:'A3 is used only to turn scores into odds. The points come from F and G, and LDB replaces A3 with its measured rate from month 1.'},
+ {t:'mcq', q:'A payment arrives with no VoP result. What happens?', opts:['It scores as R4c "VoP not possible", +5, and the other rules still score it','It is blocked','It is paid at once without scoring','TrustAge stops'], a:0, why:'A missing essential field counts as the risky value of its signal (clarified after the PDF). For the name check that is R4c, +5.'},
  {t:'mcq', q:'Which assumption is the weakest, and how does the design protect against it?', opts:['A8, the starting F values: labelled estimates, a factor-2 error moves only 7 points, and the weekly recount replaces them','A4, the volume: it is fixed forever','A7, VoP: it may never exist','A2, SCA: it is optional'], a:0, why:'The log scale makes errors cheap, the estimate only counts as 20 cases, and real outcomes overwrite it. A3 (the fraud rate) is second weakest; it is replaced by the measured rate from month 1.'},
- {t:'recall', q:'List all eight assumptions in a few words each.', ans:`<ol><li>A1 new bank, trust from onboarding</li><li>A2 SCA on every transfer</li><li>A3 plan 1 in 20,000</li><li>A4 about 2,500 transfers a day</li><li>A5 hub waits up to 0.5 s</li><li>A6 terms allow hold and instant → standard</li><li>A7 VoP for every euro transfer</li><li>A8 starting F values are estimates</li></ol>`}
+ {t:'recall', must:1, q:'For each assumption, say what it is and why we need it.', ans:`<ol><li><b>A1</b> new bank, trust from onboarding: link ages need a verified starting point</li><li><b>A2</b> SCA on every transfer: TrustAge is a second layer, because takeovers get through SCA</li><li><b>A3</b> plan 1 in 20,000: turns points into odds (70 points ≈ 1 hold in 20 is fraud)</li><li><b>A4</b> about 2,500 transfers a day: sizes staff, learning speed and cost (€0.48)</li><li><b>A5</b> hub asks first, waits 0.5 s: lets TrustAge stop money, not just report it</li><li><b>A6</b> terms allow a hold and instant → standard: PSD2 Art. 79 needs a contractual basis</li><li><b>A7</b> VoP for every euro transfer: R4 needs the name check</li><li><b>A8</b> starting F values are estimates: the formula needs F on day one; replaced weekly</li></ol>`}
 ]},
 
 {id:'tom', part:'B · The design, chapter by chapter', title:'Target operating model (TOM)', sub:'§3: who does what, the four-step call-back, 24/7 coverage', mins:15, steps:[
@@ -905,6 +1021,7 @@ BLOCKS.forEach(b => b.steps.forEach((s,i) => { s.id = b.id + '-' + i; s.bid = b.
 const KEY = 'trustage-zero-v1';
 function load(){ const d = {done:{}, missed:{}, sprints:0}; try { return Object.assign(d, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch(e){ return d; } }
 let S = load();
+if (!S.v2){ Object.keys(S.missed).forEach(k => { if (/^(purpose|assume)-/.test(k)) delete S.missed[k]; }); S.v2 = 1; save(); }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
 const app = $('#app');
 let view = 'home', R = null, tick = null, hist = [];
@@ -997,7 +1114,9 @@ function renderStep(){ const s = R.q[R.i].s; ({card:rCard, mcq:rMcq, recall:rRec
 function rCard(s){
   const chg = s.chg ? `<div class="chgbox">${/class="lbl"/.test(s.chg) ? '' : '<span class="lbl">Changed since the PDF</span>'}${s.chg}</div>` : '';
   const trap = s.trap ? `<div class="trap"><span class="lbl">Watch out</span>${s.trap}</div>` : '';
-  const lay = (s.simple || s.ex || s.pro || chg || trap) ? `<div class="lay">${s.simple ? `<div class="simple"><span class="lbl" style="color:var(--pri)">In simple words</span>${s.simple}</div>` : ''}${s.ex ? `<div class="ex"><span class="lbl">Real-life example</span>${s.ex}</div>` : ''}${s.pro ? `<div class="pro"><span class="lbl">Say it like the report</span>${s.pro}${s.means ? `<span class="means"><b>What that means:</b> ${s.means}</span>` : ''}</div>` : ''}${trap}${chg}</div>` : '';
+  const need = s.need ? `<div class="need"><span class="lbl">Why we need it</span>${s.need}</div>` : '';
+  const ifnot = s.ifnot ? `<div class="ifnot"><span class="lbl">If it turns out wrong</span>${s.ifnot}</div>` : '';
+  const lay = (s.simple || s.ex || s.pro || chg || trap || need || ifnot) ? `<div class="lay">${s.simple ? `<div class="simple"><span class="lbl" style="color:var(--pri)">In simple words</span>${s.simple}</div>` : ''}${need}${ifnot}${s.ex ? `<div class="ex"><span class="lbl">Real-life example</span>${s.ex}</div>` : ''}${s.pro ? `<div class="pro"><span class="lbl">Say it like the report</span>${s.pro}${s.means ? `<span class="means"><b>What that means:</b> ${s.means}</span>` : ''}</div>` : ''}${trap}${chg}</div>` : '';
   frame(`<div data-read><div class="kicker">${s.tag || 'Learn'}</div><h2>${s.h}</h2>${s.body ? `<div class="body ${s.script ? 'script' : ''}">${s.body}</div>` : ''}${lay}</div>${s.hook ? `<div class="hook"><span>Hook it</span>${s.hook}</div>` : ''}`);
   setActions([{label:'Got it, next', primary:1, on:next}], 'Enter = next · ← = previous');
 }
